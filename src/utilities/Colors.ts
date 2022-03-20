@@ -1,0 +1,25 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow strict-local
+ * @format
+ */
+
+/**
+ * This is general list of colors and all screen will get color from here
+ * If a particular screen has different kind of color that is particular to that screen
+ * Then new list will be created
+ */
+
+export default {
+    primary: '#1292B4',
+    white: '#FFF',
+    lighter: '#F3F3F3',
+    light: '#DAE1E7',
+    dark: '#444',
+    darker: '#222',
+    black: '#000',
+};
