@@ -9,7 +9,9 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
-       android:theme="@style/BootTheme"  // replaced react-native-bootsplash
+    
+     
+       android:theme="@style/BootTheme"  
        >
       <activity
         android:name=".MainActivity"
@@ -17,7 +19,8 @@
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize"
-        android:exported="true" // add react-native-bootsplash
+      
+        android:exported="true" 
         >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
