@@ -2,22 +2,71 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import RnBootSplash from 'react-native-bootsplash';
 
 const Stack = createNativeStackNavigator();
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
+            <Text
+                style={{ color: 'green' }}
+                onPress={() => {
+                    navigation.navigate('Dome');
+                }}
+            >
+                Home Screen
+            </Text>
+        </View>
+    );
+}
+
+function DomeScreen({ navigation }) {
+    return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}>
+            <Text
+                onPress={() => {
+                    navigation.goBack();
+                }}
+                style={{ color: 'green' }}
+            >
+                Dome Screen
+            </Text>
         </View>
     );
 }
 
 export default function Navigator() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen} />
+        <NavigationContainer
+            onReady={() => {
+                RnBootSplash.hide();
+            }}
+        >
+            <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen
+                    name="Home"
+                    component={HomeScreen}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="Dome"
+                    component={DomeScreen}
+                    options={{
+                        headerShown: false,
+                        headerSearchBarOptions: { shouldShowHintSearchIcon: true },
+
+                        headerBackVisible: true,
+                        headerBackTitle: 'back',
+                        // headerBackTitleStyle: {},
+                        headerTitle: 'red',
+                        headerRight: () => <Text style={{ color: 'black' }}>Back</Text>,
+                        // statusBarStyle: 'inverted',
+                        // headerBackground: () => <View style={{ width: '100%', backgroundColor: 'red' }} />,
+                    }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

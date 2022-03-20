@@ -17,6 +17,7 @@ const App: () => Node = () => {
 
     const backgroundStyle = {
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+        flex: 1,
     };
 
     return (
@@ -26,9 +27,8 @@ const App: () => Node = () => {
                 backgroundColor={'#00000000'}
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             />
-            <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
-                <Navigator />
-            </ScrollView>
+
+            <Navigator />
         </SafeAreaView>
     );
 };
