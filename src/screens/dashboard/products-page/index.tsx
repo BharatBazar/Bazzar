@@ -1,10 +1,9 @@
-import Navigator from '@app/navigation';
 import Colors from '@app/utilities/Colors';
 import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 
-import { StackNavigationOptions, StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { FlatList, Platform, Text, View, TouchableHighlight } from 'react-native';
+import { Text, View } from 'react-native';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -12,9 +11,15 @@ interface ProductsProps {
 
 const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     React.useEffect(() => {
-        navigation.setOptions({ title: `Your Updated Title` });
+        //navigation.setOptions({ title: `Your Updated Title` });
+        console.log('something');
     }, []);
-    return <View style={[FLEX(1), BGCOLOR(Colors.white)]}></View>;
+    return (
+        <View style={[FLEX(1), BGCOLOR(Colors.white)]}>
+            <Text style={{ color: 'red', fontSize: 20, fontFamily: 'OpenSans-Light' }}>{'normal tezt'}</Text>
+            <Text style={{ color: 'red', fontSize: 20, fontFamily: 'OpenSans-Bold' }}>{'with font amily'}</Text>
+        </View>
+    );
 };
 
 export default Products;
