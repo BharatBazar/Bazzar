@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RnBootSplash from 'react-native-bootsplash';
+import Products from '@app/screens/dashboard/products-page';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,19 +47,20 @@ export default function Navigator() {
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen
                     name="Home"
-                    component={HomeScreen}
+                    component={Products}
                     options={{
-                        headerShown: false,
+                        headerSearchBarOptions: { shouldShowHintSearchIcon: true },
                     }}
                 />
                 <Stack.Screen
                     name="Dome"
                     component={DomeScreen}
                     options={{
-                        headerShown: false,
+                        //headerShown: false,
                         headerSearchBarOptions: { shouldShowHintSearchIcon: true },
 
                         headerBackVisible: true,
+                        headerShown: true,
                         headerBackTitle: 'back',
                         // headerBackTitleStyle: {},
                         headerTitle: 'red',
