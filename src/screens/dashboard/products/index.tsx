@@ -6,7 +6,7 @@ import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { StatusBar, Text, View, NativeModules, SafeAreaView } from 'react-native';
+import { StatusBar, Text, View, NativeModules, SafeAreaView, ScrollView, Platform } from 'react-native';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -14,20 +14,14 @@ interface ProductsProps {
 
 const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     React.useEffect(() => {
-        StatusBar.setBackgroundColor(mainColor);
+        Platform.OS == 'android' && StatusBar.setBackgroundColor(mainColor);
         StatusBar.setBarStyle('dark-content');
     }, []);
     return (
         <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
-            <BasicHeader title="Mens Jeans" />
-            <Text
-                style={{ color: '#000' }}
-                onPress={() => {
-                    navigation.navigate('Dome');
-                }}
-            >
-                {'navigati'}
-            </Text>
+            <ScrollView>
+                <BasicHeader title="Mens Jeans" />
+            </ScrollView>
         </SafeAreaView>
     );
 };

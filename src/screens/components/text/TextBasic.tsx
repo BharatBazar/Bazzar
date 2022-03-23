@@ -37,10 +37,10 @@ function TextBasic(props: {
         <Text
             style={[
                 {
-                    fontFamily: fontFamily || FontFamily.Medium,
+                    fontFamily: fontFamily || FontFamily.SemiBold,
                     fontSize: fontSize || 11,
 
-                    fontWeight: fontWeight || 'normal',
+                    //fontWeight: fontWeight || 'normal',
                     color: textColor || '#000000',
                     flexWrap: 'wrap',
                     textAlign: textAlign || 'auto',
