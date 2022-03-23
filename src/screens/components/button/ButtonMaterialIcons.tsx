@@ -1,11 +1,11 @@
 import * as React from 'react';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ripple from 'react-native-material-ripple';
 import Colors from '@app/utilities/Colors';
 import { ViewStyle, StyleSheet } from 'react-native';
 import { AIC, JCC } from '@app/utilities/Styles';
 
-interface ButtonFeatherIconProps {
+interface ButtonMaterialIconsProps {
     onPress: Function;
     iconName: string;
     iconColor?: string;
@@ -15,7 +15,7 @@ interface ButtonFeatherIconProps {
     rippleContainerBorderRadius?: number;
 }
 
-const ButtonFeatherIcon: React.FunctionComponent<ButtonFeatherIconProps> = ({
+const ButtonMaterialIcons: React.FunctionComponent<ButtonMaterialIconsProps> = ({
     onPress,
     iconName,
     iconColor,
@@ -34,7 +34,7 @@ const ButtonFeatherIcon: React.FunctionComponent<ButtonFeatherIconProps> = ({
                 onPress();
             }}
         >
-            <FeatherIcon
+            <MaterialIcons
                 name={iconName}
                 style={{ height: iconSize, width: iconSize }}
                 size={iconSize}
@@ -44,7 +44,7 @@ const ButtonFeatherIcon: React.FunctionComponent<ButtonFeatherIconProps> = ({
     );
 };
 
-export default ButtonFeatherIcon;
+export default ButtonMaterialIcons;
 
 const styles = StyleSheet.create({
     containerStyle: {},

@@ -6,29 +6,20 @@ import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { StatusBar, Text, View, NativeModules } from 'react-native';
+import { StatusBar, Text, View, NativeModules, SafeAreaView } from 'react-native';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
 }
 
 const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => <View />,
-            title: 'My home',
-            headerStyle: {
-                backgroundColor: mainColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-        });
-    }, [navigation]);
+    React.useEffect(() => {
+        StatusBar.setBackgroundColor(mainColor);
+        StatusBar.setBarStyle('dark-content');
+    }, []);
     return (
-        <View style={[FLEX(1), BGCOLOR(Colors.white)]}>
-            <BasicHeader title="Jeans" />
+        <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
+            <BasicHeader title="Mens Jeans" />
             <Text
                 style={{ color: '#000' }}
                 onPress={() => {
@@ -37,7 +28,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
             >
                 {'navigati'}
             </Text>
-        </View>
+        </SafeAreaView>
     );
 };
 

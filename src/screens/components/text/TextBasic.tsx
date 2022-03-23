@@ -37,7 +37,7 @@ function TextBasic(props: {
         <Text
             style={[
                 {
-                    fontFamily: fontFamily || FontFamily.Regular,
+                    fontFamily: fontFamily || FontFamily.Medium,
                     fontSize: fontSize || 11,
 
                     fontWeight: fontWeight || 'normal',

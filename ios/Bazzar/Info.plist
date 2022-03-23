@@ -53,6 +53,7 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>MaterialIcons.ttf</string>
 		<string>Ionicons.ttsf</string>
 		<string>Feather.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>

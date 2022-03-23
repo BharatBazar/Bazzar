@@ -21,11 +21,11 @@ const App: () => Node = () => {
     };
 
     return (
-        <SafeAreaView style={backgroundStyle}>
+        <View style={backgroundStyle}>
             <StatusBar translucent={true} backgroundColor={'#00000000'} barStyle={'light-content'} />
 
             <Navigator />
-        </SafeAreaView>
+        </View>
     );
 };
 
