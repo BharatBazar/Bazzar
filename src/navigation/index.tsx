@@ -3,7 +3,8 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RnBootSplash from 'react-native-bootsplash';
-import Products from '@app/screens/dashboard/products-page';
+import Products from '@app/screens/dashboard/products';
+import { colorCode, mainColor } from '@app/utilities/Colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,8 +24,22 @@ function HomeScreen({ navigation }) {
 }
 
 function DomeScreen({ navigation }) {
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <View />,
+            title: 'Dome',
+            headerStyle: {
+                backgroundColor: 'red',
+            },
+
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            },
+        });
+    }, [navigation]);
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
                 onPress={() => {
                     navigation.goBack();
@@ -44,32 +59,9 @@ export default function Navigator() {
                 RnBootSplash.hide();
             }}
         >
-            <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen
-                    name="Home"
-                    component={Products}
-                    options={{
-                        headerShown: false,
-                        headerSearchBarOptions: { shouldShowHintSearchIcon: true },
-                    }}
-                />
-                <Stack.Screen
-                    name="Dome"
-                    component={DomeScreen}
-                    options={{
-                        //headerShown: false,
-                        headerSearchBarOptions: { shouldShowHintSearchIcon: true },
-
-                        headerBackVisible: true,
-                        headerShown: true,
-                        headerBackTitle: 'back',
-                        // headerBackTitleStyle: {},
-                        headerTitle: 'red',
-                        headerRight: () => <Text style={{ color: 'black' }}>Back</Text>,
-                        // statusBarStyle: 'inverted',
-                        // headerBackground: () => <View style={{ width: '100%', backgroundColor: 'red' }} />,
-                    }}
-                />
+            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Home" component={Products} />
+                <Stack.Screen name="Dome" component={DomeScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

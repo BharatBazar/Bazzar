@@ -16,20 +16,16 @@ const App: () => Node = () => {
     const isDarkMode = useColorScheme() === 'dark';
 
     const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+        backgroundColor: '#000000',
         flex: 1,
     };
 
     return (
-        <>
-            <StatusBar
-                translucent={true}
-                backgroundColor={'#00000000'}
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
+        <SafeAreaView style={backgroundStyle}>
+            <StatusBar translucent={true} backgroundColor={'#00000000'} barStyle={'light-content'} />
 
             <Navigator />
-        </>
+        </SafeAreaView>
     );
 };
 
