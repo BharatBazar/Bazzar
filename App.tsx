@@ -21,7 +21,7 @@ const App: () => Node = () => {
     };
 
     return (
-        <SafeAreaView style={backgroundStyle}>
+        <>
             <StatusBar
                 translucent={true}
                 backgroundColor={'#00000000'}
@@ -29,7 +29,7 @@ const App: () => Node = () => {
             />
 
             <Navigator />
-        </SafeAreaView>
+        </>
     );
 };
 

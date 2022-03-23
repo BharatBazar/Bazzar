@@ -1,9 +1,12 @@
 import Colors from '@app/utilities/Colors';
+import { FontFamily } from '@app/utilities/FontFamily';
 import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { StatusBar, Text, View, NativeModules } from 'react-native';
+
+const { StatusBarManager } = NativeModules;
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -12,14 +15,9 @@ interface ProductsProps {
 const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     React.useEffect(() => {
         //navigation.setOptions({ title: `Your Updated Title` });
-        console.log('something');
+        console.log('something', StatusBar.currentHeight, StatusBarManager.HEIGHT);
     }, []);
-    return (
-        <View style={[FLEX(1), BGCOLOR(Colors.white)]}>
-            <Text style={{ color: 'red', fontSize: 20, fontFamily: 'OpenSans-Light' }}>{'normal tezt'}</Text>
-            <Text style={{ color: 'red', fontSize: 20, fontFamily: 'OpenSans-Bold' }}>{'with font amily'}</Text>
-        </View>
-    );
+    return <View style={[FLEX(1), BGCOLOR(Colors.white), { paddingTop: StatusBarManager.HEIGHT }]}></View>;
 };
 
 export default Products;

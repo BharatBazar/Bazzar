@@ -48,11 +48,10 @@ export default function Navigator() {
                 <Stack.Screen
                     name="Home"
                     component={Products}
-                    options={
-                        {
-                            // headerSearchBarOptions: { shouldShowHintSearchIcon: true },
-                        }
-                    }
+                    options={{
+                        headerShown: false,
+                        headerSearchBarOptions: { shouldShowHintSearchIcon: true },
+                    }}
                 />
                 <Stack.Screen
                     name="Dome"
