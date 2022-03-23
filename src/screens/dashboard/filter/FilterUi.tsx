@@ -9,6 +9,8 @@ import FilterPopup from './FilterPopup';
 interface FilterUiProps {}
 
 const FilterUi: React.FunctionComponent<FilterUiProps> = () => {
+    const [modalVisible, setModalVisible] = React.useState(false);
+
     return (
         <View style={[FDR(), { height: 45, width: '100%' }, BGCOLOR('#FFFFFF'), provideShadow(2)]}>
             <ScrollView
@@ -26,10 +28,12 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = () => {
                     AIC(),
                     JCC(),
                 ]}
-                onPress={() => {}}
+                onPress={() => {
+                    setModalVisible(true);
+                }}
                 buttonText="Filters"
             />
-            <FilterPopup />
+            <FilterPopup modalVisible={modalVisible} setModalVisible={setModalVisible} />
         </View>
     );
 };

@@ -7,6 +7,7 @@ import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { StatusBar, Text, View, NativeModules, SafeAreaView, ScrollView, Platform } from 'react-native';
+import FilterPopup from '../filter/FilterPopup';
 import FilterUi from '../filter/FilterUi';
 
 interface ProductsProps {
