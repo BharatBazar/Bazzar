@@ -7,6 +7,7 @@ import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
 import { StatusBar, Text, View, NativeModules, SafeAreaView, ScrollView, Platform } from 'react-native';
+import FilterUi from '../filter/FilterUi';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -21,6 +22,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
             <ScrollView>
                 <BasicHeader title="Mens Jeans" />
+                <FilterUi />
             </ScrollView>
         </SafeAreaView>
     );

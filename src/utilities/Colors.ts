@@ -14,8 +14,13 @@
  * Then new list will be created
  */
 
+import { colorTransparency } from './Styles';
+
+export const applyColorCode = (color: string, percentage: 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100) =>
+    color + colorTransparency[percentage];
+
 export default {
-    primary: '#1292B4',
+    primary: applyColorCode('#000088', 70),
     white: '#FFF',
     lighter: '#F3F3F3',
     light: '#DAE1E7',
@@ -23,11 +28,6 @@ export default {
     darker: '#222',
     black: '#000',
 };
-
-import { colorTransparency } from './Styles';
-
-export const applyColorCode = (color: string, percentage: 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100) =>
-    color + colorTransparency[percentage];
 
 export const colorCode = {
     SAFFRON: '#FF9933',
