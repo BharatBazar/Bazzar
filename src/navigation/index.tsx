@@ -5,39 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RnBootSplash from 'react-native-bootsplash';
 import Products from '@app/screens/dashboard/products';
 import { colorCode, mainColor } from '@app/utilities/Colors';
+import { NavigationKey } from './navigation-data';
 
 const Stack = createNativeStackNavigator();
 
-function HomeScreen({ navigation }) {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text
-                style={{ color: 'green' }}
-                onPress={() => {
-                    navigation.navigate('Dome');
-                }}
-            >
-                Home Screen
-            </Text>
-        </View>
-    );
-}
-
 function DomeScreen({ navigation }) {
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => <View />,
-            title: 'Dome',
-            headerStyle: {
-                backgroundColor: 'red',
-            },
-
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-        });
-    }, [navigation]);
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
@@ -59,8 +31,8 @@ export default function Navigator() {
                 RnBootSplash.hide();
             }}
         >
-            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Home" component={Products} />
+            <Stack.Navigator initialRouteName={NavigationKey.ShowProduct} screenOptions={{ headerShown: false }}>
+                <Stack.Screen name={NavigationKey.ShowProduct} component={Products} />
                 <Stack.Screen name="Dome" component={DomeScreen} />
             </Stack.Navigator>
         </NavigationContainer>

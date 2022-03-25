@@ -6,7 +6,8 @@
         "ios": "ENVFILE=.env.dev && npx react-native run-ios --simulator='iPhone 12'",
         "start": "react-native start",
         "test": "jest",
-        "android": "ENVFILE=.env.dev && cd android && ./gradlew clean && cd .. && react-native run-android",
+        "launch-emulator": "emulator -avd Pixel_4_API_29 &",
+        "android": "ENVFILE=.env.dev react-native run-android",
         "android:release": "cd android && ./gradlew assembleRelease",
         "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
     },
@@ -22,6 +23,7 @@
         "react-native-material-ripple": "^0.9.1",
         "react-native-safe-area-context": "^4.2.1",
         "react-native-screens": "^3.13.1",
+        "react-native-status-bar-height": "^2.6.0",
         "react-native-typescript-transformer": "^1.2.13"
     },
     "devDependencies": {

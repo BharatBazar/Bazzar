@@ -1,3 +1,4 @@
+import { IRFilter } from '@app/api/product/product.interface';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
@@ -6,13 +7,18 @@ import * as React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import FilterPopup from './FilterPopup';
 
-interface FilterUiProps {}
+interface FilterUiProps {
+    filters: IRFilter[];
+    distribution: IRFilter[];
+}
 
-const FilterUi: React.FunctionComponent<FilterUiProps> = () => {
+const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distribution }) => {
     const [modalVisible, setModalVisible] = React.useState(false);
 
     return (
-        <View style={[FDR(), { height: 45, width: '100%' }, BGCOLOR('#FFFFFF'), provideShadow(2)]}>
+        <View
+            style={[FDR(), { height: 45, width: '100%', borderBottomWidth: 0.3 }, BGCOLOR('#FFFFFF'), provideShadow(2)]}
+        >
             <ScrollView
                 style={{}}
                 contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}
@@ -33,7 +39,12 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = () => {
                 }}
                 buttonText="Filters"
             />
-            <FilterPopup modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            <FilterPopup
+                distribution={distribution}
+                filters={filters}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+            />
         </View>
     );
 };

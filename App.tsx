@@ -11,6 +11,7 @@ import type { Node } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import Colors from '@app/utilities/Colors';
 import Navigator from '@app/navigation';
+import { initializeAxios } from '@app/api/apiLayer';
 
 const App: () => Node = () => {
     const isDarkMode = useColorScheme() === 'dark';
@@ -20,9 +21,14 @@ const App: () => Node = () => {
         flex: 1,
     };
 
+    React.useEffect(() => {
+        initializeAxios();
+        return () => {};
+    }, []);
+
     return (
         <View style={backgroundStyle}>
-            <StatusBar translucent={true} backgroundColor={'#00000000'} barStyle={'light-content'} />
+            <StatusBar translucent={true} backgroundColor={'#00000000'} barStyle={'dark-content'} />
 
             <Navigator />
         </View>

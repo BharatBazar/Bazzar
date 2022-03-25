@@ -1,6 +1,7 @@
 import { Envar } from '@app/core/EnvWrapper';
 import { Storage, StorageItemKeys } from '@app/utilities/AsyncStorage';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 async function setUpAxiosUserToken() {
     const token = await Storage.getItem(StorageItemKeys.Token);
@@ -39,12 +40,14 @@ function isNetworkError(err: { isAxiosError: any; response: { data: any } }) {
     return !!err.isAxiosError && !err.response && !err.response;
 }
 
-export const initializeAxios = (getOut: Function, getCurrentScreen: () => string, networkError: () => void) => {
-    //console.log('Axios initialization,', axios.interceptors.response.handlers);
+export const setBaseUrl = () => {
     axios.defaults.baseURL = Envar.APIENDPOINT;
-    // axios.defaults.timeout = parseInt(ENVWrapper.API_TIMEOUT)
-
+};
+export const initializeAxios = () => {
+    console.log('Axios initialization');
+    setBaseUrl();
     if (axios.interceptors.response.handlers.length == 0) {
+        console.log('Setting response handler');
         axios.interceptors.response.use(
             (response) => {
                 return response.data;
