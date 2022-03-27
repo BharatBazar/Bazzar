@@ -1,6 +1,7 @@
 import { setBaseUrl } from '@app/api/apiLayer';
 import { getFilterWithValue } from '@app/api/product/product.filter';
 import { IClassfier, IFilter, IRFilter, IRGetFilterWithValue } from '@app/api/product/product.interface';
+import { Envar } from '@app/core/EnvWrapper';
 import BasicHeader from '@app/screens/components/header/BasicHeader';
 import Colors, { mainColor } from '@app/utilities/Colors';
 import { STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
@@ -19,6 +20,7 @@ import {
     ScrollView,
     Platform,
     ActivityIndicator,
+    ToastAndroid,
 } from 'react-native';
 import FilterPopup from '../filter/FilterPopup';
 import FilterUi from '../filter/FilterUi';
@@ -37,20 +39,21 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         setLoader(true);
         try {
             const response: IRGetFilterWithValue = await getFilterWithValue({ active: true });
-
-            setLoader(false);
+            console.log('Respomnse', response);
             if (response.status == 1) {
                 setFilter(response.payload.filter);
                 setDistribution(response.payload.distribution);
+                setLoader(false);
             }
         } catch (error) {
             console.log('error', error);
+            ToastAndroid.show('Network error!! Could not connect server', 1000);
             setLoader(false);
         }
     };
 
     React.useEffect(() => {
-        axios.defaults.baseURL = axios.defaults.baseURL + '/catalogue/jeans/';
+        axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
         loadFilter();
         StatusBar.setBarStyle('light-content');
         return () => {
@@ -61,7 +64,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         <SafeAreaView style={[FLEX(1)]}>
             <BasicHeader title="Mens Jeans" />
             <FilterUi filters={filter} distribution={distribution} />
-            <ScrollView style={[]}>
+            <ScrollView style={[FLEX(1)]}>
                 <ShopCard />
                 <ShopCard />
                 <ShopCard />
@@ -72,11 +75,17 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                 <ShopCard />
                 <ShopCard />
             </ScrollView>
-            {/* {loader && (
-                <View style={[FLEX(1), AIC(), JCC(), { position: 'absolute' }]}>
-                    <ActivityIndicator />
+            {loader && (
+                <View
+                    style={[
+                        AIC(),
+                        JCC(),
+                        { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#ffffff33' },
+                    ]}
+                >
+                    <ActivityIndicator color={'#000000'} size={'large'} />
                 </View>
-            )} */}
+            )}
         </SafeAreaView>
     );
 };
