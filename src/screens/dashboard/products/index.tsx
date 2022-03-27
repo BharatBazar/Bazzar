@@ -22,6 +22,7 @@ import {
 } from 'react-native';
 import FilterPopup from '../filter/FilterPopup';
 import FilterUi from '../filter/FilterUi';
+import ShopCard from './ShopCard';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -60,12 +61,22 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         <SafeAreaView style={[FLEX(1)]}>
             <BasicHeader title="Mens Jeans" />
             <FilterUi filters={filter} distribution={distribution} />
-            <ScrollView style={[BGCOLOR('#FFFFFF')]}></ScrollView>
-            {loader && (
+            <ScrollView style={[]}>
+                <ShopCard />
+                <ShopCard />
+                <ShopCard />
+                <ShopCard />
+                <ShopCard />
+                <ShopCard />
+                <ShopCard />
+                <ShopCard />
+                <ShopCard />
+            </ScrollView>
+            {/* {loader && (
                 <View style={[FLEX(1), AIC(), JCC(), { position: 'absolute' }]}>
                     <ActivityIndicator />
                 </View>
-            )}
+            )} */}
         </SafeAreaView>
     );
 };

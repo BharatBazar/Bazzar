@@ -1,9 +1,9 @@
 import { classifierTypes, IRFilter } from '@app/api/product/product.interface';
 import TextBasic from '@app/screens/components/text/TextBasic';
-import Colors, { mainColor } from '@app/utilities/Colors';
+import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { AIC, BGCOLOR, BR, FDR, JCC, ML, MT, PH, PV } from '@app/utilities/Styles';
-import React, { useState } from 'react';
+import React from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
 
 interface FilterPopupI {
