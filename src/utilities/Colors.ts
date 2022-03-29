@@ -27,6 +27,8 @@ export default {
     dark: '#444',
     darker: '#222',
     black: '#000',
+    heading: '#242424',
+    subHeading: '#8A8A8A',
 };
 
 export const colorCode = {

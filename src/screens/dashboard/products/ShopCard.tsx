@@ -25,7 +25,7 @@ const ShopCard: React.FunctionComponent<ShopCardProps> = () => {
             />
             <View style={{ marginLeft: 10, alignSelf: 'flex-start', flex: 1 }}>
                 <TextBasic text="Rush in mens wear" fontSize={16} fontFamily={FontFamily.Regular} />
-                <TextBasic text="We provide best jeans in the town latest fashion at best price and quality" />
+                {/* <TextBasic text="We provide best jeans in the town latest fashion at best price and quality" /> */}
                 <View style={{ marginTop: 5 }} />
                 <TextBasic text="Owned By" fontSize={8} />
                 <TextBasic text="Aashish Bothra" />
@@ -33,8 +33,8 @@ const ShopCard: React.FunctionComponent<ShopCardProps> = () => {
                 <TextBasic text="Co-Owned By" fontSize={8} />
 
                 <TextBasic text="Cherry Bothra, Kailash Kotak" />
-                <View style={{ marginTop: 5 }} />
-                <TextBasic text="144 products..." />
+                {/* <View style={{ marginTop: 5 }} />
+                <TextBasic text="144 products..." /> */}
             </View>
         </View>
     );

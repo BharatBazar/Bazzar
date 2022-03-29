@@ -1,10 +1,12 @@
 import { classifierTypes, IRFilter } from '@app/api/product/product.interface';
 import TextBasic from '@app/screens/components/text/TextBasic';
-import Colors from '@app/utilities/Colors';
+import Colors, { applyColorCode, colorCode, mainColor } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, BR, FDR, JCC, ML, MT, PH, PV } from '@app/utilities/Styles';
+import { capitalizeFirstLetter } from '@app/utilities/Functions';
+import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, ML, MR, MT, PH, PV } from '@app/utilities/Styles';
 import React from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
+import DistributionItem from './component/DistributionItem';
 
 interface FilterPopupI {
     filters: IRFilter[];
@@ -16,7 +18,7 @@ interface FilterPopupI {
 const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: FilterPopupI) => {
     return (
         <Modal
-            animationType="fade"
+            animationType="slide"
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
@@ -29,7 +31,7 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
             statusBarTranslucent
             presentationStyle="overFullScreen"
         >
-            <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: '#00000033' }}>
+            <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: '#FFFFFF31' }}>
                 <View style={styles.modalView}>
                     <View
                         style={[
@@ -41,62 +43,47 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                             { borderBottomWidth: 1, borderColor: Colors.light },
                         ]}
                     >
-                        <View>
-                            <Text style={styles.modalText}>Select Filters</Text>
-                            <Text style={styles.modalText}>Help us know by selecting filter</Text>
+                        <View style={[FLEX(1), MR(0.3)]}>
+                            <TextBasic text="Select Filters" fontFamily={FontFamily.Regular} fontSize={18} />
+                            <TextBasic
+                                text="Help us know what you like by selecting filter. So that we can provide you product of your choice"
+                                textColor={Colors.primary}
+                                fontSize={12}
+                                fontFamily={FontFamily.Light}
+                            />
+                            {/* <Text style={styles.modalText}>Select Filters</Text>
+                            <Text style={styles.modalText}>Help us know by selecting filter</Text> */}
                         </View>
                         <Pressable
-                            style={[styles.button, styles.buttonClose]}
+                            style={[styles.button, styles.buttonClose, BGCOLOR(colorCode.CHAKRALOW(20))]}
                             onPress={() => setModalVisible(!modalVisible)}
                         >
-                            <Text style={styles.textStyle}>Close</Text>
+                            <TextBasic
+                                text="Close"
+                                textColor={Colors.primary}
+                                fontFamily={FontFamily.Light}
+                                fontSize={14}
+                            />
                         </Pressable>
                     </View>
                     <ScrollView contentContainerStyle={{ paddingHorizontal: '3%' }}>
                         {distribution &&
                             distribution.map((item) => (
-                                <View style={[MT(0.2)]}>
-                                    <TextBasic text={item.name} fontSize={14} fontFamily={FontFamily.Bold} />
+                                <View style={[MT(0.2)]} key={item._id}>
+                                    <TextBasic text={item.name} fontSize={14} fontFamily={FontFamily.Medium} />
                                     <TextBasic text={item.description} fontSize={12} textColor={Colors.primary} />
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
                                         {item.values.map((value) => (
-                                            <View
-                                                style={[
-                                                    ML(0.1),
-                                                    BR(0.05),
-                                                    { padding: 4 },
-                                                    BGCOLOR(Colors.light),
-                                                    FDR(),
-                                                    AIC(),
-                                                ]}
-                                            >
-                                                {item.type == classifierTypes.COLOR && (
-                                                    <View
-                                                        style={[
-                                                            {
-                                                                height: 15,
-                                                                width: 15,
-                                                                borderRadius: 3,
-                                                                backgroundColor: value.description,
-                                                            },
-                                                        ]}
-                                                    />
-                                                )}
-                                                <TextBasic
-                                                    text={
-                                                        value.name +
-                                                        (item.type == classifierTypes.SIZE
-                                                            ? ' ' + value.description
-                                                            : '')
-                                                    }
-                                                    fontFamily={FontFamily.Medium}
-                                                    textStyle={{ marginLeft: 5, marginTop: 0, padding: 0 }}
-                                                />
-                                            </View>
+                                            <DistributionItem
+                                                key={item._id + value._id}
+                                                item={{ ...item, values: undefined }}
+                                                value={value}
+                                            />
                                         ))}
                                     </View>
                                 </View>
                             ))}
+
                         {filters &&
                             filters.map((item) => (
                                 <View style={[MT(0.2)]}>
@@ -116,19 +103,19 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                             FDR(),
                             AIC(),
                             JCC('space-between'),
-                            PV(0.2),
+                            PV(0.15),
                             PH(0.3),
                             { borderTopWidth: 2, borderColor: Colors.light },
                         ]}
                     >
                         <View>
-                            <Text style={styles.modalText}>Apply Filters</Text>
+                            <Text style={styles.modalText}>Reset Filters</Text>
                         </View>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => setModalVisible(!modalVisible)}
                         >
-                            <Text style={styles.textStyle}>Reset Filters</Text>
+                            <Text style={styles.textStyle}>Apply Filters</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -151,7 +138,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
 
-        height: '80%',
+        height: '70%',
 
         shadowColor: '#000',
         shadowOffset: {
@@ -163,7 +150,11 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     button: {
-        elevation: 2,
+        //elevation: 2,
+        paddingVertical: 7,
+        paddingHorizontal: 7,
+        borderRadius: 5,
+        backgroundColor: Colors.primary,
     },
     buttonOpen: {
         backgroundColor: '#F194FF',
@@ -172,7 +163,7 @@ const styles = StyleSheet.create({
         //  backgroundColor: Colors.light,
     },
     textStyle: {
-        color: Colors.primary,
+        color: Colors.white,
         fontWeight: 'bold',
         textAlign: 'center',
     },
