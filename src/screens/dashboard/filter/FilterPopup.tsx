@@ -104,16 +104,8 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                                 </View>
                             ))}
                     </ScrollView>
-                    <View
-                        style={[
-                            FDR(),
-                            AIC(),
-                            JCC('space-between'),
-                            PV(0.15),
-                            PH(0.3),
-                            { borderTopWidth: 2, borderColor: Colors.light },
-                        ]}
-                    >
+                    <Border borderWidth={0.8} />
+                    <View style={[FDR(), AIC(), JCC('space-between'), PV(0.15), PH(0.3)]}>
                         <View>
                             <Text style={styles.modalText}>Reset Filters</Text>
                         </View>
@@ -170,7 +162,7 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: Colors.white,
-        fontWeight: 'bold',
+
         textAlign: 'center',
     },
     modalText: {

@@ -6,6 +6,7 @@ import { capitalizeFirstLetter } from '@app/utilities/Functions';
 import { AIC, BGCOLOR, FDR, ML, MR, MT, provideShadow } from '@app/utilities/Styles';
 import React from 'react';
 import { View } from 'react-native';
+import Ripple from 'react-native-material-ripple';
 
 interface DistributionItemProps {
     value: IClassfier;
@@ -14,7 +15,7 @@ interface DistributionItemProps {
 
 const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ value, item }) => {
     return (
-        <View
+        <Ripple
             style={[
                 MR(0.2),
                 MT(0.1),
@@ -51,7 +52,7 @@ const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ valu
                 fontSize={13}
                 textColor={Colors.blackShadePrimary}
             />
-        </View>
+        </Ripple>
     );
 };
 

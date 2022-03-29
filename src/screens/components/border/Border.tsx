@@ -5,10 +5,19 @@ import { View, StyleSheet, ViewStyle } from 'react-native';
 interface BorderProps {
     marginTop?: string | number;
     borderStyle?: ViewStyle | ViewStyle[];
+    borderWidth?: number;
 }
 
-const Border: React.FunctionComponent<BorderProps> = ({ marginTop, borderStyle }) => {
-    return <View style={[styles.borderStyle, borderStyle, { marginTop: marginTop != undefined ? marginTop : '4%' }]} />;
+const Border: React.FunctionComponent<BorderProps> = ({ marginTop, borderStyle, borderWidth }) => {
+    return (
+        <View
+            style={[
+                styles.borderStyle,
+                borderStyle,
+                { marginTop: marginTop != undefined ? marginTop : '4%', borderTopWidth: borderWidth || 0.2 },
+            ]}
+        />
+    );
 };
 
 export default Border;
