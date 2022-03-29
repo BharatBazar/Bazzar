@@ -2,6 +2,7 @@ import { IRFilter } from '@app/api/product/product.interface';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
+import { FontFamily } from '@app/utilities/FontFamily';
 import { AIC, BGCOLOR, FDR, JCC, provideShadow } from '@app/utilities/Styles';
 import * as React from 'react';
 import { View, StyleSheet, ScrollView, Switch } from 'react-native';
@@ -17,20 +18,13 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
     const [isEnabled, toggleSwitch] = React.useState(false);
 
     return (
-        <View
-            style={[
-                FDR(),
-                { height: 45, width: '100%', borderBottomWidth: 0.3, paddingLeft: '2%' },
-                BGCOLOR('#FFFFFF'),
-                provideShadow(2),
-            ]}
-        >
-            <View style={[FDR(), AIC(), { borderEndWidth: 1, borderColor: Colors.primary }]}>
+        <View style={[FDR(), { height: 45, width: '100%', paddingLeft: '2%' }, provideShadow(2), BGCOLOR('#FFFFFF')]}>
+            <View style={[FDR(), AIC()]}>
                 <TextBasic text="Shops" />
                 <Switch
-                    trackColor={{ false: '#767577', true: Colors.primary }}
-                    thumbColor={'#f4f3f4'}
-                    ios_backgroundColor="#3e3e3e"
+                    trackColor={{ false: '#bcbcbc', true: Colors.primary }}
+                    thumbColor={'#ffffff'}
+                    ios_backgroundColor="#bcbcbc"
                     onValueChange={toggleSwitch}
                     value={isEnabled}
                 />
@@ -45,8 +39,8 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
             <ButtonRippleText
                 fontSize={12}
                 containerStyle={[
-                    { height: '100%', paddingHorizontal: '5%', borderStartWidth: 1, borderColor: Colors.primary },
-                    BGCOLOR(Colors.lighter),
+                    { height: '100%', paddingHorizontal: '5%', borderStartWidth: 1, borderColor: '#c7c7c7' },
+                    BGCOLOR(Colors.white),
                     AIC(),
                     JCC(),
                 ]}
@@ -54,6 +48,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
                     setModalVisible(true);
                 }}
                 buttonText="Filters"
+                textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold }}
             />
             <FilterPopup
                 distribution={distribution}

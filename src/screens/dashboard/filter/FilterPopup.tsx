@@ -1,4 +1,6 @@
 import { classifierTypes, IRFilter } from '@app/api/product/product.interface';
+import Border from '@app/screens/components/border/Border';
+import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors, { applyColorCode, colorCode, mainColor } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
@@ -7,6 +9,7 @@ import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, ML, MR, MT, PH, PV } from '@app/utili
 import React from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
 import DistributionItem from './component/DistributionItem';
+import FitlerHeading from './component/FilterHeading';
 
 interface FilterPopupI {
     filters: IRFilter[];
@@ -44,12 +47,11 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                         ]}
                     >
                         <View style={[FLEX(1), MR(0.3)]}>
-                            <TextBasic text="Select Filters" fontFamily={FontFamily.Regular} fontSize={18} />
-                            <TextBasic
-                                text="Help us know what you like by selecting filter. So that we can provide you product of your choice"
-                                textColor={Colors.primary}
-                                fontSize={12}
-                                fontFamily={FontFamily.Light}
+                            <HeaderWithTitleAndSubHeading
+                                heading="Select Filters"
+                                subHeading="Help us know what you like by selecting filter. So that we can provide you product of your choice"
+                                headerStyle={{ fontSize: 18, fontFamily: FontFamily.SemiBold }}
+                                subHeaderStyle={{ color: '#7d7d7d' }}
                             />
                             {/* <Text style={styles.modalText}>Select Filters</Text>
                             <Text style={styles.modalText}>Help us know by selecting filter</Text> */}
@@ -70,8 +72,7 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                         {distribution &&
                             distribution.map((item) => (
                                 <View style={[MT(0.2)]} key={item._id}>
-                                    <TextBasic text={item.name} fontSize={14} fontFamily={FontFamily.Medium} />
-                                    <TextBasic text={item.description} fontSize={12} textColor={Colors.primary} />
+                                    <FitlerHeading heading={item.name} subHeading={item.description} />
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
                                         {item.values.map((value) => (
                                             <DistributionItem
@@ -81,20 +82,25 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                                             />
                                         ))}
                                     </View>
+                                    <Border />
                                 </View>
                             ))}
 
                         {filters &&
                             filters.map((item) => (
                                 <View style={[MT(0.2)]}>
-                                    <TextBasic text={item.name} />
+                                    <FitlerHeading heading={item.name} subHeading={item.description} />
+
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
                                         {item.values.map((value) => (
-                                            <View style={[ML(0.1), BR(0.05), { padding: 4 }, BGCOLOR(Colors.light)]}>
-                                                <TextBasic text={value.name} />
-                                            </View>
+                                            <DistributionItem
+                                                key={item._id + value._id}
+                                                item={{ ...item, values: undefined }}
+                                                value={value}
+                                            />
                                         ))}
                                     </View>
+                                    <Border />
                                 </View>
                             ))}
                     </ScrollView>
@@ -147,7 +153,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5,
+        elevation: 10,
     },
     button: {
         //elevation: 2,

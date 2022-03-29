@@ -3,7 +3,7 @@ import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors, { colorCode } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { capitalizeFirstLetter } from '@app/utilities/Functions';
-import { AIC, BGCOLOR, FDR, ML, provideShadow } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, ML, MR, MT, provideShadow } from '@app/utilities/Styles';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -16,18 +16,17 @@ const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ valu
     return (
         <View
             style={[
-                ML(0.1),
+                MR(0.2),
+                MT(0.1),
 
-                { padding: 8 },
-                BGCOLOR('#FFFFFF'),
-                provideShadow(),
+                { paddingVertical: 6, paddingHorizontal: 10 },
+                BGCOLOR('#F4F4F4'),
+
                 FDR(),
                 AIC(),
                 {
-                    borderTopWidth: 0.2,
-                    borderColor: Colors.primary,
                     overflow: 'hidden',
-                    borderRadius: 4,
+                    borderRadius: 6,
                 },
             ]}
         >
@@ -47,10 +46,10 @@ const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ valu
                 text={capitalizeFirstLetter(
                     value.name + (item.type == classifierTypes.SIZE ? ' ' + value.description : ''),
                 )}
-                fontFamily={FontFamily.Medium}
+                fontFamily={FontFamily.SemiBold}
                 textStyle={{ marginLeft: 5, marginTop: 0, padding: 0 }}
                 fontSize={13}
-                textColor={colorCode.CHAKRALOW(50)}
+                textColor={Colors.blackShadePrimary}
             />
         </View>
     );

@@ -2,7 +2,8 @@ import { setBaseUrl } from '@app/api/apiLayer';
 import { getFilterWithValue } from '@app/api/product/product.filter';
 import { IClassfier, IFilter, IRFilter, IRGetFilterWithValue } from '@app/api/product/product.interface';
 import { Envar } from '@app/core/EnvWrapper';
-import BasicHeader from '@app/screens/components/header/BasicHeader';
+import BasicHeader from '@app/screens/components/header/HeaderBasic';
+import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import Colors, { mainColor } from '@app/utilities/Colors';
 import { STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
@@ -61,10 +62,17 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         };
     }, []);
     return (
-        <SafeAreaView style={[FLEX(1)]}>
+        <SafeAreaView style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
             <BasicHeader title="Mens Jeans" />
             <FilterUi filters={filter} distribution={distribution} />
-            <ScrollView style={[FLEX(1)]}>
+            <ScrollView style={[FLEX(1)]} contentContainerStyle={{ paddingHorizontal: 5, paddingTop: 5 }}>
+                <HeaderWithTitleAndSubHeading
+                    heading="RESULTS"
+                    subHeading="Price and other details may vary based on product size and color."
+                    headerStyle={{ fontSize: 18, fontFamily: FontFamily.SemiBold }}
+                    subHeaderStyle={{ color: '#7d7d7d' }}
+                />
+                {/* <ShopCard />
                 <ShopCard />
                 <ShopCard />
                 <ShopCard />
@@ -72,8 +80,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                 <ShopCard />
                 <ShopCard />
                 <ShopCard />
-                <ShopCard />
-                <ShopCard />
+                <ShopCard /> */}
             </ScrollView>
             {loader && (
                 <View
