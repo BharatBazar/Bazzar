@@ -8,21 +8,21 @@ import React from 'react';
 import { View } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 
-interface DistributionItemProps {
+interface FilterValueProps {
     value: IClassfier;
     item: Partial<IRFilter>;
     selected: boolean;
     onPress: Function;
+    marginTop?: number;
 }
 
-const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ value, item, selected, onPress }) => {
+const FilterValue: React.FunctionComponent<FilterValueProps> = ({ value, item, selected, onPress, marginTop }) => {
     return (
         <Ripple
             style={[
                 MR(0.2),
-                MT(0.1),
 
-                { paddingVertical: 6, paddingHorizontal: 10 },
+                { paddingVertical: 6, paddingHorizontal: 10, marginTop: marginTop || 10 },
                 BGCOLOR(selected ? Colors.primaryLight : '#F4F4F4'),
                 selected ? { borderWidth: 0.3, borderColor: Colors.primary } : {},
                 FDR(),
@@ -62,4 +62,4 @@ const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ valu
     );
 };
 
-export default DistributionItem;
+export default FilterValue;

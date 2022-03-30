@@ -1,4 +1,4 @@
-import { IRFilter } from '@app/api/product/product.interface';
+import { IClassfier, IRFilter } from '@app/api/product/product.interface';
 import Border from '@app/screens/components/border/Border';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
@@ -8,24 +8,24 @@ import { FontFamily } from '@app/utilities/FontFamily';
 import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, MH, MR, MT, PH, provideShadow, PV } from '@app/utilities/Styles';
 import React from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
-import DistributionItem from './component/DistributionItem';
+import FilterValue from './component/FilterValue';
 import FitlerHeading from './component/FilterHeading';
 
 interface FilterPopupI {
     filters: IRFilter[];
-    distribution: IRFilter[];
+
     modalVisible: boolean;
     setModalVisible: Function;
-    selectedFilter: { [key: string]: string[] };
-    selectFilter: (type: string, value: string) => void;
-    deselectFilter: (type: string, value: string) => void;
+    selectedFilter: { [key: string]: IClassfier[] };
+    selectFilter: (type: string, value: IClassfier) => void;
+    deselectFilter: (type: string, value: IClassfier) => void;
     clearAllFilter: Function;
 }
 
 const FilterPopup = ({
     modalVisible,
     setModalVisible,
-    distribution,
+
     filters,
     selectedFilter,
     selectFilter,
@@ -103,35 +103,6 @@ const FilterPopup = ({
                             }
                         }}
                     >
-                        {distribution &&
-                            distribution.map((item) => (
-                                <View style={[MT(0.2)]} key={item._id}>
-                                    <FitlerHeading heading={item.name} subHeading={item.description} />
-                                    <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
-                                        {item.values.map((value, index) => {
-                                            let selectedValues = selectedFilter[item.type];
-                                            let selected = selectedValues && selectedValues.includes(value._id);
-                                            return (
-                                                <DistributionItem
-                                                    key={item._id + value._id}
-                                                    item={{ ...item, values: undefined }}
-                                                    value={value}
-                                                    selected={selected}
-                                                    onPress={() => {
-                                                        if (!selected) {
-                                                            selectFilter(item.type, value._id);
-                                                        } else {
-                                                            deselectFilter(item.type, value._id);
-                                                        }
-                                                    }}
-                                                />
-                                            );
-                                        })}
-                                    </View>
-                                    <Border />
-                                </View>
-                            ))}
-
                         {filters &&
                             filters.map((item) => (
                                 <View style={[MT(0.2)]}>
@@ -140,19 +111,21 @@ const FilterPopup = ({
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
                                         {item.values.map((value, index) => {
                                             let selectedValues = selectedFilter[item.type];
-                                            let selected = selectedValues && selectedValues.includes(value._id);
+                                            let selected =
+                                                selectedValues &&
+                                                selectedValues.findIndex((item) => item._id == value._id) > -1;
 
                                             return (
-                                                <DistributionItem
+                                                <FilterValue
                                                     key={item._id + value._id}
                                                     item={{ ...item, values: undefined }}
                                                     value={value}
                                                     selected={selected}
                                                     onPress={() => {
                                                         if (!selected) {
-                                                            selectFilter(item.type, value._id);
+                                                            selectFilter(item.type, value);
                                                         } else {
-                                                            deselectFilter(item.type, value._id);
+                                                            deselectFilter(item.type, value);
                                                         }
                                                     }}
                                                 />

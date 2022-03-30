@@ -42,8 +42,8 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
             const response: IRGetFilterWithValue = await getFilterWithValue({ active: true });
             console.log('Respomnse', response);
             if (response.status == 1) {
-                setFilter(response.payload.filter);
-                setDistribution(response.payload.distribution);
+                setFilter([...response.payload.distribution, ...response.payload.filter]);
+
                 setLoader(false);
             }
         } catch (error) {
@@ -64,7 +64,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     return (
         <SafeAreaView style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
             <BasicHeader title="Mens Jeans" />
-            <FilterUi filters={filter} distribution={distribution} />
+            <FilterUi filters={filter} />
             <ScrollView style={[FLEX(1)]} contentContainerStyle={{ paddingHorizontal: 5, paddingTop: 5 }}>
                 <HeaderWithTitleAndSubHeading
                     heading="RESULTS"
