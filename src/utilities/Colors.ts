@@ -31,6 +31,8 @@ export default {
     subHeading: '#8A8A8A',
 
     blackShadePrimary: '#0f1110',
+    borderColorPrimary: '#c7c7c7',
+    primaryLight: applyColorCode('#000088', 10),
 };
 
 export const colorCode = {

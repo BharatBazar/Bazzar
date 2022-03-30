@@ -39,7 +39,12 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
             <ButtonRippleText
                 fontSize={12}
                 containerStyle={[
-                    { height: '100%', paddingHorizontal: '5%', borderStartWidth: 1, borderColor: '#c7c7c7' },
+                    {
+                        height: '100%',
+                        paddingHorizontal: '5%',
+                        borderStartWidth: 0.2,
+                        borderColor: Colors.borderColorPrimary,
+                    },
                     BGCOLOR(Colors.white),
                     AIC(),
                     JCC(),

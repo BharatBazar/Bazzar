@@ -11,9 +11,10 @@ import Ripple from 'react-native-material-ripple';
 interface DistributionItemProps {
     value: IClassfier;
     item: Partial<IRFilter>;
+    selected: boolean;
 }
 
-const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ value, item }) => {
+const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ value, item, selected }) => {
     return (
         <Ripple
             style={[
@@ -21,8 +22,8 @@ const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ valu
                 MT(0.1),
 
                 { paddingVertical: 6, paddingHorizontal: 10 },
-                BGCOLOR('#F4F4F4'),
-
+                BGCOLOR(selected ? Colors.primaryLight : '#F4F4F4'),
+                selected ? { borderWidth: 0.3, borderColor: Colors.primary } : {},
                 FDR(),
                 AIC(),
                 {
@@ -50,7 +51,7 @@ const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ valu
                 fontFamily={FontFamily.SemiBold}
                 textStyle={{ marginLeft: 5, marginTop: 0, padding: 0 }}
                 fontSize={13}
-                textColor={Colors.blackShadePrimary}
+                textColor={selected ? Colors.primary : Colors.blackShadePrimary}
             />
         </Ripple>
     );

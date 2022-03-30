@@ -43,7 +43,7 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                             JCC('space-between'),
                             PV(0.1),
                             PH(0.3),
-                            { borderBottomWidth: 1, borderColor: Colors.light },
+                            { borderBottomWidth: 0.2, borderColor: Colors.light },
                         ]}
                     >
                         <View style={[FLEX(1), MR(0.3)]}>
@@ -74,11 +74,12 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                                 <View style={[MT(0.2)]} key={item._id}>
                                     <FitlerHeading heading={item.name} subHeading={item.description} />
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
-                                        {item.values.map((value) => (
+                                        {item.values.map((value, index) => (
                                             <DistributionItem
                                                 key={item._id + value._id}
                                                 item={{ ...item, values: undefined }}
                                                 value={value}
+                                                selected={index % 2 == 0}
                                             />
                                         ))}
                                     </View>
