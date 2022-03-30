@@ -28,8 +28,9 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
                     toggleSwitch(!isEnabled);
                 }}
                 containerStyle={{ paddingLeft: 5 }}
-                buttonText="Shops"
-                textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold, color: Colors.primary }}
+                iconName={'store'}
+                iconSize={25}
+                iconColor={isEnabled ? Colors.primary : Colors.primaryLight}
                 children={
                     <Switch
                         trackColor={{ false: '#bcbcbc', true: Colors.primary }}
@@ -37,7 +38,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
                         ios_backgroundColor="#bcbcbc"
                         onValueChange={toggleSwitch}
                         value={isEnabled}
-                        style={{ marginLeft: 5 }}
+                        style={{ marginLeft: 0 }}
                     />
                 }
             />

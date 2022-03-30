@@ -10,8 +10,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 interface ButtonRippleLeftMaterialIconMiddleTextRightChildProps {
     containerStyle?: ViewStyle | ViewStyle[];
     onPress: Function;
-    buttonText: string;
-    fontSize: number;
+    buttonText?: string;
+    fontSize?: number;
     textStyle?: TextStyle;
     rippleColor?: string;
     buttonTextColor?: string;
@@ -55,14 +55,16 @@ const ButtonRippleLeftMaterialIconMiddleTextRightChild: React.FunctionComponent<
                     color={iconColor || Colors.white}
                 />
             )}
-            <TextBasic
-                text={buttonText}
-                textColor={buttonTextColor}
-                fontSize={fontSize}
-                fontFamily={FontFamily.Medium}
-                containerStyle={{ marginTop: 0 }}
-                textStyle={textStyle}
-            />
+            {buttonText && (
+                <TextBasic
+                    text={buttonText}
+                    textColor={buttonTextColor}
+                    fontSize={fontSize}
+                    fontFamily={FontFamily.Medium}
+                    containerStyle={{ marginTop: 0 }}
+                    textStyle={textStyle}
+                />
+            )}
             {children && children}
         </Ripple>
     );
