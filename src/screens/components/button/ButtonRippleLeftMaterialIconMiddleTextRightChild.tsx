@@ -1,6 +1,7 @@
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
+import { AIC, FDR, JCC } from '@app/utilities/Styles';
 import * as React from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 import Ripple from 'react-native-material-ripple';
@@ -16,10 +17,10 @@ interface ButtonRippleLeftMaterialIconMiddleTextRightChildProps {
     buttonTextColor?: string;
     rippleContainerBorderRadius?: number;
 
-    iconName: string;
+    iconName?: string;
     iconColor?: string;
     iconSize?: number;
-    children: any;
+    children?: any;
 }
 
 const ButtonRippleLeftMaterialIconMiddleTextRightChild: React.FunctionComponent<
@@ -33,7 +34,7 @@ const ButtonRippleLeftMaterialIconMiddleTextRightChild: React.FunctionComponent<
     textStyle,
     rippleColor,
     rippleContainerBorderRadius = 100,
-    iconColor,
+    iconColor = Colors.black,
     iconName,
     iconSize,
     children,
@@ -44,14 +45,16 @@ const ButtonRippleLeftMaterialIconMiddleTextRightChild: React.FunctionComponent<
             onPress={() => {
                 onPress();
             }}
-            style={containerStyle}
+            style={[FDR(), AIC(), JCC(), containerStyle]}
         >
-            <MaterialIcons
-                name={iconName}
-                style={{ height: iconSize, width: iconSize }}
-                size={iconSize}
-                color={iconColor || Colors.white}
-            />
+            {iconName != undefined && (
+                <MaterialIcons
+                    name={iconName}
+                    style={{ height: iconSize, width: iconSize }}
+                    size={iconSize}
+                    color={iconColor || Colors.white}
+                />
+            )}
             <TextBasic
                 text={buttonText}
                 textColor={buttonTextColor}

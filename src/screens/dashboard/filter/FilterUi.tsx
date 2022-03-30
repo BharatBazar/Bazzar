@@ -1,5 +1,8 @@
 import { IRFilter } from '@app/api/product/product.interface';
+import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
+import ButtonRippleLeftMaterialIconMiddleTextRightChild from '@app/screens/components/button/ButtonRippleLeftMaterialIconMiddleTextRightChild';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
+import MaterialIconWrapper from '@app/screens/components/icon/MaterialIconWrapper';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
@@ -18,17 +21,26 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
     const [isEnabled, toggleSwitch] = React.useState(false);
 
     return (
-        <View style={[FDR(), { height: 45, width: '100%', paddingLeft: '2%' }, provideShadow(2), BGCOLOR('#FFFFFF')]}>
-            <View style={[FDR(), AIC()]}>
-                <TextBasic text="Shops" />
-                <Switch
-                    trackColor={{ false: '#bcbcbc', true: Colors.primary }}
-                    thumbColor={'#ffffff'}
-                    ios_backgroundColor="#bcbcbc"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
-                />
-            </View>
+        <View style={[FDR(), { height: 45, width: '100%' }, provideShadow(2), BGCOLOR('#FFFFFF')]}>
+            <ButtonRippleLeftMaterialIconMiddleTextRightChild
+                fontSize={12}
+                onPress={() => {
+                    toggleSwitch(!isEnabled);
+                }}
+                containerStyle={{ paddingLeft: 5 }}
+                buttonText="Shops"
+                textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold, color: Colors.primary }}
+                children={
+                    <Switch
+                        trackColor={{ false: '#bcbcbc', true: Colors.primary }}
+                        thumbColor={'#ffffff'}
+                        ios_backgroundColor="#bcbcbc"
+                        onValueChange={toggleSwitch}
+                        value={isEnabled}
+                        style={{ marginLeft: 5 }}
+                    />
+                }
+            />
             <ScrollView
                 style={{}}
                 contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', paddingLeft: 10 }}
@@ -36,24 +48,21 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
             >
                 <TextBasic text="Applied filter will come here" textColor={Colors.light} fontSize={12} />
             </ScrollView>
-            <ButtonRippleText
+            <ButtonRippleLeftMaterialIconMiddleTextRightChild
                 fontSize={12}
-                containerStyle={[
-                    {
-                        height: '100%',
-                        paddingHorizontal: '5%',
-                        borderStartWidth: 0.2,
-                        borderColor: Colors.borderColorPrimary,
-                    },
-                    BGCOLOR(Colors.white),
-                    AIC(),
-                    JCC(),
-                ]}
+                containerStyle={[styles.filterContainer]}
                 onPress={() => {
                     setModalVisible(true);
                 }}
-                buttonText="Filters"
-                textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold }}
+                buttonText="Filter"
+                textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold, color: Colors.primary }}
+                children={
+                    <MaterialIconWrapper
+                        iconSize={20}
+                        iconName={modalVisible ? 'expand-less' : 'expand-more'}
+                        iconColor={Colors.primary}
+                    />
+                }
             />
             <FilterPopup
                 distribution={distribution}
@@ -67,4 +76,11 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
 
 export default FilterUi;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    filterContainer: {
+        height: '100%',
+        paddingHorizontal: '2%',
+        borderStartWidth: 0.2,
+        borderColor: Colors.borderColorPrimary,
+    },
+});
