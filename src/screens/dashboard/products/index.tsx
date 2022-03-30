@@ -1,6 +1,15 @@
 import { setBaseUrl } from '@app/api/apiLayer';
-import { getFilterWithValue } from '@app/api/product/product.filter';
-import { IClassfier, IFilter, IRFilter, IRGetFilterWithValue } from '@app/api/product/product.interface';
+import { getProduct } from '@app/api/product/product.api';
+import { getFilterWithValue } from '@app/api/product/product.filter.api';
+import {
+    IClassifier,
+    IFilter,
+    IProduct,
+    IRFilter,
+    IRGetFilterWithValue,
+    IRGetProduct,
+    productStatus,
+} from '@app/api/product/product.interface';
 import { Envar } from '@app/core/EnvWrapper';
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
@@ -25,6 +34,7 @@ import {
 } from 'react-native';
 import FilterPopup from '../filter/FilterPopup';
 import FilterUi from '../filter/FilterUi';
+import ProductCard from './ProductCard';
 import ShopCard from './ShopCard';
 
 interface ProductsProps {
@@ -35,6 +45,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     const [loader, setLoader] = React.useState(false);
     const [filter, setFilter] = React.useState<IRFilter[]>([]);
     const [distribution, setDistribution] = React.useState<IRFilter[]>([]);
+    const [product, setProduct] = React.useState<IProduct[]>([]);
 
     const loadFilter = async () => {
         setLoader(true);
@@ -53,9 +64,26 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         }
     };
 
+    const loadProduct = async (filter: { [key: string]: string }) => {
+        setLoader(true);
+        try {
+            const response: IRGetProduct = await getProduct({ ...filter, status: productStatus.WAITINGFORAPPROVAL });
+
+            if (response.status == 1) {
+                setProduct(response.payload);
+                setLoader(false);
+            }
+        } catch (error) {
+            console.log('error', error);
+            ToastAndroid.show('Network error!! Could not connect server', 1000);
+            setLoader(false);
+        }
+    };
+
     React.useEffect(() => {
         axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
         loadFilter();
+        loadProduct({});
         StatusBar.setBarStyle('light-content');
         return () => {
             setBaseUrl();
@@ -64,7 +92,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     return (
         <SafeAreaView style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
             <BasicHeader title="Mens Jeans" />
-            <FilterUi filters={filter} />
+            <FilterUi filters={filter} loadProduct={loadProduct} />
             <ScrollView style={[FLEX(1)]} contentContainerStyle={{ paddingHorizontal: 5, paddingTop: 5 }}>
                 <HeaderWithTitleAndSubHeading
                     heading="RESULTS"
@@ -72,6 +100,9 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                     headerStyle={{ fontSize: 18, fontFamily: FontFamily.SemiBold }}
                     subHeaderStyle={{ color: '#7d7d7d' }}
                 />
+                {product.map((item) => (
+                    <ProductCard item={item} />
+                ))}
                 {/* <ShopCard />
                 <ShopCard />
                 <ShopCard />

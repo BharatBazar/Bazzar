@@ -1,4 +1,4 @@
-import { classifierTypes, IClassfier, IRFilter } from '@app/api/product/product.interface';
+import { classifierTypes, IClassifier, IRFilter } from '@app/api/product/product.interface';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors, { colorCode } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
@@ -9,7 +9,7 @@ import { View } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 
 interface FilterValueProps {
-    value: IClassfier;
+    value: IClassifier;
     item: Partial<IRFilter>;
     selected: boolean;
     onPress: Function;

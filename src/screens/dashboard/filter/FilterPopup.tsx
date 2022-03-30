@@ -1,4 +1,4 @@
-import { IClassfier, IRFilter } from '@app/api/product/product.interface';
+import { IClassifier, IRFilter } from '@app/api/product/product.interface';
 import Border from '@app/screens/components/border/Border';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
@@ -16,10 +16,11 @@ interface FilterPopupI {
 
     modalVisible: boolean;
     setModalVisible: Function;
-    selectedFilter: { [key: string]: IClassfier[] };
-    selectFilter: (type: string, value: IClassfier) => void;
-    deselectFilter: (type: string, value: IClassfier) => void;
+    selectedFilter: { [key: string]: IClassifier[] };
+    selectFilter: (type: string, value: IClassifier) => void;
+    deselectFilter: (type: string, value: IClassifier) => void;
     clearAllFilter: Function;
+    applyFilter: Function;
 }
 
 const FilterPopup = ({
@@ -31,6 +32,7 @@ const FilterPopup = ({
     selectFilter,
     deselectFilter,
     clearAllFilter,
+    applyFilter,
 }: FilterPopupI) => {
     const [scrolled, setScrolled] = React.useState(false);
     return (
@@ -173,7 +175,9 @@ const FilterPopup = ({
                                 },
                                 BGCOLOR(Colors.primary),
                             ]}
-                            onPress={() => setModalVisible(!modalVisible)}
+                            onPress={() => {
+                                applyFilter();
+                            }}
                             buttonText="Apply Filters"
                         />
                     </View>

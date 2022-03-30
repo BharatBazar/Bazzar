@@ -1,4 +1,4 @@
-import { IClassfier } from '@app/api/product/product.interface';
+import { IClassifier } from '@app/api/product/product.interface';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import * as React from 'react';
@@ -6,13 +6,13 @@ import { View } from 'react-native';
 import FilterValue from './FilterValue';
 
 interface ShowAppliedFilterValuesProps {
-    selectedFilter: { [key: string]: IClassfier[] };
+    selectedFilter: { [key: string]: IClassifier[] };
 }
 
 const ShowAppliedFilterValues: React.FunctionComponent<ShowAppliedFilterValuesProps> = ({ selectedFilter }) => {
     return Object.keys(selectedFilter).length > 0 ? (
         Object.keys(selectedFilter).map((item) =>
-            selectedFilter[item].map((value: IClassfier) => (
+            selectedFilter[item].map((value: IClassifier) => (
                 <FilterValue
                     marginTop={1}
                     key={value._id}

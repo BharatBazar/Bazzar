@@ -1,4 +1,4 @@
-import { IClassfier, IRFilter } from '@app/api/product/product.interface';
+import { IClassifier, IRFilter } from '@app/api/product/product.interface';
 import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
 import ButtonRippleLeftMaterialIconMiddleTextRightChild from '@app/screens/components/button/ButtonRippleLeftMaterialIconMiddleTextRightChild';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
@@ -14,15 +14,16 @@ import FilterPopup from './FilterPopup';
 
 interface FilterUiProps {
     filters: IRFilter[];
+    loadProduct: Function;
 }
 
-const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters }) => {
+const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct }) => {
     const [modalVisible, setModalVisible] = React.useState(false);
     const [isEnabled, toggleSwitch] = React.useState(false);
-    const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: IClassfier[] }>({});
+    const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: IClassifier[] }>({});
 
-    const selectFilter = (type: string, value: IClassfier) => {
-        let filterss: { [key: string]: IClassfier[] } = { ...selectedFilter };
+    const selectFilter = (type: string, value: IClassifier) => {
+        let filterss: { [key: string]: IClassifier[] } = { ...selectedFilter };
         if (filterss[type]) {
             filterss[type].push(value);
         } else {
@@ -32,8 +33,8 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters }) => {
         setSelectedFilter(filterss);
     };
 
-    const deselectFilter = (type: string, value: IClassfier) => {
-        let filterss: { [key: string]: IClassfier[] } = { ...selectedFilter };
+    const deselectFilter = (type: string, value: IClassifier) => {
+        let filterss: { [key: string]: IClassifier[] } = { ...selectedFilter };
         if (filterss[type]) {
             filterss[type] = filterss[type].filter((item) => item._id != value._id);
             if (filterss[type].length == 0) {
@@ -41,7 +42,17 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters }) => {
             }
         } else {
         }
+
         setSelectedFilter(filterss);
+    };
+
+    const onApplyFilters = () => {
+        let filterToSend = {};
+        Object.keys(selectedFilter).map((item) => {
+            filterToSend[item] = selectedFilter[item].map((a) => a._id);
+        });
+        loadProduct(filterToSend);
+        setModalVisible(false);
     };
 
     const clearAllFilters = () => {
@@ -108,6 +119,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters }) => {
                 selectFilter={selectFilter}
                 deselectFilter={deselectFilter}
                 clearAllFilter={clearAllFilters}
+                applyFilter={onApplyFilters}
             />
         </View>
     );

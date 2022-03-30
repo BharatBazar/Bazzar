@@ -11,7 +11,7 @@ export enum classifierTypes {
     FIT = 'fit',
 }
 
-export interface IClassfier {
+export interface IClassifier {
     _id: string;
     name: string; // Name should be any thing like value for example for size name will be 28, for color name will be red etc..
     description: string; // Description should be meta data or for example for color colorCode will be description, for size unit like cm or inch will be description
@@ -43,7 +43,61 @@ export interface IRFilter {
     distributionLevel: number; // 0 means filter only and 1 means It is top level distribution like color 2 means inside distibution that is size or etc.
     active: boolean; // It is used to active a filter and show it publically so that filter can through a verifying flow and all good then they are release to public
     mandatory: boolean;
-    values: IClassfier[];
+    values: IClassifier[];
+}
+
+export enum productStatus {
+    INVENTORY = 1,
+    REJECTED = 2,
+    OUTOFSTOCK = 3,
+    WAITINGFORAPPROVAL = 4,
+    LIVE = 5,
+}
+
+export interface IProductSize {
+    _id: string;
+    size: IClassifier | string; //Will refer to size table
+    mrp: string;
+    quantity: number;
+    sp: string;
+    parentId: string;
+    itemId: string;
+}
+
+export interface IColor {
+    _id: string;
+    parentId: string; // will refer to main table
+    color: IClassifier | string; // will refer to color table
+    sizes: [IProductSize]; // will refer to jeans size table
+    photos: [string];
+    includedColor: [IClassifier];
+    shopId: string;
+}
+
+export interface IProduct {
+    //Also i need to think about how i will be dealing with language preferences how can i use multiple language.
+    _id: string;
+    shopId: string;
+
+    //Above field will have predifined information about the size, unit etc.
+    title: string;
+    subTitle: string;
+    colors: [IColor] | [string] | [];
+    showPrice: boolean; //Whether dukandar wants to show price to customer or not
+    returnAllowed: boolean;
+    status: productStatus;
+    rating: number;
+    new: boolean; // Sometimes customer comes to shop asking what is new in the shop so this will show all the new available products
+    newDeadline: string;
+    description: string; // Will be a audio as audio is better to understand in common language
+    discount: [number]; // If a dukandar has decided that he wants to give special discount on particular product so discount will for each color
+    discountDeadline: [Date];
+    brand: string | IClassifier;
+    fit: string | IClassifier;
+    pattern: [string] | [IClassifier];
+    note: string;
+    descriptionCustomer: string;
+    alreadyRejected: boolean;
 }
 
 export interface IRGetFilter extends CommonApiResponse {
@@ -54,5 +108,11 @@ export interface IRGetFilterWithValue extends CommonApiResponse {
     payload: {
         filter: IRFilter[];
         distribution: IRFilter[];
+    };
+}
+
+export interface IRGetProduct extends CommonApiResponse {
+    payload: {
+        product: IProduct[];
     };
 }
