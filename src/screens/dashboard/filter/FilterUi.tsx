@@ -19,6 +19,30 @@ interface FilterUiProps {
 const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distribution }) => {
     const [modalVisible, setModalVisible] = React.useState(false);
     const [isEnabled, toggleSwitch] = React.useState(false);
+    const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: string[] }>({});
+
+    const selectFilter = (type: string, value: string) => {
+        let filterss: { [key: string]: string[] } = { ...selectedFilter };
+        if (filterss[type]) {
+            filterss[type].push(value);
+        } else {
+            filterss[type] = [value];
+        }
+        console.log('fiter select', filterss);
+        setSelectedFilter(filterss);
+    };
+
+    const deselectFilter = (type: string, value: string) => {
+        let filterss: { [key: string]: string[] } = { ...selectedFilter };
+        if (filterss[type]) {
+            filterss[type] = filterss[type].filter((item) => item != value);
+            if (filterss[type].length == 0) {
+                delete filterss[type];
+            }
+        } else {
+        }
+        setSelectedFilter(filterss);
+    };
 
     return (
         <View style={[FDR(), { height: 45, width: '100%' }, provideShadow(2), BGCOLOR('#FFFFFF')]}>
@@ -70,6 +94,9 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
                 filters={filters}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
+                selectedFilter={selectedFilter}
+                selectFilter={selectFilter}
+                deselectFilter={deselectFilter}
             />
         </View>
     );

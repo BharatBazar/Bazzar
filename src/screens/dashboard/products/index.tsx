@@ -35,7 +35,6 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     const [loader, setLoader] = React.useState(false);
     const [filter, setFilter] = React.useState<IRFilter[]>([]);
     const [distribution, setDistribution] = React.useState<IRFilter[]>([]);
-    const [selectedFilter, setSelectedFilter] = React.useState({});
 
     const loadFilter = async () => {
         setLoader(true);

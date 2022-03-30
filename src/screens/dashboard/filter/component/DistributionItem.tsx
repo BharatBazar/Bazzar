@@ -12,9 +12,10 @@ interface DistributionItemProps {
     value: IClassfier;
     item: Partial<IRFilter>;
     selected: boolean;
+    onPress: Function;
 }
 
-const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ value, item, selected }) => {
+const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ value, item, selected, onPress }) => {
     return (
         <Ripple
             style={[
@@ -31,6 +32,10 @@ const DistributionItem: React.FunctionComponent<DistributionItemProps> = ({ valu
                     borderRadius: 6,
                 },
             ]}
+            onPress={() => {
+                console.log('sd');
+                onPress();
+            }}
         >
             {item.type == classifierTypes.COLOR && (
                 <View

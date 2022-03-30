@@ -1,11 +1,10 @@
-import { classifierTypes, IRFilter } from '@app/api/product/product.interface';
+import { IRFilter } from '@app/api/product/product.interface';
 import Border from '@app/screens/components/border/Border';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import TextBasic from '@app/screens/components/text/TextBasic';
-import Colors, { applyColorCode, colorCode, mainColor } from '@app/utilities/Colors';
+import Colors, { colorCode } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { capitalizeFirstLetter } from '@app/utilities/Functions';
-import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, ML, MR, MT, PH, PV } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, MR, MT, PH, PV } from '@app/utilities/Styles';
 import React from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
 import DistributionItem from './component/DistributionItem';
@@ -16,9 +15,20 @@ interface FilterPopupI {
     distribution: IRFilter[];
     modalVisible: boolean;
     setModalVisible: Function;
+    selectedFilter: { [key: string]: string[] };
+    selectFilter: (type: string, value: string) => void;
+    deselectFilter: (type: string, value: string) => void;
 }
 
-const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: FilterPopupI) => {
+const FilterPopup = ({
+    modalVisible,
+    setModalVisible,
+    distribution,
+    filters,
+    selectedFilter,
+    selectFilter,
+    deselectFilter,
+}: FilterPopupI) => {
     return (
         <Modal
             animationType="slide"
@@ -74,14 +84,25 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                                 <View style={[MT(0.2)]} key={item._id}>
                                     <FitlerHeading heading={item.name} subHeading={item.description} />
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
-                                        {item.values.map((value, index) => (
-                                            <DistributionItem
-                                                key={item._id + value._id}
-                                                item={{ ...item, values: undefined }}
-                                                value={value}
-                                                selected={index % 2 == 0}
-                                            />
-                                        ))}
+                                        {item.values.map((value, index) => {
+                                            let selectedValues = selectedFilter[item.type];
+                                            let selected = selectedValues && selectedValues.includes(value._id);
+                                            return (
+                                                <DistributionItem
+                                                    key={item._id + value._id}
+                                                    item={{ ...item, values: undefined }}
+                                                    value={value}
+                                                    selected={selected}
+                                                    onPress={() => {
+                                                        if (!selected) {
+                                                            selectFilter(item.type, value._id);
+                                                        } else {
+                                                            deselectFilter(item.type, value._id);
+                                                        }
+                                                    }}
+                                                />
+                                            );
+                                        })}
                                     </View>
                                     <Border />
                                 </View>
@@ -93,14 +114,26 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                                     <FitlerHeading heading={item.name} subHeading={item.description} />
 
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
-                                        {item.values.map((value, index) => (
-                                            <DistributionItem
-                                                key={item._id + value._id}
-                                                item={{ ...item, values: undefined }}
-                                                value={value}
-                                                selected={index % 1 == 0}
-                                            />
-                                        ))}
+                                        {item.values.map((value, index) => {
+                                            let selectedValues = selectedFilter[item.type];
+                                            let selected = selectedValues && selectedValues.includes(value._id);
+
+                                            return (
+                                                <DistributionItem
+                                                    key={item._id + value._id}
+                                                    item={{ ...item, values: undefined }}
+                                                    value={value}
+                                                    selected={selected}
+                                                    onPress={() => {
+                                                        if (!selected) {
+                                                            selectFilter(item.type, value._id);
+                                                        } else {
+                                                            deselectFilter(item.type, value._id);
+                                                        }
+                                                    }}
+                                                />
+                                            );
+                                        })}
                                     </View>
                                     <Border />
                                 </View>
