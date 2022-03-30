@@ -8,7 +8,7 @@ interface ButtonRippleTextProps {
     containerStyle?: ViewStyle | ViewStyle[];
     onPress: Function;
     buttonText: string;
-    fontSize: number;
+    fontSize?: number;
     textStyle?: TextStyle;
     rippleColor?: string;
     buttonTextColor?: string;

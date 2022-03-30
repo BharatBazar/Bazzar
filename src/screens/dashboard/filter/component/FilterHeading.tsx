@@ -11,7 +11,7 @@ interface FitlerHeadingProps {
 const FitlerHeading: React.FunctionComponent<FitlerHeadingProps> = ({ heading, subHeading }) => {
     return (
         <>
-            <TextBasic text={heading} fontSize={14} fontFamily={FontFamily.SemiBold} />
+            <TextBasic text={heading} fontSize={16} fontFamily={FontFamily.SemiBold} />
             <TextBasic text={subHeading} fontSize={12} textColor={Colors.subHeading} fontFamily={FontFamily.Light} />
         </>
     );

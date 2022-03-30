@@ -1,10 +1,11 @@
 import { IRFilter } from '@app/api/product/product.interface';
 import Border from '@app/screens/components/border/Border';
+import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors, { colorCode } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, MR, MT, PH, provideShadow, PV } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, MH, MR, MT, PH, provideShadow, PV } from '@app/utilities/Styles';
 import React from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
 import DistributionItem from './component/DistributionItem';
@@ -18,6 +19,7 @@ interface FilterPopupI {
     selectedFilter: { [key: string]: string[] };
     selectFilter: (type: string, value: string) => void;
     deselectFilter: (type: string, value: string) => void;
+    clearAllFilter: Function;
 }
 
 const FilterPopup = ({
@@ -28,6 +30,7 @@ const FilterPopup = ({
     selectedFilter,
     selectFilter,
     deselectFilter,
+    clearAllFilter,
 }: FilterPopupI) => {
     const [scrolled, setScrolled] = React.useState(false);
     return (
@@ -52,7 +55,7 @@ const FilterPopup = ({
                             FDR(),
                             AIC(),
                             JCC('space-between'),
-                            PV(0.1),
+                            PV(0.2),
                             PH(0.3),
                             {
                                 borderBottomWidth: 0.2,
@@ -75,13 +78,13 @@ const FilterPopup = ({
                             <Text style={styles.modalText}>Help us know by selecting filter</Text> */}
                         </View>
                         <Pressable
-                            style={[styles.button, styles.buttonClose, BGCOLOR(colorCode.CHAKRALOW(20))]}
+                            style={[styles.button, styles.buttonClose, BGCOLOR(Colors.primaryLight)]}
                             onPress={() => setModalVisible(!modalVisible)}
                         >
                             <TextBasic
                                 text="Close"
                                 textColor={Colors.primary}
-                                fontFamily={FontFamily.Light}
+                                fontFamily={FontFamily.SemiBold}
                                 fontSize={14}
                             />
                         </Pressable>
@@ -160,17 +163,46 @@ const FilterPopup = ({
                                 </View>
                             ))}
                     </ScrollView>
-                    <Border borderWidth={0.8} marginTop={0} />
-                    <View style={[FDR(), AIC(), JCC('space-between'), PV(0.15), PH(0.3)]}>
-                        <View>
-                            <Text style={styles.modalText}>Reset Filters</Text>
-                        </View>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
+
+                    <View
+                        style={[
+                            FDR(),
+                            AIC(),
+                            JCC('space-between'),
+                            PV(0.15),
+                            MH(0.5),
+                            { borderTopWidth: 0.2, borderTopColor: Colors.light },
+                        ]}
+                    >
+                        <ButtonRippleText
+                            buttonTextColor={Colors.primary}
+                            textStyle={{ fontFamily: FontFamily.Bold, fontSize: 12 }}
+                            containerStyle={[
+                                {
+                                    borderWidth: 0.2,
+                                    borderColor: Colors.borderColorPrimary,
+                                    borderRadius: 4,
+                                    padding: 10,
+                                },
+                            ]}
+                            onPress={() => {
+                                clearAllFilter();
+                            }}
+                            buttonText="Clear Filters"
+                        />
+                        <ButtonRippleText
+                            buttonTextColor={Colors.primary}
+                            textStyle={{ fontFamily: FontFamily.Bold, fontSize: 12, color: '#FFFFFF' }}
+                            containerStyle={[
+                                {
+                                    borderRadius: 4,
+                                    padding: 10,
+                                },
+                                BGCOLOR(Colors.primary),
+                            ]}
                             onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Apply Filters</Text>
-                        </Pressable>
+                            buttonText="Apply Filters"
+                        />
                     </View>
                 </View>
             </View>
@@ -192,7 +224,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
 
-        height: '70%',
+        height: '75%',
 
         shadowColor: '#000',
         shadowOffset: {
@@ -206,7 +238,7 @@ const styles = StyleSheet.create({
     button: {
         //elevation: 2,
         paddingVertical: 7,
-        paddingHorizontal: 7,
+        paddingHorizontal: 10,
         borderRadius: 5,
         backgroundColor: Colors.primary,
     },

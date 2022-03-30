@@ -44,6 +44,10 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
         setSelectedFilter(filterss);
     };
 
+    const clearAllFilters = () => {
+        setSelectedFilter({});
+    };
+
     return (
         <View style={[FDR(), { height: 45, width: '100%' }, provideShadow(2), BGCOLOR('#FFFFFF')]}>
             <ButtonRippleLeftMaterialIconMiddleTextRightChild
@@ -79,7 +83,10 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
                 onPress={() => {
                     setModalVisible(true);
                 }}
-                buttonText="Filter"
+                buttonText={
+                    'Filter' +
+                    (Object.keys(selectedFilter).length > 0 ? ` (${Object.keys(selectedFilter).length})` : '')
+                }
                 textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold, color: Colors.primary }}
                 children={
                     <MaterialIconWrapper
@@ -97,6 +104,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, distributio
                 selectedFilter={selectedFilter}
                 selectFilter={selectFilter}
                 deselectFilter={deselectFilter}
+                clearAllFilter={clearAllFilters}
             />
         </View>
     );
