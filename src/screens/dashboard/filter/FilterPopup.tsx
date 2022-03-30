@@ -34,7 +34,7 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
             statusBarTranslucent
             presentationStyle="overFullScreen"
         >
-            <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: '#FFFFFF31' }}>
+            <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: '#00000066' }}>
                 <View style={styles.modalView}>
                     <View
                         style={[
@@ -93,11 +93,12 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                                     <FitlerHeading heading={item.name} subHeading={item.description} />
 
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
-                                        {item.values.map((value) => (
+                                        {item.values.map((value, index) => (
                                             <DistributionItem
                                                 key={item._id + value._id}
                                                 item={{ ...item, values: undefined }}
                                                 value={value}
+                                                selected={index % 1 == 0}
                                             />
                                         ))}
                                     </View>
@@ -105,7 +106,7 @@ const FilterPopup = ({ modalVisible, setModalVisible, distribution, filters }: F
                                 </View>
                             ))}
                     </ScrollView>
-                    <Border borderWidth={0.8} />
+                    <Border borderWidth={0.8} marginTop={0} />
                     <View style={[FDR(), AIC(), JCC('space-between'), PV(0.15), PH(0.3)]}>
                         <View>
                             <Text style={styles.modalText}>Reset Filters</Text>
