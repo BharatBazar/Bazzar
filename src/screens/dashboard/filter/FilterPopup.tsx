@@ -4,7 +4,7 @@ import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderW
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors, { colorCode } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, MR, MT, PH, PV } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, BR, FDR, FLEX, JCC, MR, MT, PH, provideShadow, PV } from '@app/utilities/Styles';
 import React from 'react';
 import { Alert, Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
 import DistributionItem from './component/DistributionItem';
@@ -29,6 +29,7 @@ const FilterPopup = ({
     selectFilter,
     deselectFilter,
 }: FilterPopupI) => {
+    const [scrolled, setScrolled] = React.useState(false);
     return (
         <Modal
             animationType="slide"
@@ -53,7 +54,14 @@ const FilterPopup = ({
                             JCC('space-between'),
                             PV(0.1),
                             PH(0.3),
-                            { borderBottomWidth: 0.2, borderColor: Colors.light },
+                            {
+                                borderBottomWidth: 0.2,
+                                borderColor: Colors.light,
+                                borderTopRightRadius: 10,
+                                borderTopLeftRadius: 10,
+                            },
+                            BGCOLOR('#FFFFFF'),
+                            scrolled && provideShadow(3),
                         ]}
                     >
                         <View style={[FLEX(1), MR(0.3)]}>
@@ -61,7 +69,7 @@ const FilterPopup = ({
                                 heading="Select Filters"
                                 subHeading="Help us know what you like by selecting filter. So that we can provide you product of your choice"
                                 headerStyle={{ fontSize: 18, fontFamily: FontFamily.SemiBold }}
-                                subHeaderStyle={{ color: '#7d7d7d' }}
+                                subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
                             />
                             {/* <Text style={styles.modalText}>Select Filters</Text>
                             <Text style={styles.modalText}>Help us know by selecting filter</Text> */}
@@ -78,7 +86,20 @@ const FilterPopup = ({
                             />
                         </Pressable>
                     </View>
-                    <ScrollView contentContainerStyle={{ paddingHorizontal: '3%' }}>
+                    <ScrollView
+                        contentContainerStyle={{ paddingHorizontal: '3%' }}
+                        onScroll={({
+                            nativeEvent: {
+                                contentOffset: { x, y },
+                            },
+                        }) => {
+                            if (y > 0) {
+                                if (!scrolled) setScrolled(true);
+                            } else {
+                                if (scrolled) setScrolled(false);
+                            }
+                        }}
+                    >
                         {distribution &&
                             distribution.map((item) => (
                                 <View style={[MT(0.2)]} key={item._id}>
