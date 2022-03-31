@@ -33,6 +33,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     const [filter, setFilter] = React.useState<IRFilter[]>([]);
     const [distribution, setDistribution] = React.useState<IRFilter[]>([]);
     const [product, setProduct] = React.useState<IProduct[]>([]);
+    const [showShops, setShowShops] = React.useState(false);
 
     const [shops, setShops] = React.useState([]);
 
@@ -90,7 +91,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     return (
         <SafeAreaView style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
             <BasicHeader title="Mens Jeans" />
-            <FilterUi filters={filter} loadProduct={loadProduct} />
+            <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={loadProduct} />
             <ScrollView style={[FLEX(1)]} contentContainerStyle={{ paddingHorizontal: 10, paddingTop: 5 }}>
                 <HeaderWithTitleAndSubHeading
                     heading="RESULTS"
@@ -98,10 +99,16 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                     headerStyle={{ fontSize: 18, fontFamily: FontFamily.SemiBold }}
                     subHeaderStyle={{ color: '#7d7d7d' }}
                 />
-                <View style={[{ flexWrap: 'wrap', flexDirection: 'row', flex: 1, justifyContent: 'space-between' }]}>
-                    {product.length > 0 && product.map((item) => <ProductCard item={item} />)}
-                    {shops.length > 0 && shops.map((item) => <ShopCard />)}
-                </View>
+                {product.length > 0 && (
+                    <View
+                        style={[{ flexWrap: 'wrap', flexDirection: 'row', flex: 1, justifyContent: 'space-between' }]}
+                    >
+                        {product.map((item) => (
+                            <ProductCard item={item} />
+                        ))}
+                    </View>
+                )}
+                {shops.length > 0 && shops.map((item) => <ShopCard />)}
                 {/* <ShopCard />
                 <ShopCard />
                 <ShopCard />

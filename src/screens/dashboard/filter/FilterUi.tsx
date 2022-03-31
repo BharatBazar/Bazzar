@@ -15,11 +15,13 @@ import FilterPopup from './FilterPopup';
 interface FilterUiProps {
     filters: IRFilter[];
     loadProduct: Function;
+    showShops: boolean;
+    setShowShops: (a: boolean) => void;
 }
 
-const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct }) => {
+const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct, showShops, setShowShops }) => {
     const [modalVisible, setModalVisible] = React.useState(false);
-    const [isEnabled, toggleSwitch] = React.useState(false);
+
     const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: IClassifier[] }>({});
 
     const selectFilter = (type: string, value: IClassifier) => {
@@ -71,19 +73,24 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
                 <ButtonRippleLeftMaterialIconMiddleTextRightChild
                     fontSize={12}
                     onPress={() => {
-                        toggleSwitch(!isEnabled);
+                        if (!showShops) {
+                            loadProduct({ shop: true });
+                        } else {
+                            loadProduct({ shop: false });
+                        }
+                        setShowShops(!showShops);
                     }}
                     containerStyle={{ paddingLeft: 5 }}
                     iconName={'store'}
                     iconSize={25}
-                    iconColor={isEnabled ? Colors.primary : Colors.primaryLight}
+                    iconColor={showShops ? Colors.primary : Colors.primaryLight}
                     children={
                         <Switch
                             trackColor={{ false: '#bcbcbc', true: Colors.primary }}
                             thumbColor={'#ffffff'}
                             ios_backgroundColor="#bcbcbc"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
+                            onValueChange={(value) => {}}
+                            value={showShops}
                             style={{ marginLeft: 0 }}
                         />
                     }
