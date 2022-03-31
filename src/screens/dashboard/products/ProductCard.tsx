@@ -1,19 +1,90 @@
 import { IProduct } from '@app/api/product/product.interface';
+import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
+import { getWP } from '@app/utilities/Dimensions';
+import { FontFamily } from '@app/utilities/FontFamily';
+import { FDR } from '@app/utilities/Styles';
 import * as React from 'react';
 import { Image, View } from 'react-native';
+import Ripple from 'react-native-material-ripple';
 
 interface ProductCardProps {
     item: IProduct;
 }
 
 const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item }) => {
-    console.log(item.newcolors2, 'item');
     return (
-        <View style={[{ borderWidth: 0.2, borderColor: Colors.light, padding: 10, marginTop: 10, borderRadius: 2 }]}>
-            {item.newcolors2 && item.newcolors2.name.map((item) => <TextBasic text={item} textColor={Colors.black} />)}
-        </View>
+        <Ripple
+            style={[
+                {
+                    borderWidth: 0.5,
+                    borderColor: Colors.light,
+
+                    marginTop: 10,
+                    borderRadius: 5,
+                    overflow: 'hidden',
+                },
+            ]}
+        >
+            <View
+                style={{
+                    height: 200,
+                    width: getWP(4.6),
+                    backgroundColor: '#f8f8f8',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Image
+                    style={{ height: 100, width: getWP(4), borderRadius: 5 }}
+                    source={{ uri: item.colors[0].photos[0] }}
+                />
+            </View>
+            <View style={{ padding: 5 }}>
+                <TextBasic
+                    text={'Available in ' + item.colors.length + ' colors'}
+                    fontSize={7}
+                    numberOfLines={1}
+                    textStyle={{ alignSelf: 'center', marginTop: 5 }}
+                    fontFamily={FontFamily.Bold}
+                    textColor={Colors.subHeading}
+                />
+                <View
+                    style={[
+                        FDR(),
+                        { flexWrap: 'wrap', alignSelf: 'center', marginTop: 5, justifyContent: 'space-evenly' },
+                    ]}
+                >
+                    {item.colors.map((color) => (
+                        <View
+                            style={{
+                                height: 20,
+                                width: 20,
+                                borderRadius: 5,
+
+                                backgroundColor: color.color.description,
+                                marginLeft: 5,
+                            }}
+                        />
+                    ))}
+                </View>
+                <ButtonRippleText
+                    onPress={() => {}}
+                    buttonText={item.shopId?.shopName.toUpperCase() + '\n 5 KMS away' || 'No Shop Name'}
+                    fontSize={12}
+                    textStyle={{ alignSelf: 'center', color: Colors.primary, fontFamily: FontFamily.Bold }}
+                    containerStyle={{
+                        padding: 3,
+                        borderWidth: 0.2,
+                        borderRadius: 2,
+                        borderColor: Colors.primary,
+                        backgroundColor: Colors.primaryLight,
+                        marginTop: 5,
+                    }}
+                />
+            </View>
+        </Ripple>
     );
 };
 

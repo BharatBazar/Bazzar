@@ -2,8 +2,6 @@ import { setBaseUrl } from '@app/api/apiLayer';
 import { getProduct } from '@app/api/product/product.api';
 import { getFilterWithValue } from '@app/api/product/product.filter.api';
 import {
-    IClassifier,
-    IFilter,
     IProduct,
     IRFilter,
     IRGetFilterWithValue,
@@ -13,26 +11,15 @@ import {
 import { Envar } from '@app/core/EnvWrapper';
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
-import Colors, { mainColor } from '@app/utilities/Colors';
-import { STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
+
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FLEX, JCC } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, FLEX, JCC } from '@app/utilities/Styles';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import * as React from 'react';
-import {
-    StatusBar,
-    Text,
-    View,
-    NativeModules,
-    SafeAreaView,
-    ScrollView,
-    Platform,
-    ActivityIndicator,
-    ToastAndroid,
-} from 'react-native';
-import FilterPopup from '../filter/FilterPopup';
+import { StatusBar, View, SafeAreaView, ScrollView, ActivityIndicator, ToastAndroid } from 'react-native';
+
 import FilterUi from '../filter/FilterUi';
 import ProductCard from './ProductCard';
 import ShopCard from './ShopCard';
@@ -46,6 +33,8 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     const [filter, setFilter] = React.useState<IRFilter[]>([]);
     const [distribution, setDistribution] = React.useState<IRFilter[]>([]);
     const [product, setProduct] = React.useState<IProduct[]>([]);
+
+    const [shops, setShops] = React.useState([]);
 
     const loadFilter = async () => {
         setLoader(true);
@@ -66,11 +55,20 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
 
     const loadProduct = async (filter: { [key: string]: string }) => {
         setLoader(true);
+        if (shops.length > 0) {
+            setShops([]);
+        } else {
+            setProduct([]);
+        }
         try {
             const response: IRGetProduct = await getProduct({ ...filter, status: productStatus.WAITINGFORAPPROVAL });
 
             if (response.status == 1) {
-                setProduct(response.payload);
+                if (filter.shop) {
+                    setShops(response.payload);
+                } else {
+                    setProduct(response.payload);
+                }
                 setLoader(false);
             }
         } catch (error) {
@@ -93,16 +91,17 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         <SafeAreaView style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
             <BasicHeader title="Mens Jeans" />
             <FilterUi filters={filter} loadProduct={loadProduct} />
-            <ScrollView style={[FLEX(1)]} contentContainerStyle={{ paddingHorizontal: 5, paddingTop: 5 }}>
+            <ScrollView style={[FLEX(1)]} contentContainerStyle={{ paddingHorizontal: 10, paddingTop: 5 }}>
                 <HeaderWithTitleAndSubHeading
                     heading="RESULTS"
                     subHeading="Price and other details may vary based on product size and color."
                     headerStyle={{ fontSize: 18, fontFamily: FontFamily.SemiBold }}
                     subHeaderStyle={{ color: '#7d7d7d' }}
                 />
-                {product.map((item) => (
-                    <ProductCard item={item} />
-                ))}
+                <View style={[{ flexWrap: 'wrap', flexDirection: 'row', flex: 1, justifyContent: 'space-between' }]}>
+                    {product.length > 0 && product.map((item) => <ProductCard item={item} />)}
+                    {shops.length > 0 && shops.map((item) => <ShopCard />)}
+                </View>
                 {/* <ShopCard />
                 <ShopCard />
                 <ShopCard />
