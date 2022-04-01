@@ -13,7 +13,7 @@ import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, JCC } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, FLEX, JCC, provideShadow } from '@app/utilities/Styles';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
@@ -82,7 +82,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     React.useEffect(() => {
         axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
         loadFilter();
-        loadProduct({});
+        loadProduct({ shop: showShops });
         StatusBar.setBarStyle('light-content');
         return () => {
             setBaseUrl();
@@ -92,12 +92,12 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         <SafeAreaView style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
             <BasicHeader title="Mens Jeans" />
             <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={loadProduct} />
-            <ScrollView style={[FLEX(1)]} contentContainerStyle={{ paddingHorizontal: 10, paddingTop: 5 }}>
+            <ScrollView style={[]} contentContainerStyle={{ paddingHorizontal: 10, paddingTop: 10, flex: 1 }}>
                 <HeaderWithTitleAndSubHeading
-                    heading="RESULTS"
+                    heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
                     subHeading="Price and other details may vary based on product size and color."
-                    headerStyle={{ fontSize: 18, fontFamily: FontFamily.SemiBold }}
-                    subHeaderStyle={{ color: '#7d7d7d' }}
+                    headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
+                    subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
                 />
                 {product.length > 0 && (
                     <View
@@ -108,16 +108,28 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                         ))}
                     </View>
                 )}
-                {shops.length > 0 && shops.map((item) => <ShopCard />)}
-                {/* <ShopCard />
-                <ShopCard />
-                <ShopCard />
-                <ShopCard />
-                <ShopCard />
-                <ShopCard />
-                <ShopCard />
-                <ShopCard />
-                <ShopCard /> */}
+                {shops.length > 0 && (
+                    <View
+                        style={[
+                            {
+                                flexWrap: 'wrap',
+                                flexDirection: 'row',
+                                flex: 1,
+                                justifyContent: 'space-between',
+                                paddingHorizontal: 10,
+                                borderRadius: 5,
+                                marginTop: 10,
+                                paddingBottom: 10,
+                            },
+                            BGCOLOR('#FFFFFF'),
+                            provideShadow(2),
+                        ]}
+                    >
+                        {[...shops, ...shops].map((item) => (
+                            <ShopCard item={item} />
+                        ))}
+                    </View>
+                )}
             </ScrollView>
             {loader && (
                 <View

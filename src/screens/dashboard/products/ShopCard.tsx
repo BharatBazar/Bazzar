@@ -1,43 +1,67 @@
 import TextBasic from '@app/screens/components/text/TextBasic';
+import Colors from '@app/utilities/Colors';
+import { getWP } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { AIC, BGCOLOR, FDR, FLEX, MH, MT, PH, provideShadow } from '@app/utilities/Styles';
 import * as React from 'react';
 import { Image, View } from 'react-native';
 
-interface ShopCardProps {}
+interface ShopCardProps {
+    item: any;
+}
 
-const ShopCard: React.FunctionComponent<ShopCardProps> = () => {
-    return (
-        <View
-            style={[
-                { padding: 10, borderRadius: 10 },
-                BGCOLOR('#FFFFFF'),
-                provideShadow(2),
-                MH(0.3),
-                FDR(),
-                AIC(),
-                MT(0.1),
-            ]}
-        >
-            <Image
-                source={{ uri: 'https://source.unsplash.com/user/c_v_r' }}
-                style={{ height: 100, width: 100, borderRadius: 10 }}
-            />
-            <View style={{ marginLeft: 10, alignSelf: 'flex-start', flex: 1 }}>
-                <TextBasic text="Rush in mens wear" fontSize={16} fontFamily={FontFamily.Regular} />
-                {/* <TextBasic text="We provide best jeans in the town latest fashion at best price and quality" /> */}
-                <View style={{ marginTop: 5 }} />
-                <TextBasic text="Owned By" fontSize={8} />
-                <TextBasic text="Aashish Bothra" />
-                <View style={{ marginTop: 5 }} />
-                <TextBasic text="Co-Owned By" fontSize={8} />
+const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item }) => {
+    if (item._id) {
+        return (
+            <View
+                style={[
+                    {
+                        borderRadius: 5,
 
-                <TextBasic text="Cherry Bothra, Kailash Kotak" />
-                {/* <View style={{ marginTop: 5 }} />
-                <TextBasic text="144 products..." /> */}
+                        marginTop: 10,
+                        borderWidth: 0.2,
+                        borderColor: Colors.light,
+
+                        overflow: 'hidden',
+                    },
+                    BGCOLOR('#FFFFFF'),
+                    provideShadow(1),
+
+                    FDR(),
+                    { width: '100%' },
+                ]}
+            >
+                <View
+                    style={{
+                        backgroundColor: '#f8f8f8',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingHorizontal: 10,
+                        borderTopRightRadius: 5,
+                        borderBottomRightRadius: 5,
+                        height: 130,
+                    }}
+                >
+                    <Image
+                        source={{ uri: 'https://source.unsplash.com/user/c_v_r' }}
+                        style={{ height: 80, width: 130, borderRadius: 5 }}
+                    />
+                </View>
+                <View style={{ padding: 5 }}>
+                    <TextBasic text={item.shopName} fontSize={14} fontFamily={FontFamily.SemiBold} />
+
+                    <View style={{ marginTop: 5 }} />
+                    <TextBasic text="Owned By" fontSize={8} />
+                    <TextBasic text="Aashish Bothra" />
+
+                    <View style={{ marginTop: 5 }} />
+                    <TextBasic text="144 products..." />
+                </View>
             </View>
-        </View>
-    );
+        );
+    } else {
+        return <View />;
+    }
 };
 
 export default ShopCard;
