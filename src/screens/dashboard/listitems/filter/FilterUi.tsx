@@ -99,25 +99,28 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
                     <ShowAppliedFilterValues selectedFilter={selectedFilter} />
                 </View>
             </ScrollView>
-            <ButtonRippleLeftMaterialIconMiddleTextRightChild
-                fontSize={12}
-                containerStyle={[styles.filterContainer]}
+            <UtilityButton
                 onPress={() => {
                     setModalVisible(true);
                 }}
+                iconName={'sort'}
+                modalVisible={modalVisible}
+                buttonText={
+                    'Sort' + (Object.keys(selectedFilter).length > 0 ? ` (${Object.keys(selectedFilter).length})` : '')
+                }
+            />
+            <UtilityButton
+                onPress={() => {
+                    setModalVisible(true);
+                }}
+                iconName={'filter-list'}
+                modalVisible={modalVisible}
                 buttonText={
                     'Filter' +
                     (Object.keys(selectedFilter).length > 0 ? ` (${Object.keys(selectedFilter).length})` : '')
                 }
-                textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold, color: Colors.primary }}
-                children={
-                    <MaterialIconWrapper
-                        iconSize={20}
-                        iconName={modalVisible ? 'expand-less' : 'expand-more'}
-                        iconColor={Colors.primary}
-                    />
-                }
             />
+
             <FilterPopup
                 filters={filters}
                 modalVisible={modalVisible}
@@ -142,3 +145,25 @@ const styles = StyleSheet.create({
         borderColor: Colors.borderColorPrimary,
     },
 });
+
+export const UtilityButton = ({ onPress, iconName, buttonText, modalVisible }) => (
+    <ButtonRippleLeftMaterialIconMiddleTextRightChild
+        fontSize={12}
+        containerStyle={[styles.filterContainer]}
+        onPress={() => {
+            onPress();
+        }}
+        iconName={iconName}
+        iconColor={Colors.primary}
+        buttonText={buttonText}
+        iconSize={10}
+        textStyle={{ fontSize: 13, fontFamily: FontFamily.SemiBold, color: Colors.primary, marginLeft: 5 }}
+        children={
+            <MaterialIconWrapper
+                iconSize={15}
+                iconName={modalVisible ? 'expand-less' : 'expand-more'}
+                iconColor={Colors.primary}
+            />
+        }
+    />
+);
