@@ -6,7 +6,8 @@ import MaterialIconWrapper from '@app/screens/components/icon/MaterialIconWrappe
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, JCC, PL, provideShadow } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, FLEX, JCC, PL, PR, provideShadow } from '@app/utilities/Styles';
+import { PLA, PRA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
 import { View, StyleSheet, ScrollView, Switch } from 'react-native';
 import ShowAppliedFilterValues from './component/ShowAppliedFilters';
@@ -62,7 +63,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
     };
 
     return (
-        <View style={[FDR(), { height: 45, width: '100%' }, provideShadow(2), BGCOLOR('#FFFFFF')]}>
+        <View style={[FDR(), { height: 45, width: '100%' }, provideShadow(2), BGCOLOR(Colors.white)]}>
             <ScrollView
                 style={{}}
                 // contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', paddingLeft: 10 }}
@@ -80,7 +81,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
                         }
                         setShowShops(!showShops);
                     }}
-                    containerStyle={{ paddingLeft: 5 }}
+                    containerStyle={[PLA(5)]}
                     iconName={'store'}
                     iconSize={25}
                     iconColor={showShops ? Colors.primary : Colors.primaryLight}
@@ -95,7 +96,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
                         />
                     }
                 />
-                <View style={[FLEX(1), JCC(), AIC(), { paddingRight: 10 }, FDR()]}>
+                <View style={[FLEX(1), JCC(), AIC(), PRA(10), FDR()]}>
                     <ShowAppliedFilterValues selectedFilter={selectedFilter} />
                 </View>
             </ScrollView>

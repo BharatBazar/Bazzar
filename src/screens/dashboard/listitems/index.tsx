@@ -9,22 +9,19 @@ import {
     productStatus,
 } from '@app/api/product/product.interface';
 import { Envar } from '@app/core/EnvWrapper';
-import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import Colors from '@app/utilities/Colors';
-
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, FW, JCC, provideShadow } from '@app/utilities/Styles';
-
+import { BGCOLOR, FDR, FLEX, FW, JCC, provideShadow } from '@app/utilities/Styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import * as React from 'react';
-import { StatusBar, View, SafeAreaView, ScrollView, ActivityIndicator, ToastAndroid, StyleSheet } from 'react-native';
-
+import { StatusBar, View, SafeAreaView, ScrollView, ToastAndroid, StyleSheet } from 'react-native';
 import FilterUi from './filter/FilterUi';
 import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
+import Loader from '@app/screens/components/loader/Loader';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -116,11 +113,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                     </View>
                 )}
             </ScrollView>
-            {loader && (
-                <View style={[AIC(), JCC(), styles.loaderContainer]}>
-                    <ActivityIndicator color={'#000000'} size={'large'} />
-                </View>
-            )}
+            {loader && <Loader />}
         </SafeAreaView>
     );
 };
