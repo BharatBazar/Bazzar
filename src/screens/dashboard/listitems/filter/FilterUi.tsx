@@ -21,6 +21,8 @@ interface FilterUiProps {
     setShowShops: (a: boolean) => void;
 }
 
+export const FILTER_HEIGHT = 45;
+
 const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct, showShops, setShowShops }) => {
     const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -64,7 +66,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
     };
 
     return (
-        <View style={[FDR(), { height: 45, width: '100%' }, provideShadow(2), BGCOLOR(Colors.white)]}>
+        <View style={[FDR(), { height: FILTER_HEIGHT, width: '100%' }, provideShadow(2), BGCOLOR(Colors.white)]}>
             <ScrollView
                 style={{}}
                 // contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', paddingLeft: 10 }}

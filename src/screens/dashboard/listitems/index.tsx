@@ -93,8 +93,8 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
             <HeaderLI />
             <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={loadProduct} />
             <ScrollView
-                style={[]}
-                contentContainerStyle={[FLEX(1), PTA(GENERAL_BOUNDARY_SPACE), PHA(GENERAL_BOUNDARY_SPACE)]}
+                // style={[FLEX(1)]}
+                style={[FLEX(1), PTA(GENERAL_BOUNDARY_SPACE), PHA(GENERAL_BOUNDARY_SPACE)]}
             >
                 <HeaderWithTitleAndSubHeading
                     heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}

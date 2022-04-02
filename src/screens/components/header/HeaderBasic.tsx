@@ -12,6 +12,8 @@ interface BasicHeaderProps {
     rightComponent?: React.ReactChild;
 }
 
+export const HEADER_HEIGHT = 60;
+
 const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title, rightComponent }) => {
     const navigation = useNavigation();
 
@@ -49,7 +51,7 @@ export default BasicHeader;
 
 const styles = StyleSheet.create({
     headerContainer: {
-        height: 60 + STATUS_BAR_HEIGHT,
+        height: HEADER_HEIGHT + STATUS_BAR_HEIGHT,
         width: '100%',
     },
 });
