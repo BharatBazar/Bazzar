@@ -14,3 +14,6 @@ export const getHP = (percentage: number) => {
 };
 
 export const STATUS_BAR_HEIGHT = getStatusBarHeight();
+
+export const GENERAL_BOUNDARY_SPACE = 10;
+export const GENERAL_BORDER_RADIUS = 5;

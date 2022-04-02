@@ -2,7 +2,7 @@ import { IProduct } from '@app/api/product/product.interface';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
-import { getWP } from '@app/utilities/Dimensions';
+import { GENERAL_BORDER_RADIUS, GENERAL_BOUNDARY_SPACE, getWP } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { FDR } from '@app/utilities/Styles';
 import * as React from 'react';
@@ -21,8 +21,8 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item }) => {
                     borderWidth: 0.5,
                     borderColor: Colors.light,
 
-                    marginTop: 10,
-                    borderRadius: 5,
+                    marginTop: GENERAL_BOUNDARY_SPACE,
+                    borderRadius: GENERAL_BORDER_RADIUS,
                     overflow: 'hidden',
                 },
             ]}
@@ -37,7 +37,7 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item }) => {
                 }}
             >
                 <Image
-                    style={{ height: 100, width: getWP(4), borderRadius: 5 }}
+                    style={{ height: 100, width: getWP(4), borderRadius: GENERAL_BORDER_RADIUS }}
                     source={{ uri: item.colors[0].photos[0] }}
                 />
             </View>

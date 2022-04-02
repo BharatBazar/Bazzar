@@ -5,6 +5,7 @@ import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import MaterialIconWrapper from '@app/screens/components/icon/MaterialIconWrapper';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
+import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { AIC, BGCOLOR, FDR, FLEX, JCC, PL, PR, provideShadow } from '@app/utilities/Styles';
 import { PLA, PRA } from '@app/utilities/StyleWrapper';
@@ -81,7 +82,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
                         }
                         setShowShops(!showShops);
                     }}
-                    containerStyle={[PLA(5)]}
+                    containerStyle={[PLA(GENERAL_BOUNDARY_SPACE - 2)]}
                     iconName={'store'}
                     iconSize={25}
                     iconColor={showShops ? Colors.primary : Colors.primaryLight}
@@ -96,7 +97,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
                         />
                     }
                 />
-                <View style={[FLEX(1), JCC(), AIC(), PRA(10), FDR()]}>
+                <View style={[FLEX(1), JCC(), AIC(), PRA(GENERAL_BOUNDARY_SPACE), FDR()]}>
                     <ShowAppliedFilterValues selectedFilter={selectedFilter} />
                 </View>
             </ScrollView>
@@ -141,7 +142,7 @@ export default FilterUi;
 const styles = StyleSheet.create({
     filterContainer: {
         height: '100%',
-        paddingHorizontal: '2%',
+        paddingHorizontal: GENERAL_BOUNDARY_SPACE,
         borderStartWidth: 0.2,
         borderColor: Colors.borderColorPrimary,
     },

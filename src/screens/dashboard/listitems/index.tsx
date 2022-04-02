@@ -22,6 +22,8 @@ import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
+import { PHA, PTA } from '@app/utilities/StyleWrapper';
+import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -30,7 +32,6 @@ interface ProductsProps {
 const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     const [loader, setLoader] = React.useState(false);
     const [filter, setFilter] = React.useState<IRFilter[]>([]);
-    const [distribution, setDistribution] = React.useState<IRFilter[]>([]);
     const [product, setProduct] = React.useState<IProduct[]>([]);
     const [showShops, setShowShops] = React.useState(false);
 
@@ -40,7 +41,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         setLoader(true);
         try {
             const response: IRGetFilterWithValue = await getFilterWithValue({ active: true });
-            console.log('Respomnse', response);
+            console.log('Response', response);
             if (response.status == 1) {
                 setFilter([...response.payload.distribution, ...response.payload.filter]);
 
@@ -91,7 +92,10 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
             <HeaderLI />
             <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={loadProduct} />
-            <ScrollView style={[]} contentContainerStyle={{ paddingHorizontal: 10, paddingTop: 10, flex: 1 }}>
+            <ScrollView
+                style={[]}
+                contentContainerStyle={[FLEX(1), PTA(GENERAL_BOUNDARY_SPACE), PHA(GENERAL_BOUNDARY_SPACE)]}
+            >
                 <HeaderWithTitleAndSubHeading
                     heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
                     subHeading="Price and other details may vary based on product size and color."
@@ -107,7 +111,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                 )}
                 {shops.length > 0 && (
                     <View style={[styles.shopCardContainer, BGCOLOR('#FFFFFF'), provideShadow(2)]}>
-                        {[...shops].map((item) => (
+                        {shops.map((item) => (
                             <ShopCard item={item} />
                         ))}
                     </View>

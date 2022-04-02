@@ -1,8 +1,8 @@
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
-import { getWP } from '@app/utilities/Dimensions';
+import { GENERAL_BORDER_RADIUS, GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, MH, MT, PH, provideShadow } from '@app/utilities/Styles';
+import { BGCOLOR, FDR, provideShadow } from '@app/utilities/Styles';
 import * as React from 'react';
 import { Image, View } from 'react-native';
 
@@ -16,9 +16,9 @@ const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item }) => {
             <View
                 style={[
                     {
-                        borderRadius: 5,
+                        borderRadius: GENERAL_BORDER_RADIUS,
 
-                        marginTop: 10,
+                        marginTop: GENERAL_BOUNDARY_SPACE,
                         borderWidth: 0.2,
                         borderColor: Colors.light,
 
@@ -36,7 +36,7 @@ const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item }) => {
                         backgroundColor: '#f8f8f8',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        paddingHorizontal: 10,
+                        paddingHorizontal: GENERAL_BOUNDARY_SPACE,
                         borderTopRightRadius: 5,
                         borderBottomRightRadius: 5,
                         height: 130,
