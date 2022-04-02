@@ -59,9 +59,9 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item }) => {
                     {item.colors.map((color) => (
                         <View
                             style={{
-                                height: 20,
-                                width: 20,
-                                borderRadius: 5,
+                                height: 22,
+                                width: 22,
+                                borderRadius: GENERAL_BORDER_RADIUS * 0.7,
 
                                 backgroundColor: color.color.description,
                                 marginLeft: 5,
