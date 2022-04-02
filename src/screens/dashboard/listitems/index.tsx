@@ -11,18 +11,20 @@ import {
 import { Envar } from '@app/core/EnvWrapper';
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
+import Colors from '@app/utilities/Colors';
 
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, JCC, provideShadow } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, FLEX, FW, JCC, provideShadow } from '@app/utilities/Styles';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import * as React from 'react';
-import { StatusBar, View, SafeAreaView, ScrollView, ActivityIndicator, ToastAndroid } from 'react-native';
+import { StatusBar, View, SafeAreaView, ScrollView, ActivityIndicator, ToastAndroid, StyleSheet } from 'react-native';
 
-import FilterUi from '../filter/FilterUi';
-import ProductCard from './ProductCard';
-import ShopCard from './ShopCard';
+import FilterUi from './filter/FilterUi';
+import ProductCard from './component/ProductCard';
+import ShopCard from './component/ShopCard';
+import HeaderLI from './component/ListItemHeader';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -89,8 +91,8 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         };
     }, []);
     return (
-        <SafeAreaView style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
-            <BasicHeader title="Mens Jeans" />
+        <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
+            <HeaderLI />
             <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={loadProduct} />
             <ScrollView style={[]} contentContainerStyle={{ paddingHorizontal: 10, paddingTop: 10, flex: 1 }}>
                 <HeaderWithTitleAndSubHeading
@@ -100,45 +102,22 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                     subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
                 />
                 {product.length > 0 && (
-                    <View
-                        style={[{ flexWrap: 'wrap', flexDirection: 'row', flex: 1, justifyContent: 'space-between' }]}
-                    >
+                    <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
                         {product.map((item) => (
                             <ProductCard item={item} />
                         ))}
                     </View>
                 )}
                 {shops.length > 0 && (
-                    <View
-                        style={[
-                            {
-                                flexWrap: 'wrap',
-                                flexDirection: 'row',
-                                flex: 1,
-                                justifyContent: 'space-between',
-                                paddingHorizontal: 10,
-                                borderRadius: 5,
-                                marginTop: 10,
-                                paddingBottom: 10,
-                            },
-                            BGCOLOR('#FFFFFF'),
-                            provideShadow(2),
-                        ]}
-                    >
-                        {[...shops, ...shops].map((item) => (
+                    <View style={[styles.shopCardContainer, BGCOLOR('#FFFFFF'), provideShadow(2)]}>
+                        {[...shops].map((item) => (
                             <ShopCard item={item} />
                         ))}
                     </View>
                 )}
             </ScrollView>
             {loader && (
-                <View
-                    style={[
-                        AIC(),
-                        JCC(),
-                        { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#ffffff33' },
-                    ]}
-                >
+                <View style={[AIC(), JCC(), styles.loaderContainer]}>
                     <ActivityIndicator color={'#000000'} size={'large'} />
                 </View>
             )}
@@ -147,3 +126,17 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
 };
 
 export default Products;
+
+const styles = StyleSheet.create({
+    shopCardContainer: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        marginTop: 10,
+        paddingBottom: 10,
+    },
+    loaderContainer: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#ffffff33' },
+});

@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RnBootSplash from 'react-native-bootsplash';
-import Products from '@app/screens/dashboard/products';
+import Products from '@app/screens/dashboard/listitems';
 import { colorCode, mainColor } from '@app/utilities/Colors';
 import { NavigationKey } from './navigation-data';
 

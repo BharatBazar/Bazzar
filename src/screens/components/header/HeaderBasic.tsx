@@ -1,6 +1,6 @@
-import Colors, { mainColor } from '@app/utilities/Colors';
+import Colors from '@app/utilities/Colors';
 import { STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
-import { AIC, colorTransparency, FDR, FLEX, JCC, provideShadow } from '@app/utilities/Styles';
+import { AIC, FDR, FLEX, JCC, provideShadow } from '@app/utilities/Styles';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -9,9 +9,10 @@ import TextBasic from '../text/TextBasic';
 
 interface BasicHeaderProps {
     title: string;
+    rightComponent?: React.ReactChild;
 }
 
-const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title }) => {
+const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title, rightComponent }) => {
     const navigation = useNavigation();
 
     let goBack = React.useMemo(() => navigation.canGoBack(), [navigation]);
@@ -33,11 +34,7 @@ const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title }) => {
                     {!goBack && <ButtonMaterialIcons iconName={'arrow-back'} iconSize={25} onPress={() => {}} />}
                     <TextBasic text={title} textColor={Colors.white} fontSize={18} textStyle={{ marginLeft: 5 }} />
                 </View>
-                <View style={[FDR(), AIC()]}>
-                    <ButtonMaterialIcons iconName={'search'} iconSize={25} onPress={() => {}} />
-                    <ButtonMaterialIcons iconName={'favorite'} iconSize={22} onPress={() => {}} />
-                    <ButtonMaterialIcons iconName={'chat'} iconSize={22} onPress={() => {}} />
-                </View>
+                {rightComponent && rightComponent}
             </View>
         </View>
     );

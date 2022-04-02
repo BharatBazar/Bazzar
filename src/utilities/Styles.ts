@@ -53,6 +53,10 @@ export const FDR = (value?: 'row' | 'column' | 'row-reverse' | 'column-reverse' 
     return { flexDirection: value || 'row' };
 };
 
+export const FW = (value?: 'wrap' | 'nowrap' | 'wrap-reverse' | undefined): ViewStyle => {
+    return { flexWrap: value || 'wrap' };
+};
+
 export const AIC = (value?: FlexAlignType): ViewStyle => {
     return { alignItems: value || 'center' };
 };
