@@ -19,12 +19,13 @@ import { FILTER_HEIGHT } from '../filter/FilterUi';
 
 interface ProductCardProps {
     item: IProduct;
+    onPress: Function;
 }
 
 const ITEM_WIDTH = (getWP(10) - 2 * GENERAL_BOUNDARY_SPACE) / 2 - GENERAL_BOUNDARY_SPACE / 2;
 const ITEM_HEIGHT = (getHP(10) - HEADER_HEIGHT - FILTER_HEIGHT * 2 - STATUS_BAR_HEIGHT) / 2;
 
-const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item }) => {
+const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress }) => {
     return (
         <Ripple
             style={[
@@ -37,6 +38,9 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item }) => {
                     overflow: 'hidden',
                 },
             ]}
+            onPress={() => {
+                onPress();
+            }}
         >
             <View
                 style={{

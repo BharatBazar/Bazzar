@@ -1,12 +1,12 @@
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Animated } from 'react-native';
 import { AIC, FDR } from '@app/utilities/Styles';
 import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
 
 interface HeaderLIProps {}
 
-const HeaderLI: React.FunctionComponent<HeaderLIProps> = () => {
+const HeaderLI: React.FunctionComponent<HeaderLIProps> = ({}) => {
     return (
         <BasicHeader
             title="Mens Jeans"

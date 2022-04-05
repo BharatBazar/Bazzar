@@ -33,7 +33,15 @@ const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title, rightCo
                 ]}
             >
                 <View style={[FDR(), AIC(), FLEX(1)]}>
-                    {goBack && <ButtonMaterialIcons iconName={'arrow-back'} iconSize={25} onPress={() => {}} />}
+                    {goBack && (
+                        <ButtonMaterialIcons
+                            iconName={'arrow-back'}
+                            iconSize={25}
+                            onPress={() => {
+                                navigation.goBack();
+                            }}
+                        />
+                    )}
                     <TextBasic
                         text={title}
                         textColor={Colors.white}

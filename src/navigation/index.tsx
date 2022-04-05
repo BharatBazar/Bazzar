@@ -4,8 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RnBootSplash from 'react-native-bootsplash';
 import Products from '@app/screens/dashboard/listitems';
-import { colorCode, mainColor } from '@app/utilities/Colors';
 import { NavigationKey } from './navigation-data';
+import ProductDetails from '@app/screens/dashboard/product/Product';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,9 +31,9 @@ export default function Navigator() {
                 RnBootSplash.hide();
             }}
         >
-            <Stack.Navigator initialRouteName={NavigationKey.ShowProduct} screenOptions={{ headerShown: false }}>
-                <Stack.Screen name={NavigationKey.ShowProduct} component={Products} />
-                <Stack.Screen name="Dome" component={DomeScreen} />
+            <Stack.Navigator initialRouteName={NavigationKey.ListItems} screenOptions={{ headerShown: false }}>
+                <Stack.Screen name={NavigationKey.ListItems} component={Products} />
+                <Stack.Screen name={NavigationKey.ShowProduct} component={ProductDetails} />
             </Stack.Navigator>
         </NavigationContainer>
     );
