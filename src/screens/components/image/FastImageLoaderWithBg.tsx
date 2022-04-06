@@ -19,8 +19,8 @@ const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 export const FastImageLoaderWithBg = ({ style, resizeMode, source }: FastImageLoaderWithBgProps) => {
     const [imageLoaded, setImageLoaded] = React.useState(false);
-    let Image = new Animated.Value(0);
-    let defaultImage = new Animated.Value(1);
+    let Image = React.useRef(new Animated.Value(0)).current;
+    let defaultImage = React.useRef(new Animated.Value(1)).current;
 
     const animateImage = (component: Animated.Value, toValue: number) => {
         Animated.timing(component, {

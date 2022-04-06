@@ -18,6 +18,13 @@ export const MVA = (value?: number | string): ViewStyle => {
     return { marginVertical: value };
 };
 
+export const MTA = (value?: number | string): ViewStyle => {
+    return { marginTop: value };
+};
+export const MBA = (value?: number | string): ViewStyle => {
+    return { marginBottom: value };
+};
+
 export const PLA = (value?: number | string): ViewStyle => {
     return { paddingLeft: value };
 };

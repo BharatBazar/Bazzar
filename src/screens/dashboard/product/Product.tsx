@@ -5,11 +5,13 @@ import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
 import Loader from '@app/screens/components/loader/Loader';
 import TextBasic from '@app/screens/components/text/TextBasic';
+import Colors from '@app/utilities/Colors';
 import { GENERAL_BOUNDARY_SPACE, getHP, getWP } from '@app/utilities/Dimensions';
-import { AIC, BGCOLOR, FDR, FLEX, JCC } from '@app/utilities/Styles';
-import { PHA } from '@app/utilities/StyleWrapper';
+import { AIC, BGCOLOR, FDR, FLEX, JCC, MT, provideShadow } from '@app/utilities/Styles';
+import { MTA, PHA } from '@app/utilities/StyleWrapper';
 import React from 'react';
 import { View, Image, ToastAndroid } from 'react-native';
+import SelectColor from './component/SelectColor';
 
 interface ProductDetailsProps {
     route: {
@@ -63,34 +65,33 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                             )}
                         />
                     </View>
-                    <View style={[FDR(), AIC(), JCC('space-between'), PHA(GENERAL_BOUNDARY_SPACE)]}>
+                    <View
+                        style={[
+                            FDR(),
+                            AIC(),
+                            JCC('space-between'),
+                            PHA(GENERAL_BOUNDARY_SPACE),
+                            provideShadow(),
+                            MTA(10),
+                        ]}
+                    >
                         <TextBasic text={`Available Colors: ${productDetails.colors.length}`} />
                     </View>
-                    <View style={[FDR(), AIC(), PHA(GENERAL_BOUNDARY_SPACE)]}>
-                        {productDetails.colors.map((item: IColor) => (
-                            <View>
-                                <View
-                                    style={{
-                                        height: 40,
-                                        width: 40,
-                                        borderRadius: 10,
-                                        borderWidth: 2,
-                                        borderColor: item.color.description,
-                                        padding: 2,
-                                        marginRight: 5,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <Image
-                                        source={{ uri: item.photos[0] }}
-                                        style={{ height: 30, width: 30, borderRadius: 10 }}
-                                    />
-                                </View>
-
-                                <TextBasic text={item.color.name} />
-                            </View>
-                        ))}
+                    <View
+                        style={[
+                            FDR(),
+                            AIC(),
+                            PHA(GENERAL_BOUNDARY_SPACE),
+                            BGCOLOR(Colors.white),
+                            provideShadow(),
+                            MTA(10),
+                        ]}
+                    >
+                        <SelectColor
+                            colors={productDetails.colors}
+                            selectedColorIndex={selectedColorIndex}
+                            setSelectedColorIndex={setSelectedColorIndex}
+                        />
                     </View>
                 </>
             )}
