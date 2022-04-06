@@ -4,12 +4,15 @@ import Carousel from '@app/screens/components/carousel/PhotoCarousel';
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
 import Loader from '@app/screens/components/loader/Loader';
+import Colors from '@app/utilities/Colors';
 import { getHP, getWP } from '@app/utilities/Dimensions';
 import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 import { PBA } from '@app/utilities/StyleWrapper';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import HeaderLI from '../listitems/component/ListItemHeader';
 import BottomBar from './component/BottomButton';
+import ItemDetails from './component/ItemDetails';
 import SelectColor from './component/SelectColor';
 import ShopDetails from './component/ShopDetails';
 
@@ -44,9 +47,9 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
     }, []);
 
     return (
-        <View style={[FLEX(1), BGCOLOR('#FFFFFF')]}>
-            <BasicHeader title="Product details" />
-
+        <View style={[FLEX(1), BGCOLOR(Colors.lighter)]}>
+            {/* <BasicHeader title="Product details" /> */}
+            <HeaderLI />
             {Object.keys(productDetails).length > 0 && (
                 <ScrollView contentContainerStyle={[PBA(getHP(1))]}>
                     <Carousel
@@ -70,7 +73,8 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                         selectedColorIndex={selectedColorIndex}
                         setSelectedColorIndex={setSelectedColorIndex}
                     />
-                    {productDetails.shopId && <ShopDetails shop={productDetails.shopId} />}
+                    <ShopDetails shop={productDetails.shopId} />
+                    <ItemDetails />
                 </ScrollView>
             )}
             <BottomBar />

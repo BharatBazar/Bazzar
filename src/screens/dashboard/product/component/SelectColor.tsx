@@ -22,7 +22,7 @@ const SelectColor: React.FunctionComponent<SelectColorProps> = ({
     setSelectedColorIndex,
 }) => {
     return (
-        <View style={[BGCOLOR(Colors.white), provideShadow(2), MTA(), PA()]}>
+        <View style={[BGCOLOR(Colors.white), provideShadow(2), MTA(5), PA()]}>
             <View style={[FDR(), AIC()]}>
                 <TextBasic
                     text={`Available in : `.toLocaleUpperCase()}

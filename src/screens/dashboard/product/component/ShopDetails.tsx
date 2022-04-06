@@ -15,13 +15,19 @@ interface ShopDetailsProps {
 
 const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
     return (
-        <View style={[BGCOLOR(Colors.white), provideShadow(2), MTA(), PA()]}>
+        <View style={[BGCOLOR(Colors.white), provideShadow(2), MTA(5), PA()]}>
             <TextBasic text="Shop Details" fontFamily={FontFamily.SemiBold} fontSize={16} />
             <View style={[FDR(), AIC(), MTA()]}>
                 <View style={[AIC()]}>
                     <FastImageLoaderWithBg
                         source={{ uri: 'https://m.media-amazon.com/images/I/71BKJmt+BIL._UL1500_.jpg' }}
-                        style={{ height: 100, width: 100, borderRadius: 50, borderWidth: 1 }}
+                        style={{
+                            height: 100,
+                            width: 100,
+                            borderRadius: 50,
+                            borderWidth: 1,
+                            borderColor: Colors.borderColorPrimary,
+                        }}
                         resizeMode="cover"
                     />
                     <TextBasic text={shop.shopName} fontFamily={FontFamily.Bold} fontSize={12} />
