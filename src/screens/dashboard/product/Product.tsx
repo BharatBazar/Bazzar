@@ -7,8 +7,9 @@ import Loader from '@app/screens/components/loader/Loader';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { GENERAL_BOUNDARY_SPACE, getHP, getWP } from '@app/utilities/Dimensions';
+import { FontFamily } from '@app/utilities/FontFamily';
 import { AIC, BGCOLOR, FDR, FLEX, JCC, MT, provideShadow } from '@app/utilities/Styles';
-import { MTA, PHA } from '@app/utilities/StyleWrapper';
+import { MTA, PA, PHA } from '@app/utilities/StyleWrapper';
 import React from 'react';
 import { View, Image, ToastAndroid } from 'react-native';
 import SelectColor from './component/SelectColor';
@@ -65,34 +66,12 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                             )}
                         />
                     </View>
-                    <View
-                        style={[
-                            FDR(),
-                            AIC(),
-                            JCC('space-between'),
-                            PHA(GENERAL_BOUNDARY_SPACE),
-                            provideShadow(),
-                            MTA(10),
-                        ]}
-                    >
-                        <TextBasic text={`Available Colors: ${productDetails.colors.length}`} />
-                    </View>
-                    <View
-                        style={[
-                            FDR(),
-                            AIC(),
-                            PHA(GENERAL_BOUNDARY_SPACE),
-                            BGCOLOR(Colors.white),
-                            provideShadow(),
-                            MTA(10),
-                        ]}
-                    >
-                        <SelectColor
-                            colors={productDetails.colors}
-                            selectedColorIndex={selectedColorIndex}
-                            setSelectedColorIndex={setSelectedColorIndex}
-                        />
-                    </View>
+
+                    <SelectColor
+                        colors={productDetails.colors}
+                        selectedColorIndex={selectedColorIndex}
+                        setSelectedColorIndex={setSelectedColorIndex}
+                    />
                 </>
             )}
             {loader && <Loader />}

@@ -6,7 +6,7 @@ import FastImage, { ResizeMode, Priority } from 'react-native-fast-image';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 interface FastImageLoaderWithBgProps {
-    style?: StyleProp<ImageStyle>;
+    style?: StyleProp<ImageStyle>[];
     resizeMode?: ResizeMode;
     source: {
         uri: string;
