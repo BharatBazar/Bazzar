@@ -75,6 +75,7 @@ const Carousel: React.FunctionComponent<CarouselProps> = ({ data, renderItem, he
                     renderItem={({ item }) => {
                         return renderItem(item);
                     }}
+                    style={{ height: height, width: width }}
                     onMomentumScrollEnd={({
                         nativeEvent: {
                             contentOffset: { x, y },
@@ -85,7 +86,9 @@ const Carousel: React.FunctionComponent<CarouselProps> = ({ data, renderItem, he
                         //     setSlideTimer(x);
                         // } else setSlideTimer(x);
                     }}
-                    onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }])}
+                    onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+                        // useNativeDriver: true,
+                    })}
                 />
 
                 <View style={styles.dotView}>

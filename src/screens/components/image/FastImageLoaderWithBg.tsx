@@ -30,7 +30,7 @@ export const FastImageLoaderWithBg = ({ style, resizeMode, source }: FastImageLo
         }).start(() => {});
     };
     return (
-        <View style={[style || { width: getWP(2), height: getHP(1) }]}>
+        <View style={[]}>
             <AnimatedFastImage
                 style={[style || { width: getWP(2), height: getHP(1) }, { opacity: Image }]}
                 source={source}

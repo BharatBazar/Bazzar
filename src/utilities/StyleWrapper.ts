@@ -1,5 +1,5 @@
 import { FontFamily } from './FontFamily';
-import { GENERAL_BOUNDARY_SPACE } from './Dimensions';
+import { GENERAL_BOUNDARY_SPACE, getHP } from './Dimensions';
 import { ViewStyle, TextStyle } from 'react-native';
 
 export const PHA = (value?: number | string): ViewStyle => {
@@ -8,6 +8,10 @@ export const PHA = (value?: number | string): ViewStyle => {
 
 export const PA = (value?: number | string): ViewStyle => {
     return { padding: value || GENERAL_BOUNDARY_SPACE };
+};
+
+export const PBA = (value?: number | string): ViewStyle => {
+    return { paddingBottom: value || GENERAL_BOUNDARY_SPACE };
 };
 
 export const PVA = (value?: number | string): ViewStyle => {

@@ -4,7 +4,7 @@ import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { GENERAL_BORDER_RADIUS, getHP } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BC, BGCOLOR, BW, FDR, FW, H, HP, JCC, MR, MT, provideShadow, W } from '@app/utilities/Styles';
+import { AIC, BC, BGCOLOR, BW, FDR, FW, H, HP, JCC, provideShadow } from '@app/utilities/Styles';
 import { BRA, HA, MLA, MRA, MTA, PA, WA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
 import { View } from 'react-native';

@@ -78,7 +78,7 @@ export interface IColor {
 export interface IProduct {
     //Also i need to think about how i will be dealing with language preferences how can i use multiple language.
     _id: string;
-    shopId: string;
+    shopId: IShop;
 
     //Above field will have predifined information about the size, unit etc.
     title: string;
@@ -99,6 +99,57 @@ export interface IProduct {
     note: string;
     descriptionCustomer: string;
     alreadyRejected: boolean;
+}
+
+export enum verificationStatus {
+    registered = 'Registered',
+    processing = 'Processing',
+    rejected = 'Rejected',
+    verified = 'Verified',
+}
+
+export interface IShopMember {
+    firstName: string;
+    lastName: string;
+    //photo: [{_id:ObjectId}];
+    permissions: string;
+    phoneNumber: string;
+    shop: IShop;
+    role: string;
+    _id: string;
+    password: string;
+    isTerminated: boolean;
+    isDeleted: boolean;
+    languagePreference: ['Hindi', 'English', 'Message'];
+}
+export interface IShop {
+    shopName: string;
+    shopDescription: string;
+    addressOfShop: string;
+
+    verificationStatus: verificationStatus;
+    remarks: string;
+    // whatYouSell: string[];
+
+    state: IClassifier;
+    city: IClassifier;
+    area: IClassifier;
+    pincode: IClassifier;
+    localAddress: string;
+
+    owner: IShopMember;
+    coOwner: IShopMember[];
+    worker: IShopMember[];
+
+    isVerified: boolean;
+    isTerminated: boolean;
+    membersDetailSkipped: boolean;
+    rating: Number;
+    noOfRating: Number;
+    category: [IClassifier];
+    subCategory: [[IClassifier]];
+    subCategory1: [[[IClassifier]]];
+    shopMemberOnBoardingDone: boolean;
 }
 
 export interface IRGetFilter extends CommonApiResponse {
