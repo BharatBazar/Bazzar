@@ -1,8 +1,9 @@
 import { CommonApiResponse } from './../common.interface';
 
-//classifier type is very important as this gives what filter to update in ui
-// so name should match the document field
-// also this is the medium of connection between filter and its value
+/**classifier type is very important as this gives what filter to update in ui
+ * so name should match the document field
+ * also this is the medium of connection between filter and its value
+ */
 export enum classifierTypes {
     SIZE = 'size',
     COLOR = 'color',
@@ -56,7 +57,7 @@ export enum productStatus {
 
 export interface IProductSize {
     _id: string;
-    size: IClassifier | string; //Will refer to size table
+    size: IClassifier; //Will refer to size table
     mrp: string;
     quantity: number;
     sp: string;
@@ -67,7 +68,7 @@ export interface IProductSize {
 export interface IColor {
     _id: string;
     parentId: string; // will refer to main table
-    color: IClassifier | string; // will refer to color table
+    color: IClassifier; // will refer to color table
     sizes: [IProductSize]; // will refer to jeans size table
     photos: [string];
     includedColor: [IClassifier];
@@ -92,8 +93,8 @@ export interface IProduct {
     description: string; // Will be a audio as audio is better to understand in common language
     discount: [number]; // If a dukandar has decided that he wants to give special discount on particular product so discount will for each color
     discountDeadline: [Date];
-    brand: string | IClassifier;
-    fit: string | IClassifier;
+    brand: string | [IClassifier];
+    fit: string | [IClassifier];
     pattern: [string] | [IClassifier];
     note: string;
     descriptionCustomer: string;
@@ -115,4 +116,8 @@ export interface IRGetProduct extends CommonApiResponse {
     payload: {
         product: IProduct[];
     };
+}
+
+export interface IRGetProductDetails extends CommonApiResponse {
+    payload: IProduct;
 }
