@@ -133,6 +133,7 @@ export const BBR = (value: number): ViewStyle => {
 export const BTR = (value: number): ViewStyle => {
     return { borderTopRightRadius: value, borderTopLeftRadius: value };
 };
+
 export const provideShadowIos = (
     shadowColor?: string,
     shadowOffSet?: {

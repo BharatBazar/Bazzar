@@ -1,5 +1,6 @@
+import { FontFamily } from './FontFamily';
 import { GENERAL_BOUNDARY_SPACE } from './Dimensions';
-import { ViewStyle } from 'react-native';
+import { ViewStyle, TextStyle } from 'react-native';
 
 export const PHA = (value?: number | string): ViewStyle => {
     return { paddingHorizontal: value || GENERAL_BOUNDARY_SPACE };
@@ -55,4 +56,18 @@ export const HA = (value?: number): ViewStyle => {
 
 export const WA = (value?: number): ViewStyle => {
     return { width: value || GENERAL_BOUNDARY_SPACE };
+};
+
+export const POS = (
+    pos: 'absolute' | 'relative',
+    left = undefined,
+    right = undefined,
+    top = undefined,
+    bottom = undefined,
+): ViewStyle => {
+    return { position: pos || 'absolute', left, top, right, bottom };
+};
+
+export const FF = (fontFamily: 'Bold' | 'SemiBold' | 'ExtraBold' | 'Light' | 'Medium' | 'Regular'): TextStyle => {
+    return { fontFamily: FontFamily[fontFamily] };
 };

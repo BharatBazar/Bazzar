@@ -1,5 +1,6 @@
 import { getProductDetails } from '@app/api/product/product.api';
 import { IColor, IProduct, IRGetProductDetails } from '@app/api/product/product.interface';
+import ButtonRippleLeftMaterialIconMiddleTextRightChild from '@app/screens/components/button/ButtonRippleLeftMaterialIconMiddleTextRightChild';
 import Carousel from '@app/screens/components/carousel/PhotoCarousel';
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
@@ -8,8 +9,8 @@ import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { GENERAL_BOUNDARY_SPACE, getHP, getWP } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, JCC, MT, provideShadow } from '@app/utilities/Styles';
-import { MTA, PA, PHA } from '@app/utilities/StyleWrapper';
+import { AIC, BGCOLOR, FDR, FLEX, HP, JCC, MT, provideShadow } from '@app/utilities/Styles';
+import { FF, HA, MLA, MTA, PA, PHA, POS } from '@app/utilities/StyleWrapper';
 import React from 'react';
 import { View, Image, ToastAndroid } from 'react-native';
 import SelectColor from './component/SelectColor';
@@ -74,6 +75,28 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                     />
                 </>
             )}
+            <View style={[POS('absolute', 0, 0, undefined, 0), FDR(), HP(0.7), BGCOLOR(), provideShadow(10)]}>
+                <ButtonRippleLeftMaterialIconMiddleTextRightChild
+                    onPress={() => {}}
+                    containerStyle={[FLEX(1), BGCOLOR(Colors.white)]}
+                    buttonText={'Ask question'.toLocaleUpperCase()}
+                    iconName={'chat'}
+                    iconSize={20}
+                    textStyle={[MLA(5)]}
+                    fontSize={13}
+                />
+                <ButtonRippleLeftMaterialIconMiddleTextRightChild
+                    onPress={() => {}}
+                    containerStyle={[FLEX(1), BGCOLOR(Colors.primary)]}
+                    buttonText={'Add to Favourite'.toLocaleUpperCase()}
+                    buttonTextColor={Colors.white}
+                    textStyle={[FF('Bold'), MLA(5)]}
+                    iconName={'favorite'}
+                    iconSize={20}
+                    iconColor={Colors.white}
+                    fontSize={13}
+                />
+            </View>
             {loader && <Loader />}
         </View>
     );
