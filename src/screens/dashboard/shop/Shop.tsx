@@ -14,7 +14,7 @@ import Loader from '@app/screens/components/loader/Loader';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { BGCOLOR, FDR, FLEX, FW, JCC } from '@app/utilities/Styles';
-import { MHA, MTA } from '@app/utilities/StyleWrapper';
+import { MHA, MTA, MVA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
 import { ToastAndroid, View, ScrollView } from 'react-native';
 import HeaderLI from '../listitems/component/ListItemHeader';
@@ -105,8 +105,7 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
 
     return (
         <View style={[FLEX(1), BGCOLOR(Colors.lighter)]}>
-            <HeaderLI />
-
+            <BasicHeader title={shop ? shop['shopName'] : 'shop name'} />
             {shop && (
                 <ScrollView>
                     <ShopDetails shop={shop} />
@@ -117,15 +116,16 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
                         filters={filter}
                         loadProduct={() => {}}
                     />
-                    <View style={[MTA(5)]} />
-                    <HeaderWithTitleAndSubHeading
-                        heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS IN ' + shop.shopName.toLocaleUpperCase()}
-                        subHeading="Price and other details may vary based on product size and color."
-                        headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
-                        subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
-                    />
+                    <View style={[MHA(), MVA()]}>
+                        <HeaderWithTitleAndSubHeading
+                            heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS IN ' + shop.shopName.toLocaleUpperCase()}
+                            subHeading="Price and other details may vary based on product size and color."
+                            headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
+                            subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
+                        />
+                    </View>
                     {product.length > 0 && (
-                        <View style={[FDR(), FW(), JCC('space-between'), FLEX(1), MHA()]}>
+                        <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
                             {product.map((item) => (
                                 <ProductCard
                                     item={item}

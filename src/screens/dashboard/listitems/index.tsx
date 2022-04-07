@@ -23,7 +23,7 @@ import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
-import { PHA, PTA } from '@app/utilities/StyleWrapper';
+import { MHA, MVA, PHA, PTA } from '@app/utilities/StyleWrapper';
 import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
 import { NavigationKey } from '@app/navigation/navigation-data';
 
@@ -109,6 +109,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                     headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
                     subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
                 />
+
                 {product.length > 0 && (
                     <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
                         {product.map((item) => (

@@ -72,7 +72,7 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                     </View>
                 </View>
             </View>
-            <TextBasic
+            {/* <TextBasic
                 text={shop.shopDescription}
                 fontSize={12}
                 textAlign={'center'}
@@ -80,8 +80,8 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                 textStyle={[MVA()]}
                 fontFamily={FontFamily.Light}
             />
-            <TextBasic text={shop.localAddress} fontSize={11} textColor={Colors.subHeading} textAlign={'center'} />
-            <View style={[FDR()]}>
+            <TextBasic text={shop.localAddress} fontSize={11} textColor={Colors.subHeading} textAlign={'center'} /> */}
+            {/* <View style={[FDR()]}>
                 <ButtonRippleLeftMaterialIconMiddleTextRightChild
                     onPress={() => {}}
                     containerStyle={[FLEX(1), BGCOLOR(Colors.primaryLight), BRA(), PVA(), MTA()]}
@@ -117,7 +117,7 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                 textColor={Colors.primary}
                 textStyle={[MTA()]}
                 fontFamily={FontFamily.Light}
-            />
+            /> */}
         </View>
     );
 };

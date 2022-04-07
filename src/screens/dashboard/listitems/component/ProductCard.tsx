@@ -20,12 +20,14 @@ import { FILTER_HEIGHT } from '../filter/FilterUi';
 interface ProductCardProps {
     item: IProduct;
     onPress: Function;
+    shopShopDetails: boolean;
 }
 
-const ITEM_WIDTH = (getWP(10) - 2 * GENERAL_BOUNDARY_SPACE) / 2 - GENERAL_BOUNDARY_SPACE / 2;
+//const ITEM_WIDTH = (getWP(10) - 2 * GENERAL_BOUNDARY_SPACE) / 2 - GENERAL_BOUNDARY_SPACE / 2;
+const ITEM_WIDTH = getWP(4.97);
 const ITEM_HEIGHT = (getHP(10) - HEADER_HEIGHT - FILTER_HEIGHT * 2 - STATUS_BAR_HEIGHT) / 2;
 
-const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress }) => {
+const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress, shopShopDetails }) => {
     return (
         <Ripple
             style={[
@@ -33,9 +35,10 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress 
                     borderWidth: 0.5,
                     borderColor: Colors.light,
 
-                    marginTop: GENERAL_BOUNDARY_SPACE * 0.9,
-                    borderRadius: GENERAL_BORDER_RADIUS,
+                    //marginTop: GENERAL_BOUNDARY_SPACE * 0.9,
+                    //borderRadius: GENERAL_BORDER_RADIUS,
                     overflow: 'hidden',
+                    //flex: 1,
                 },
             ]}
             onPress={() => {
@@ -84,20 +87,22 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress 
                         />
                     ))}
                 </View>
-                <ButtonRippleText
-                    onPress={() => {}}
-                    buttonText={item.shopId?.shopName.toUpperCase() + '\n 5 KMS away' || 'No Shop Name'}
-                    fontSize={12}
-                    textStyle={{ alignSelf: 'center', color: Colors.primary, fontFamily: FontFamily.Bold }}
-                    containerStyle={{
-                        padding: 3,
-                        borderWidth: 0.2,
-                        borderRadius: 2,
-                        borderColor: Colors.primary,
-                        backgroundColor: Colors.primaryLight,
-                        marginTop: 5,
-                    }}
-                />
+                {shopShopDetails && (
+                    <ButtonRippleText
+                        onPress={() => {}}
+                        buttonText={item.shopId?.shopName.toUpperCase() + '\n 5 KMS away' || 'No Shop Name'}
+                        fontSize={12}
+                        textStyle={{ alignSelf: 'center', color: Colors.primary, fontFamily: FontFamily.Bold }}
+                        containerStyle={{
+                            padding: 3,
+                            borderWidth: 0.2,
+                            borderRadius: 2,
+                            borderColor: Colors.primary,
+                            backgroundColor: Colors.primaryLight,
+                            marginTop: 5,
+                        }}
+                    />
+                )}
             </View>
         </Ripple>
     );

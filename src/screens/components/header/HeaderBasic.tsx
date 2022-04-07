@@ -3,7 +3,7 @@ import { GENERAL_BOUNDARY_SPACE, STATUS_BAR_HEIGHT } from '@app/utilities/Dimens
 import { AIC, FDR, FLEX, JCC, provideShadow } from '@app/utilities/Styles';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import ButtonMaterialIcons from '../button/ButtonMaterialIcons';
 import TextBasic from '../text/TextBasic';
 
@@ -19,6 +19,9 @@ const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title, rightCo
 
     let goBack = React.useMemo(() => navigation.canGoBack(), [navigation]);
 
+    React.useEffect(() => {
+        StatusBar.setBarStyle('light-content');
+    }, []);
     return (
         <View style={styles.headerContainer}>
             <View style={{ height: STATUS_BAR_HEIGHT, width: '100%', backgroundColor: Colors.primary }} />
