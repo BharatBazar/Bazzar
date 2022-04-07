@@ -1,5 +1,6 @@
 import { getShopDetails } from '@app/api/product/product.api';
 import { IRGetShopDetail, IShop } from '@app/api/product/product.interface';
+import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import Loader from '@app/screens/components/loader/Loader';
 import Colors from '@app/utilities/Colors';
 import { BGCOLOR, FLEX } from '@app/utilities/Styles';
@@ -21,11 +22,11 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
         params: { _id },
     },
 }) => {
-    const [shop, setShop] = React.useState<IShop>({} as IShop);
+    const [shop, setShop] = React.useState<IShop>(undefined as IShop);
 
     const [loader, setLoader] = React.useState(false);
 
-    const loadProductDetails = async () => {
+    const loadShopDetails = async () => {
         setLoader(true);
         try {
             const response: IRGetShopDetail = await getShopDetails({ _id });
@@ -37,13 +38,13 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
     };
 
     React.useEffect(() => {
-        loadProductDetails();
+        loadShopDetails();
     }, []);
 
     return (
         <View style={[FLEX(1), BGCOLOR(Colors.lighter)]}>
-            <HeaderLI />
-            <ShopDetails shop={shop} />
+            <BasicHeader title="Heels & Shoes" />
+            {shop && <ShopDetails shop={shop} />}
             {loader && <Loader />}
         </View>
     );

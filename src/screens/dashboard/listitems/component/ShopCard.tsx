@@ -1,3 +1,4 @@
+import { IShop } from '@app/api/product/product.interface';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { GENERAL_BORDER_RADIUS, GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
@@ -5,15 +6,17 @@ import { FontFamily } from '@app/utilities/FontFamily';
 import { BGCOLOR, FDR, provideShadow } from '@app/utilities/Styles';
 import * as React from 'react';
 import { Image, View } from 'react-native';
+import Ripple from 'react-native-material-ripple';
 
 interface ShopCardProps {
-    item: any;
+    item: IShop;
+    onPress: Function;
 }
 
-const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item }) => {
+const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item, onPress }) => {
     if (item._id) {
         return (
-            <View
+            <Ripple
                 style={[
                     {
                         borderRadius: GENERAL_BORDER_RADIUS,
@@ -30,6 +33,9 @@ const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item }) => {
                     FDR(),
                     { width: '100%' },
                 ]}
+                onPress={() => {
+                    onPress();
+                }}
             >
                 <View
                     style={{
@@ -57,7 +63,7 @@ const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item }) => {
                     <View style={{ marginTop: 5 }} />
                     <TextBasic text="144 products..." />
                 </View>
-            </View>
+            </Ripple>
         );
     } else {
         return <View />;

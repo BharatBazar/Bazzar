@@ -6,6 +6,7 @@ import {
     IRFilter,
     IRGetFilterWithValue,
     IRGetProduct,
+    IShop,
     productStatus,
 } from '@app/api/product/product.interface';
 import { Envar } from '@app/core/EnvWrapper';
@@ -124,8 +125,15 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                 )}
                 {shops.length > 0 && (
                     <View style={[styles.shopCardContainer, BGCOLOR('#FFFFFF'), provideShadow(2)]}>
-                        {shops.map((item) => (
-                            <ShopCard item={item} />
+                        {shops.map((item: IShop) => (
+                            <ShopCard
+                                item={item}
+                                onPress={() => {
+                                    navigation.navigate(NavigationKey.ListItemsInShop, {
+                                        _id: item._id,
+                                    });
+                                }}
+                            />
                         ))}
                     </View>
                 )}

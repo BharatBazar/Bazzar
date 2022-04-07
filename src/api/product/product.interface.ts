@@ -123,6 +123,7 @@ export interface IShopMember {
     languagePreference: ['Hindi', 'English', 'Message'];
 }
 export interface IShop {
+    _id: string;
     shopName: string;
     shopDescription: string;
     addressOfShop: string;
