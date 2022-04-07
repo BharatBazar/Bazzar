@@ -106,16 +106,12 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
     return (
         <View style={[FLEX(1), BGCOLOR(Colors.lighter)]}>
             <BasicHeader title={shop ? shop['shopName'] : 'shop name'} />
+            <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={() => {}} />
             {shop && (
                 <ScrollView>
                     <ShopDetails shop={shop} />
                     <View style={[MTA(5)]} />
-                    <FilterUi
-                        setShowShops={setShowShops}
-                        showShops={showShops}
-                        filters={filter}
-                        loadProduct={() => {}}
-                    />
+
                     <View style={[MHA(), MVA()]}>
                         <HeaderWithTitleAndSubHeading
                             heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS IN ' + shop.shopName.toLocaleUpperCase()}

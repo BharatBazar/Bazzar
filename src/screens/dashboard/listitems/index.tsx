@@ -97,7 +97,13 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
         <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
             <HeaderLI />
 
-            <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={loadProduct} />
+            <FilterUi
+                shopSwitch
+                setShowShops={setShowShops}
+                showShops={showShops}
+                filters={filter}
+                loadProduct={loadProduct}
+            />
 
             <ScrollView
                 // style={[FLEX(1)]}

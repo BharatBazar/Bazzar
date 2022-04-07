@@ -73,7 +73,7 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                         selectedColorIndex={selectedColorIndex}
                         setSelectedColorIndex={setSelectedColorIndex}
                     />
-                    <ShopDetails shop={productDetails.shopId} />
+                    {productDetails.shopId && <ShopDetails shop={productDetails.shopId} />}
                     <ItemDetails />
                 </ScrollView>
             )}
