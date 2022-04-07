@@ -15,6 +15,7 @@ import BottomBar from './component/BottomButton';
 import ItemDetails from './component/ItemDetails';
 import SelectColor from './component/SelectColor';
 import ShopDetails from './component/ShopDetails';
+import Testionial from './component/Testimonial';
 
 interface ProductDetailsProps {
     route: {
@@ -75,6 +76,7 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                     />
                     {productDetails.shopId && <ShopDetails shop={productDetails.shopId} />}
                     <ItemDetails />
+                    <Testionial />
                 </ScrollView>
             )}
             <BottomBar />
