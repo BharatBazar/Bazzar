@@ -42,7 +42,7 @@ export const FastImageLoaderWithBg = ({ style, resizeMode, source }: FastImageLo
             />
             {!imageLoaded && (
                 <Animated.View style={[styles.defaultImage, { opacity: defaultImage }]}>
-                    <MaterialIcon name={'collections'} color={Colors.blackShadePrimary} size={28} />
+                    <MaterialIcon name={'collections'} color={Colors.light} size={28} />
                 </Animated.View>
             )}
         </View>
