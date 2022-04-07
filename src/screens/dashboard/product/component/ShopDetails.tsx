@@ -17,7 +17,7 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
     return (
         <View style={[BGCOLOR(Colors.white), provideShadow(2), MTA(5), PA()]}>
             {/* <TextBasic text="Shop Details" fontFamily={FontFamily.Bold} fontSize={12} textColor={Colors.dark} /> */}
-            <TextBasic text={shop.shopName} fontFamily={FontFamily.Regular} fontSize={13} textStyle={[MTA()]} />
+            <TextBasic text={shop.shopName} fontFamily={FontFamily.Regular} fontSize={13} />
             <View style={[FDR(), AIC(), MTA()]}>
                 <View style={[AIC()]}>
                     <FastImageLoaderWithBg
@@ -96,8 +96,16 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                 />
                 <ButtonRippleLeftMaterialIconMiddleTextRightChild
                     onPress={() => {}}
-                    containerStyle={[BGCOLOR(Colors.primaryLight), BRA(), PVA(), PHA(), MTA(), MLA()]}
                     iconName={'notifications-active'}
+                    containerStyle={[BGCOLOR(Colors.primaryLight), BRA(), PVA(), PHA(), MTA(), MLA()]}
+                    iconSize={20}
+                    iconColor={Colors.primary}
+                    fontSize={13}
+                />
+                <ButtonRippleLeftMaterialIconMiddleTextRightChild
+                    onPress={() => {}}
+                    iconName={'location-on'}
+                    containerStyle={[BGCOLOR(Colors.primaryLight), BRA(), PVA(), PHA(), MTA(), MLA()]}
                     iconSize={20}
                     iconColor={Colors.primary}
                     fontSize={13}
