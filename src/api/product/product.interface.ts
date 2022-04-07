@@ -172,3 +172,7 @@ export interface IRGetProduct extends CommonApiResponse {
 export interface IRGetProductDetails extends CommonApiResponse {
     payload: IProduct;
 }
+
+export interface IRGetShopDetail extends CommonApiResponse {
+    payload: IShop;
+}

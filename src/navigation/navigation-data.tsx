@@ -4,4 +4,5 @@ export enum NavigationKey {
     SearchProduct = 'SearchProduct',
     ChatAboutProducts = 'ChatAboutProducts',
     ListItems = 'ListItems',
+    ListItemsInShop = 'ListItemsInShop',
 }

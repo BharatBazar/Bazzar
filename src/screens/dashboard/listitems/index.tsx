@@ -16,15 +16,14 @@ import { BGCOLOR, FDR, FLEX, FW, JCC, provideShadow } from '@app/utilities/Style
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import * as React from 'react';
-import { StatusBar, View, SafeAreaView, ScrollView, ToastAndroid, StyleSheet, Animated } from 'react-native';
+import { StatusBar, View, SafeAreaView, ScrollView, ToastAndroid, StyleSheet } from 'react-native';
 import FilterUi from './filter/FilterUi';
 import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
 import { PHA, PTA } from '@app/utilities/StyleWrapper';
-import { GENERAL_BOUNDARY_SPACE, STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
-import { HEADER_HEIGHT } from '@app/screens/components/header/HeaderBasic';
+import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
 import { NavigationKey } from '@app/navigation/navigation-data';
 
 interface ProductsProps {
