@@ -81,7 +81,7 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                 fontFamily={FontFamily.Light}
             />
             <TextBasic text={shop.localAddress} fontSize={11} textColor={Colors.subHeading} textAlign={'center'} /> */}
-            {/* <View style={[FDR()]}>
+            <View style={[FDR()]}>
                 <ButtonRippleLeftMaterialIconMiddleTextRightChild
                     onPress={() => {}}
                     containerStyle={[FLEX(1), BGCOLOR(Colors.primaryLight), BRA(), PVA(), MTA()]}
@@ -89,14 +89,14 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                     buttonText={'Follow Shop'.toLocaleUpperCase()}
                     buttonTextColor={Colors.primary}
                     textStyle={[FF('SemiBold'), MLA(5)]}
-                    iconName={'how-to-reg'}
+                    iconName={'person-add'}
                     iconSize={20}
                     iconColor={Colors.primary}
                     fontSize={13}
                 />
                 <ButtonRippleLeftMaterialIconMiddleTextRightChild
                     onPress={() => {}}
-                    iconName={'notifications-active'}
+                    iconName={'notifications'}
                     containerStyle={[BGCOLOR(Colors.primaryLight), BRA(), PVA(), PHA(), MTA(), MLA()]}
                     iconSize={20}
                     iconColor={Colors.primary}
@@ -105,9 +105,9 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                 <ButtonRippleLeftMaterialIconMiddleTextRightChild
                     onPress={() => {}}
                     iconName={'location-on'}
-                    containerStyle={[BGCOLOR(Colors.primaryLight), BRA(), PVA(), PHA(), MTA(), MLA()]}
+                    containerStyle={[BGCOLOR(Colors.primary), BRA(), PVA(), PHA(), MTA(), MLA()]}
                     iconSize={20}
-                    iconColor={Colors.primary}
+                    iconColor={Colors.white}
                     fontSize={13}
                 />
             </View>
@@ -117,7 +117,7 @@ const ShopDetails: React.FunctionComponent<ShopDetailsProps> = ({ shop }) => {
                 textColor={Colors.primary}
                 textStyle={[MTA()]}
                 fontFamily={FontFamily.Light}
-            /> */}
+            />
         </View>
     );
 };
