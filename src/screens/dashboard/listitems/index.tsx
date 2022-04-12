@@ -23,7 +23,7 @@ import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
-import { MHA, MVA, PHA, PTA } from '@app/utilities/StyleWrapper';
+import { MHA, MVA, PA, PHA, PTA } from '@app/utilities/StyleWrapper';
 import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
 import { NavigationKey } from '@app/navigation/navigation-data';
 
@@ -86,7 +86,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
             axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
             loadFilter();
             loadProduct({ shop: showShops });
-        }, 500);
+        }, 100);
         StatusBar.setBarStyle('light-content');
         return () => {
             setBaseUrl();
@@ -105,17 +105,15 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                 loadProduct={loadProduct}
             />
 
-            <ScrollView
-                // style={[FLEX(1)]}
-                style={[FLEX(1), PTA(GENERAL_BOUNDARY_SPACE), PHA(GENERAL_BOUNDARY_SPACE)]}
-            >
-                <HeaderWithTitleAndSubHeading
-                    heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
-                    subHeading="Price and other details may vary based on product size and color."
-                    headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
-                    subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
-                />
-
+            <ScrollView style={[FLEX(1)]}>
+                <View style={[PA()]}>
+                    <HeaderWithTitleAndSubHeading
+                        heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
+                        subHeading="Price and other details may vary based on product size and color."
+                        headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
+                        subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
+                    />
+                </View>
                 {product.length > 0 && (
                     <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
                         {product.map((item) => (
@@ -131,7 +129,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                     </View>
                 )}
                 {shops.length > 0 && (
-                    <View style={[styles.shopCardContainer, BGCOLOR('#FFFFFF'), provideShadow(2)]}>
+                    <View style={[]}>
                         {shops.map((item: IShop) => (
                             <ShopCard
                                 item={item}

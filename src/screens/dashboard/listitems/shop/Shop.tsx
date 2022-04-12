@@ -17,9 +17,8 @@ import { BGCOLOR, FDR, FLEX, FW, JCC } from '@app/utilities/Styles';
 import { MHA, MTA, MVA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
 import { ToastAndroid, View, ScrollView } from 'react-native';
-import HeaderLI from '../listitems/component/ListItemHeader';
-import ProductCard from '../listitems/component/ProductCard';
-import FilterUi from '../listitems/filter/FilterUi';
+import ProductCard from '../component/ProductCard';
+import FilterUi from '../filter/FilterUi';
 import ShopDetails from '../product/component/ShopDetails';
 
 interface ShopItemProps {

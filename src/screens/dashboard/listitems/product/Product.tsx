@@ -10,7 +10,7 @@ import { BGCOLOR, FLEX } from '@app/utilities/Styles';
 import { PBA } from '@app/utilities/StyleWrapper';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import HeaderLI from '../listitems/component/ListItemHeader';
+import HeaderLI from '../component/ListItemHeader';
 import BottomBar from './component/BottomButton';
 import ItemDetails from './component/ItemDetails';
 import SelectColor from './component/SelectColor';

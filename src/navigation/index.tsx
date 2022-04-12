@@ -5,8 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RnBootSplash from 'react-native-bootsplash';
 import Products from '@app/screens/dashboard/listitems';
 import { NavigationKey } from './navigation-data';
-import ProductDetails from '@app/screens/dashboard/product/Product';
-import ShopItem from '@app/screens/dashboard/shop/Shop';
+import ProductDetails from '@app/screens/dashboard/listitems/product/Product';
+import ShopItem from '@app/screens/dashboard/listitems/shop/Shop';
 
 const Stack = createNativeStackNavigator();
 
