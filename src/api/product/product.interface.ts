@@ -1,8 +1,9 @@
 import { CommonApiResponse } from './../common.interface';
 
-//classifier type is very important as this gives what filter to update in ui
-// so name should match the document field
-// also this is the medium of connection between filter and its value
+/**classifier type is very important as this gives what filter to update in ui
+ * so name should match the document field
+ * also this is the medium of connection between filter and its value
+ */
 export enum classifierTypes {
     SIZE = 'size',
     COLOR = 'color',
@@ -56,7 +57,7 @@ export enum productStatus {
 
 export interface IProductSize {
     _id: string;
-    size: IClassifier | string; //Will refer to size table
+    size: IClassifier; //Will refer to size table
     mrp: string;
     quantity: number;
     sp: string;
@@ -67,7 +68,7 @@ export interface IProductSize {
 export interface IColor {
     _id: string;
     parentId: string; // will refer to main table
-    color: IClassifier | string; // will refer to color table
+    color: IClassifier; // will refer to color table
     sizes: [IProductSize]; // will refer to jeans size table
     photos: [string];
     includedColor: [IClassifier];
@@ -77,7 +78,7 @@ export interface IColor {
 export interface IProduct {
     //Also i need to think about how i will be dealing with language preferences how can i use multiple language.
     _id: string;
-    shopId: string;
+    shopId: IShop;
 
     //Above field will have predifined information about the size, unit etc.
     title: string;
@@ -92,12 +93,64 @@ export interface IProduct {
     description: string; // Will be a audio as audio is better to understand in common language
     discount: [number]; // If a dukandar has decided that he wants to give special discount on particular product so discount will for each color
     discountDeadline: [Date];
-    brand: string | IClassifier;
-    fit: string | IClassifier;
+    brand: string | [IClassifier];
+    fit: string | [IClassifier];
     pattern: [string] | [IClassifier];
     note: string;
     descriptionCustomer: string;
     alreadyRejected: boolean;
+}
+
+export enum verificationStatus {
+    registered = 'Registered',
+    processing = 'Processing',
+    rejected = 'Rejected',
+    verified = 'Verified',
+}
+
+export interface IShopMember {
+    firstName: string;
+    lastName: string;
+    //photo: [{_id:ObjectId}];
+    permissions: string;
+    phoneNumber: string;
+    shop: IShop;
+    role: string;
+    _id: string;
+    password: string;
+    isTerminated: boolean;
+    isDeleted: boolean;
+    languagePreference: ['Hindi', 'English', 'Message'];
+}
+export interface IShop {
+    _id: string;
+    shopName: string;
+    shopDescription: string;
+    addressOfShop: string;
+
+    verificationStatus: verificationStatus;
+    remarks: string;
+    // whatYouSell: string[];
+
+    state: IClassifier;
+    city: IClassifier;
+    area: IClassifier;
+    pincode: IClassifier;
+    localAddress: string;
+
+    owner: IShopMember;
+    coOwner: IShopMember[];
+    worker: IShopMember[];
+
+    isVerified: boolean;
+    isTerminated: boolean;
+    membersDetailSkipped: boolean;
+    rating: Number;
+    noOfRating: Number;
+    category: [IClassifier];
+    subCategory: [[IClassifier]];
+    subCategory1: [[[IClassifier]]];
+    shopMemberOnBoardingDone: boolean;
 }
 
 export interface IRGetFilter extends CommonApiResponse {
@@ -115,4 +168,12 @@ export interface IRGetProduct extends CommonApiResponse {
     payload: {
         product: IProduct[];
     };
+}
+
+export interface IRGetProductDetails extends CommonApiResponse {
+    payload: IProduct;
+}
+
+export interface IRGetShopDetail extends CommonApiResponse {
+    payload: IShop;
 }

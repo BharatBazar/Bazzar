@@ -19,11 +19,18 @@ interface FilterUiProps {
     loadProduct: Function;
     showShops: boolean;
     setShowShops: (a: boolean) => void;
+    shopSwitch: boolean;
 }
 
 export const FILTER_HEIGHT = 45;
 
-const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct, showShops, setShowShops }) => {
+const FilterUi: React.FunctionComponent<FilterUiProps> = ({
+    filters,
+    loadProduct,
+    showShops,
+    setShowShops,
+    shopSwitch,
+}) => {
     const [modalVisible, setModalVisible] = React.useState(false);
 
     const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: IClassifier[] }>({});
@@ -74,31 +81,33 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({ filters, loadProduct
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
             >
-                <ButtonRippleLeftMaterialIconMiddleTextRightChild
-                    fontSize={12}
-                    onPress={() => {
-                        if (!showShops) {
-                            loadProduct({ shop: true });
-                        } else {
-                            loadProduct({ shop: false });
+                {shopSwitch && (
+                    <ButtonRippleLeftMaterialIconMiddleTextRightChild
+                        fontSize={12}
+                        onPress={() => {
+                            if (!showShops) {
+                                loadProduct({ shop: true });
+                            } else {
+                                loadProduct({ shop: false });
+                            }
+                            setShowShops(!showShops);
+                        }}
+                        containerStyle={[PLA(GENERAL_BOUNDARY_SPACE - 2)]}
+                        iconName={'store'}
+                        iconSize={25}
+                        iconColor={showShops ? Colors.primary : Colors.primaryLight}
+                        children={
+                            <Switch
+                                trackColor={{ false: '#bcbcbc', true: Colors.primary }}
+                                thumbColor={'#ffffff'}
+                                ios_backgroundColor="#bcbcbc"
+                                onValueChange={(value) => {}}
+                                value={showShops}
+                                style={{ marginLeft: 0 }}
+                            />
                         }
-                        setShowShops(!showShops);
-                    }}
-                    containerStyle={[PLA(GENERAL_BOUNDARY_SPACE - 2)]}
-                    iconName={'store'}
-                    iconSize={25}
-                    iconColor={showShops ? Colors.primary : Colors.primaryLight}
-                    children={
-                        <Switch
-                            trackColor={{ false: '#bcbcbc', true: Colors.primary }}
-                            thumbColor={'#ffffff'}
-                            ios_backgroundColor="#bcbcbc"
-                            onValueChange={(value) => {}}
-                            value={showShops}
-                            style={{ marginLeft: 0 }}
-                        />
-                    }
-                />
+                    />
+                )}
                 <View style={[FLEX(1), JCC(), AIC(), PRA(GENERAL_BOUNDARY_SPACE), FDR()]}>
                     <ShowAppliedFilterValues selectedFilter={selectedFilter} />
                 </View>

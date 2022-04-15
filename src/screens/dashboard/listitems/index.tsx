@@ -6,6 +6,7 @@ import {
     IRFilter,
     IRGetFilterWithValue,
     IRGetProduct,
+    IShop,
     productStatus,
 } from '@app/api/product/product.interface';
 import { Envar } from '@app/core/EnvWrapper';
@@ -22,8 +23,8 @@ import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
-import { PHA, PTA } from '@app/utilities/StyleWrapper';
-import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
+import { PA } from '@app/utilities/StyleWrapper';
+import { NavigationKey } from '@app/navigation/navigation-data';
 
 interface ProductsProps {
     navigation: StackNavigationProp;
@@ -80,39 +81,63 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     };
 
     React.useEffect(() => {
-        axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
-        loadFilter();
-        loadProduct({ shop: showShops });
+        setTimeout(() => {
+            axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
+            loadFilter();
+            loadProduct({ shop: showShops });
+        }, 100);
         StatusBar.setBarStyle('light-content');
         return () => {
             setBaseUrl();
         };
     }, []);
+
     return (
         <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
             <HeaderLI />
-            <FilterUi setShowShops={setShowShops} showShops={showShops} filters={filter} loadProduct={loadProduct} />
-            <ScrollView
-                // style={[FLEX(1)]}
-                style={[FLEX(1), PTA(GENERAL_BOUNDARY_SPACE), PHA(GENERAL_BOUNDARY_SPACE)]}
-            >
-                <HeaderWithTitleAndSubHeading
-                    heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
-                    subHeading="Price and other details may vary based on product size and color."
-                    headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
-                    subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
-                />
+
+            <FilterUi
+                shopSwitch
+                setShowShops={setShowShops}
+                showShops={showShops}
+                filters={filter}
+                loadProduct={loadProduct}
+            />
+
+            <ScrollView style={[FLEX(1)]}>
+                <View style={[PA()]}>
+                    <HeaderWithTitleAndSubHeading
+                        heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
+                        subHeading="Price and other details may vary based on product size and color."
+                        headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
+                        subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
+                    />
+                </View>
                 {product.length > 0 && (
                     <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
                         {product.map((item) => (
-                            <ProductCard item={item} />
+                            <ProductCard
+                                item={item}
+                                onPress={() => {
+                                    navigation.navigate(NavigationKey.ShowProduct, {
+                                        _id: item._id,
+                                    });
+                                }}
+                            />
                         ))}
                     </View>
                 )}
                 {shops.length > 0 && (
-                    <View style={[styles.shopCardContainer, BGCOLOR('#FFFFFF'), provideShadow(2)]}>
-                        {shops.map((item) => (
-                            <ShopCard item={item} />
+                    <View style={[]}>
+                        {shops.map((item: IShop) => (
+                            <ShopCard
+                                item={item}
+                                onPress={() => {
+                                    navigation.navigate(NavigationKey.ListItemsInShop, {
+                                        _id: item._id,
+                                    });
+                                }}
+                            />
                         ))}
                     </View>
                 )}

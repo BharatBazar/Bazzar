@@ -12,7 +12,7 @@ interface ButtonRippleLeftMaterialIconMiddleTextRightChildProps {
     onPress: Function;
     buttonText?: string;
     fontSize?: number;
-    textStyle?: TextStyle;
+    textStyle?: TextStyle[] | TextStyle;
     rippleColor?: string;
     buttonTextColor?: string;
     rippleContainerBorderRadius?: number;
