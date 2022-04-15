@@ -21,7 +21,7 @@ const App: () => Node = () => {
         flex: 1,
     };
 
-    React.useEffect(() => {
+    React.useMemo(() => {
         initializeAxios();
         return () => {};
     }, []);

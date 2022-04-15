@@ -18,55 +18,25 @@ interface ShopCardProps {
 const ShopCard: React.FunctionComponent<ShopCardProps> = ({ item, onPress }) => {
     if (item._id) {
         return (
-            <ShopDetails shop={item} />
-            // <Ripple
-            //     style={[
-            //         {
-            //             borderWidth: 0.2,
-            //             borderColor: Colors.light,
+            <Ripple
+                style={[
+                    {
+                        borderWidth: 0.2,
+                        borderColor: Colors.light,
 
-            //             overflow: 'hidden',
-            //         },
-            //         BGCOLOR('#FFFFFF'),
+                        overflow: 'hidden',
+                    },
+                    BGCOLOR('#FFFFFF'),
 
-            //         FDR(),
-            //         { width: '100%' },
-            //     ]}
-            //     onPress={() => {
-            //         onPress();
-            //     }}
-            // >
-            //     <View
-            //         style={{
-            //             backgroundColor: '#f8f8f8',
-            //             alignItems: 'center',
-            //             justifyContent: 'center',
-            //             paddingHorizontal: GENERAL_BOUNDARY_SPACE,
-
-            //             height: 130,
-            //         }}
-            //     >
-            //         <Image
-            //             source={{ uri: 'https://source.unsplash.com/user/c_v_r' }}
-            //             style={{ height: 80, width: 130, borderRadius: 5 }}
-            //         />
-            //     </View>
-            //     <View style={[PA()]}>
-            //         <TextBasic
-            //             text={item.shopName}
-            //             fontSize={14}
-            //             fontFamily={FontFamily.Light}
-            //             textColor={Colors.primary}
-            //         />
-
-            //         <View style={{ marginTop: 5 }} />
-            //         <TextBasic text="Owned By" fontSize={8} fontFamily={FontFamily.Light} />
-            //         <TextBasic text="Mr. Aashish Bothra" fontFamily={FontFamily.Regular} />
-
-            //         <View style={{ marginTop: 5 }} />
-            //         <TextBasic text="144 products..." />
-            //     </View>
-            // </Ripple>
+                    FDR(),
+                    { width: '100%' },
+                ]}
+                onPress={() => {
+                    onPress();
+                }}
+            >
+                <ShopDetails shop={item} />
+            </Ripple>
         );
     } else {
         return <View />;

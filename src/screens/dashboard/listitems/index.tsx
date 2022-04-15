@@ -23,8 +23,7 @@ import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
-import { MHA, MVA, PA, PHA, PTA } from '@app/utilities/StyleWrapper';
-import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
+import { PA } from '@app/utilities/StyleWrapper';
 import { NavigationKey } from '@app/navigation/navigation-data';
 
 interface ProductsProps {
