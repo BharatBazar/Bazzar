@@ -13,7 +13,7 @@ import { Envar } from '@app/core/EnvWrapper';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { BGCOLOR, FDR, FLEX, FW, JCC, provideShadow } from '@app/utilities/Styles';
+import { BGCOLOR, FDR, FLEX, FW, JCC } from '@app/utilities/Styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import * as React from 'react';
@@ -115,8 +115,10 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
                 </View>
                 {product.length > 0 && (
                     <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
-                        {product.map((item) => (
+                        {product.map((item, index) => (
                             <ProductCard
+                                showShopDetails={false}
+                                key={index}
                                 item={item}
                                 onPress={() => {
                                     navigation.navigate(NavigationKey.ShowProduct, {

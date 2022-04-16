@@ -4,32 +4,26 @@ import { HEADER_HEIGHT } from '@app/screens/components/header/HeaderBasic';
 import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
-import {
-    GENERAL_BORDER_RADIUS,
-    GENERAL_BOUNDARY_SPACE,
-    getHP,
-    getWP,
-    STATUS_BAR_HEIGHT,
-} from '@app/utilities/Dimensions';
+import { GENERAL_BORDER_RADIUS, getHP, getWP, STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { FDR } from '@app/utilities/Styles';
 import { PA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import { FILTER_HEIGHT } from '../filter/FilterUi';
 
 interface ProductCardProps {
     item: IProduct;
     onPress: Function;
-    shopShopDetails: boolean;
+    showShopDetails: boolean;
 }
 
 //const ITEM_WIDTH = (getWP(10) - 2 * GENERAL_BOUNDARY_SPACE) / 2 - GENERAL_BOUNDARY_SPACE / 2;
 const ITEM_WIDTH = getWP(4.97);
 const ITEM_HEIGHT = (getHP(10) - HEADER_HEIGHT - FILTER_HEIGHT * 2 - STATUS_BAR_HEIGHT) / 2;
 
-const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress, shopShopDetails }) => {
+const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress, showShopDetails }) => {
     return (
         <Ripple
             style={[
@@ -99,7 +93,7 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress,
                         </View>
                     ))}
                 </View>
-                {shopShopDetails && (
+                {showShopDetails && (
                     <ButtonRippleText
                         onPress={() => {}}
                         buttonText={item.shopId?.shopName.toUpperCase() + '\n 5 KMS away' || 'No Shop Name'}
