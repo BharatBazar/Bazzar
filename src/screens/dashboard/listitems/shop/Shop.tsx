@@ -6,7 +6,6 @@ import {
     IRGetProduct,
     IRGetShopDetail,
     IShop,
-    productStatus,
 } from '@app/api/product/product.interface';
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';

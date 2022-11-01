@@ -44,7 +44,7 @@ export const setBaseUrl = () => {
 };
 export const initializeAxios = () => {
     console.log('Axios initialization', Envar.APIENDPOINT);
-    // setBaseUrl();
+    setBaseUrl();
     if (axios.interceptors.response.handlers.length == 0) {
         console.log('Setting response handler');
         axios.interceptors.response.use(
