@@ -1,7 +1,6 @@
 import { Envar } from '@app/core/EnvWrapper';
 import { Storage, StorageItemKeys } from '@app/utilities/AsyncStorage';
 import axios from 'axios';
-import Config from 'react-native-config';
 
 async function setUpAxiosUserToken() {
     const token = await Storage.getItem(StorageItemKeys.Token);

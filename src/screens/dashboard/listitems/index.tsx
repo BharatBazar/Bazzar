@@ -82,7 +82,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
 
     React.useEffect(() => {
         setTimeout(() => {
-            axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
+            //axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
             loadFilter();
             loadProduct({ shop: showShops });
         }, 100);

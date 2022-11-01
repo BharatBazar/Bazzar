@@ -79,7 +79,7 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
             setProduct([]);
         }
         try {
-            const response: IRGetProduct = await getProduct({ ...filter, status: productStatus.WAITINGFORAPPROVAL });
+            const response: IRGetProduct = await getProduct({ ...filter });
 
             if (response.status == 1) {
                 if (filter.shop) {
