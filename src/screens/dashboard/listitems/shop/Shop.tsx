@@ -7,6 +7,7 @@ import {
     IRGetShopDetail,
     IShop,
 } from '@app/api/product/product.interface';
+import { NavigationKey } from '@app/navigation/navigation-data';
 import BasicHeader from '@app/screens/components/header/HeaderBasic';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import Loader from '@app/screens/components/loader/Loader';
@@ -32,6 +33,7 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
     route: {
         params: { _id },
     },
+    navigation,
 }) => {
     const [shop, setShop] = React.useState<IShop>(undefined as IShop);
     const [product, setProduct] = React.useState([]);
@@ -124,9 +126,9 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
                                 <ProductCard
                                     item={item}
                                     onPress={() => {
-                                        // navigation.navigate(NavigationKey.ShowProduct, {
-                                        //     _id: item._id,
-                                        // });
+                                        navigation.navigate(NavigationKey.ShowProduct, {
+                                            _id: item._id,
+                                        });
                                     }}
                                 />
                             ))}

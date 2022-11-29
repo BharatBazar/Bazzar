@@ -21,11 +21,11 @@ const handleError = (error: { isAxiosError: any; response: { data: any } }) => {
         }
     }
 
-    if (errorCode === 1) {
+    if (errorCode == 1) {
         return Promise.reject({ message, errorCode });
     }
 
-    if (errorCode === 5) {
+    if (errorCode == 5) {
         return Promise.reject({ message, errorCode });
     }
 
@@ -43,7 +43,7 @@ export const setBaseUrl = () => {
     axios.defaults.baseURL = Envar.APIENDPOINT;
 };
 export const initializeAxios = () => {
-    console.log('Axios initialization', Envar.APIENDPOINT);
+    console.log('Axios initialization', Envar.APIENDPOINT, axios.defaults.baseURL);
     setBaseUrl();
     if (axios.interceptors.response.handlers.length == 0) {
         console.log('Setting response handler');
