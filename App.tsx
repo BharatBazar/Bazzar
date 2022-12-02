@@ -8,8 +8,8 @@
 
 import React from 'react';
 import type { Node } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
-import Colors from '@app/utilities/Colors';
+import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+
 import Navigator from '@app/navigation';
 import { initializeAxios } from '@app/api/apiLayer';
 
