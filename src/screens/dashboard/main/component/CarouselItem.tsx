@@ -1,14 +1,14 @@
+import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
 import React from 'react';
-import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
-import { FastImageWrapper } from '../../../components/FastImage';
+import { View, StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
 const CarouselItem = ({ item }) => {
     return (
         <View style={styles.cardView}>
-            <FastImageWrapper
-                imageStyle={styles.image}
+            <FastImageLoaderWithBg
+                style={styles.image}
                 source={{
                     uri: 'https://images-na.ssl-images-amazon.com/images/G/31/img21/shoes/February/SS21/MS/PC/SBC3/SBC-Mens-footwear-3._SY530_QL85_.jpgD',
                 }}

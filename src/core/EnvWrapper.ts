@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import Config from 'react-native-config';
 
 export const envType = {
@@ -5,8 +6,10 @@ export const envType = {
     Prod: 'prod',
 };
 
+console.log(Config, 'Config');
+
 export const Envar = {
-    APIENDPOINT: Config.API_ENDPOINT,
+    APIENDPOINT: Platform.OS == 'android' ? 'http://192.168.133.83:2112' : 'http://localhost:2112',
     ENV: Config.ENV,
     APITIMEOUT: Config.API_TIMEOUT,
 };

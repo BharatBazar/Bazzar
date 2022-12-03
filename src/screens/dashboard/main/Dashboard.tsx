@@ -1,25 +1,22 @@
 import * as React from 'react';
-import { View } from 'react-native';
-import { applyColorCode, colorCode, mainColor } from '../../../common/color';
-import { BGCOLOR, FLEX } from '../../../common/styles';
-import Header from './component/Header';
-import StatusBar from '../../components/StatusBar';
-import { NavigationProps } from '../../../common';
-import { NavigationKey } from '../../../labels';
+import { View, ScrollView } from 'react-native';
+import { NavigationKey } from '@app/navigation/navigation-data';
+import { FLEX } from '@app/utilities/Styles';
+import { NavigationContainerProps } from '@react-navigation/native';
 import Category from './category/Category';
 import Carousel from './component/Carousel';
-import { ScrollView } from 'react-native-gesture-handler';
+import Header from './component/Header';
+import { PTA } from '@app/utilities/StyleWrapper';
+import { STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
 
-export interface DashboardProps extends NavigationProps {}
+export interface DashboardProps extends NavigationContainerProps {}
 
-const Dashboard: React.SFC<DashboardProps> = ({ navigation }) => {
+const Dashboard: React.FC<DashboardProps> = ({ navigation }) => {
     return (
-        <View style={[FLEX(1)]}>
-            <StatusBar statusBarColor={mainColor} />
-
+        <View style={[FLEX(1), PTA(STATUS_BAR_HEIGHT)]}>
             <Header
                 onPressSearchBar={() => {
-                    navigation.navigate(NavigationKey.SEARCHSCREEN);
+                    navigation.navigate(NavigationKey.SearchProduct);
                 }}
             />
             <ScrollView showsVerticalScrollIndicator={false}>

@@ -21,9 +21,9 @@ const Carousel: React.FunctionComponent<CarouselProps> = ({ data, renderItem, he
 
     const setSlideTimer = (x: number) => {
         scrollValue = x + width;
-        scrolled = parseInt(x) / parseInt(width);
+        scrolled = x / width;
 
-        if (parseInt(scrolled) == data.length) {
+        if (scrolled == data.length) {
             setSlideTimer(0 - width);
         } else
             timer = setTimeout(() => {
@@ -87,7 +87,7 @@ const Carousel: React.FunctionComponent<CarouselProps> = ({ data, renderItem, he
                         // } else setSlideTimer(x);
                     }}
                     onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
-                        // useNativeDriver: true,
+                        //useNativeDriver: true,
                     })}
                 />
 

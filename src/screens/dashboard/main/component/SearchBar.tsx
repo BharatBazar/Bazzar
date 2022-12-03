@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
-import { AIC, FDR, FLEX, HP, ML, PH, provideShadow, PV } from '../../../../common/styles';
+import { View, StyleSheet } from 'react-native';
+import { AIC, FDR, FLEX, ML, PH } from '@app/utilities/Styles';
 import Ripple from 'react-native-material-ripple';
-import WrappedText from '../../../components/WrappedText';
 import IconIcons from 'react-native-vector-icons/Ionicons';
-import { fs16, fs20 } from '../../../../common';
-import { getHP, getWP } from '../../../../common/dimension';
+
+import { getHP, getWP } from '@app/utilities/Dimensions';
+import TextBasic from '@app/screens/components/text/TextBasic';
 
 export interface SearchProps {
     onPressSearchBar: Function;
 }
-const buttonProps = { size: fs20, style: { height: fs20, width: fs20 }, color: '#FFFFFF' };
+const buttonProps = { size: 20, style: { height: 20, width: 20 }, color: '#FFFFFF' };
 
-const Search: React.SFC<SearchProps> = ({ onPressSearchBar }) => {
+const Search: React.FC<SearchProps> = ({ onPressSearchBar }) => {
     return (
         <View style={[{ paddingBottom: getHP(0.15) }, PH(0.2)]}>
             <Ripple
@@ -23,11 +23,11 @@ const Search: React.SFC<SearchProps> = ({ onPressSearchBar }) => {
             >
                 <IconIcons name={'search'} {...buttonProps} color={'#000000' + '66'} />
                 <View style={[FLEX(1)]}>
-                    <WrappedText
+                    <TextBasic
                         text={'koisi bhi dukan ko dhundhe'}
                         textColor={'#000000' + '66'}
                         textStyle={[ML(0.2)]}
-                        fontSize={fs16}
+                        fontSize={16}
                     />
                 </View>
             </Ripple>

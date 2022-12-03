@@ -1,16 +1,17 @@
+import { getHP, getWP } from '@app/utilities/Dimensions';
+import { HP } from '@app/utilities/Styles';
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
-import { getHP, getWP } from '../../../../common/dimension';
-import { HP } from '../../../../common/styles';
+import { View, StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
+
 import CarouselItem from './CarouselItem';
 
-const { width, heigth } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const Carousel = ({ data }) => {
     const scrollX = new Animated.Value(0);
     let position = Animated.divide(scrollX, width);
     const [dataList, setDataList] = useState(data);
-    let flatList;
+    let flatList = React.useRef();
 
     useEffect(() => {
         setDataList(data);
@@ -30,7 +31,7 @@ const Carousel = ({ data }) => {
                 scrolled = 0;
             }
 
-            flatList.scrollToOffset({ animated: true, offset: scrollValue });
+            flatList.current.scrollToOffset({ animated: true, offset: scrollValue });
         }, 3000);
     }
 
@@ -40,7 +41,7 @@ const Carousel = ({ data }) => {
                 <FlatList
                     data={data}
                     ref={(flatListt) => {
-                        flatList = flatListt;
+                        flatList.current = flatListt;
                     }}
                     keyExtractor={(item, index) => 'key' + index}
                     horizontal

@@ -1,7 +1,7 @@
 import { getProductDetails } from '@app/api/product/product.api';
 import { IProduct, IRGetProductDetails } from '@app/api/product/product.interface';
 import Carousel from '@app/screens/components/carousel/PhotoCarousel';
-import BasicHeader from '@app/screens/components/header/HeaderBasic';
+
 import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
 import Loader from '@app/screens/components/loader/Loader';
 import Colors from '@app/utilities/Colors';
@@ -47,6 +47,8 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
         loadProductDetails();
     }, []);
 
+    console.log('Pro', productDetails);
+
     return (
         <View style={[FLEX(1), BGCOLOR(Colors.lighter)]}>
             {/* <BasicHeader title="Product details" /> */}
@@ -56,10 +58,7 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                     <Carousel
                         height={getHP(5)}
                         width={getWP(10)}
-                        data={[
-                            productDetails?.colors[0]?.photos[0],
-                            'https://m.media-amazon.com/images/I/71BKJmt+BIL._UL1500_.jpg',
-                        ]}
+                        data={productDetails?.colors[selectedColorIndex]?.photos}
                         renderItem={(item: string) => (
                             <FastImageLoaderWithBg
                                 source={{ uri: item }}

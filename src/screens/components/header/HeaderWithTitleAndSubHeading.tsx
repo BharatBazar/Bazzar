@@ -38,13 +38,4 @@ const HeaderWithTitleAndSubHeading: React.FunctionComponent<HeaderWithTitleAndSu
     );
 };
 
-const styles = StyleSheet.create({
-    borderStyle: {
-        borderTopWidth: 2,
-        borderColor: '#500061',
-        opacity: 0.1,
-        marginTop: '4%',
-    },
-});
-
 export default HeaderWithTitleAndSubHeading;
