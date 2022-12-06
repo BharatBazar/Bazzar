@@ -1,8 +1,11 @@
 import { getCatalogueDetailsAPI } from '@app/api/catalogue/catalogue.api';
 import { catalogueData } from '@app/api/catalogue/catalogue.interface';
+import Border from '@app/screens/components/border/Border';
 import TextBasic from '@app/screens/components/text/TextBasic';
-import { black60 } from '@app/utilities/Colors';
-import { FDR, FLEX, JCC, PH, PV } from '@app/utilities/Styles';
+import Colors, { black60 } from '@app/utilities/Colors';
+import { FontFamily } from '@app/utilities/FontFamily';
+import { FDR, FLEX, JCC, MV, PH, PV } from '@app/utilities/Styles';
+import { MLA, MTA, PA } from '@app/utilities/StyleWrapper';
 import React, { useEffect, useState } from 'react';
 import { ToastAndroid, View } from 'react-native';
 
@@ -30,7 +33,14 @@ const Category: React.FC<CategoryProps> = () => {
 
     return (
         <View style={[FLEX(1)]}>
-            <TextBasic text={'Category'} containerStyle={[PH(0.4), PV(0.1)]} fontSize={24} textColor={black60} />
+            <Border />
+            <TextBasic
+                text={'Category'}
+                textStyle={[MTA(), MLA()]}
+                fontSize={20}
+                fontFamily={FontFamily.Medium}
+                textColor={Colors.heading}
+            />
             <View style={[FLEX(1), FDR(), JCC('space-evenly'), { flexWrap: 'wrap' }]}>
                 {category.map((item: catalogueData, index: number) => {
                     return <CategoryCard item={item} key={index} onPress={() => {}} />;

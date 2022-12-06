@@ -9,13 +9,13 @@ import {
     IShop,
     productStatus,
 } from '@app/api/product/product.interface';
-import { Envar } from '@app/core/EnvWrapper';
+
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { BGCOLOR, FDR, FLEX, FW, JCC } from '@app/utilities/Styles';
 import { StackNavigationProp } from '@react-navigation/stack';
-import axios from 'axios';
+
 import * as React from 'react';
 import { StatusBar, View, SafeAreaView, ScrollView, ToastAndroid, StyleSheet } from 'react-native';
 import FilterUi from './filter/FilterUi';
