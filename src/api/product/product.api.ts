@@ -6,7 +6,7 @@ export function getProduct(data: { [key: string]: [string] }): Promise<IRGetFilt
 }
 
 export function getProductDetails(data: { _id: string }): Promise<IRGetProductDetails> {
-    return axios.post('/customer/get', data);
+    return axios.post('/customer/get/product', data);
 }
 
 export function getShopDetails(data: { _id: string }): Promise<IRGetShopDetail> {

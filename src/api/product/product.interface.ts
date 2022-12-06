@@ -157,11 +157,25 @@ export interface IRGetFilter extends CommonApiResponse {
     payload: IFilter[];
 }
 
+export interface FilterValueData {
+    customerName: string;
+    customerDescription: string;
+    customerImage: string;
+    type: string;
+    _id: string;
+}
+export interface FilterAndValues {
+    customerHeading: string;
+    customerDescription: string;
+    customerImage: string;
+    type: string;
+
+    _id: string;
+    values: FilterValueData[];
+}
+
 export interface IRGetFilterWithValue extends CommonApiResponse {
-    payload: {
-        filter: IRFilter[];
-        distribution: IRFilter[];
-    };
+    payload: FilterAndValues[];
 }
 
 export interface IRGetProduct extends CommonApiResponse {

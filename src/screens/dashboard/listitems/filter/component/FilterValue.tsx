@@ -1,4 +1,10 @@
-import { classifierTypes, IClassifier, IRFilter } from '@app/api/product/product.interface';
+import {
+    classifierTypes,
+    FilterAndValues,
+    FilterValueData,
+    IClassifier,
+    IRFilter,
+} from '@app/api/product/product.interface';
 import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors, { colorCode } from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
@@ -9,8 +15,8 @@ import { View } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 
 interface FilterValueProps {
-    value: IClassifier;
-    item: Partial<IRFilter>;
+    value: FilterValueData;
+    item: Partial<FilterAndValues>;
     selected: boolean;
     onPress: Function;
     marginTop?: number;
@@ -44,14 +50,14 @@ const FilterValue: React.FunctionComponent<FilterValueProps> = ({ value, item, s
                             height: 20,
                             width: 20,
                             borderRadius: 3,
-                            backgroundColor: value.description,
+                            backgroundColor: value.customerDescription,
                         },
                     ]}
                 />
             )}
             <TextBasic
                 text={capitalizeFirstLetter(
-                    value.name + (item.type == classifierTypes.SIZE ? ' ' + value.description : ''),
+                    value.customerName + (item.type == classifierTypes.SIZE ? ' ' + value.customerDescription : ''),
                 )}
                 fontFamily={FontFamily.SemiBold}
                 textStyle={{ marginLeft: 5, marginTop: 0, padding: 0 }}

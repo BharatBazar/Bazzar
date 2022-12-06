@@ -1,4 +1,4 @@
-import { IClassifier, IRFilter } from '@app/api/product/product.interface';
+import { FilterAndValues, FilterValueData, IClassifier, IRFilter } from '@app/api/product/product.interface';
 import Border from '@app/screens/components/border/Border';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
@@ -12,13 +12,13 @@ import FilterValue from './component/FilterValue';
 import FitlerHeading from './component/FilterHeading';
 
 interface FilterPopupI {
-    filters: IRFilter[];
+    filters: FilterAndValues[];
 
     modalVisible: boolean;
     setModalVisible: Function;
-    selectedFilter: { [key: string]: IClassifier[] };
-    selectFilter: (type: string, value: IClassifier) => void;
-    deselectFilter: (type: string, value: IClassifier) => void;
+    selectedFilter: { [key: string]: FilterValueData[] };
+    selectFilter: (type: string, value: FilterValueData) => void;
+    deselectFilter: (type: string, value: FilterValueData) => void;
     clearAllFilter: Function;
     applyFilter: Function;
 }
@@ -108,7 +108,10 @@ const FilterPopup = ({
                         {filters &&
                             filters.map((item) => (
                                 <View style={[MT(0.2)]}>
-                                    <FitlerHeading heading={item.name} subHeading={item.description} />
+                                    <FitlerHeading
+                                        heading={item.customerHeading}
+                                        subHeading={item.customerDescription}
+                                    />
 
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
                                         {item.values.map((value, index) => {

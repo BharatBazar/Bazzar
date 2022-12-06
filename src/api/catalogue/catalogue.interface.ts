@@ -4,6 +4,7 @@ export interface catalogueData {
     customer_image: string;
     customer_description: string;
     type: string;
+    _id: string;
 }
 
 export interface getCatalogueResponse extends CommonApiResponse {

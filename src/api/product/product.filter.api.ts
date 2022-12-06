@@ -1,6 +1,6 @@
 import { IFilter, IRGetFilterWithValue } from './product.interface';
 import axios from 'axios';
 
-export function getFilterWithValue(data: Partial<IFilter>): Promise<IRGetFilterWithValue> {
-    return axios.post('/filter/getAllWithValue', data);
+export function getFilterWithValueAPI(data: { parent: string }): Promise<IRGetFilterWithValue> {
+    return axios.post('customer/filter/getValue', data);
 }

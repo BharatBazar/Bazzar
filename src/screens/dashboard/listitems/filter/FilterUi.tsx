@@ -1,4 +1,4 @@
-import { IClassifier, IRFilter } from '@app/api/product/product.interface';
+import { FilterAndValues, IClassifier, IRFilter } from '@app/api/product/product.interface';
 import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
 import ButtonRippleLeftMaterialIconMiddleTextRightChild from '@app/screens/components/button/ButtonRippleLeftMaterialIconMiddleTextRightChild';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
@@ -15,7 +15,7 @@ import ShowAppliedFilterValues from './component/ShowAppliedFilters';
 import FilterPopup from './FilterPopup';
 
 interface FilterUiProps {
-    filters: IRFilter[];
+    filters: FilterAndValues[];
     loadProduct: Function;
     showShops: boolean;
     setShowShops: (a: boolean) => void;

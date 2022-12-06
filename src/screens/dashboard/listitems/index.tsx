@@ -1,7 +1,8 @@
 import { setBaseUrl } from '@app/api/apiLayer';
 import { getProduct } from '@app/api/product/product.api';
-import { getFilterWithValue } from '@app/api/product/product.filter.api';
+import { getFilterWithValueAPI } from '@app/api/product/product.filter.api';
 import {
+    FilterAndValues,
     IProduct,
     IRFilter,
     IRGetFilterWithValue,
@@ -25,14 +26,21 @@ import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
 import { PA } from '@app/utilities/StyleWrapper';
 import { NavigationKey } from '@app/navigation/navigation-data';
+import { NavigationProp } from '@react-navigation/native';
 
 interface ProductsProps {
-    navigation: StackNavigationProp;
+    navigation: NavigationProp;
+    route: { params: { parent: string } };
 }
 
-const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
+const Products: React.FunctionComponent<ProductsProps> = ({
+    navigation,
+    route: {
+        params: { parent },
+    },
+}) => {
     const [loader, setLoader] = React.useState(false);
-    const [filter, setFilter] = React.useState<IRFilter[]>([]);
+    const [filter, setFilter] = React.useState<FilterAndValues[]>([]);
     const [product, setProduct] = React.useState<IProduct[]>([]);
     const [showShops, setShowShops] = React.useState(false);
 
@@ -41,10 +49,10 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation }) => {
     const loadFilter = async () => {
         setLoader(true);
         try {
-            const response: IRGetFilterWithValue = await getFilterWithValue({ active: true });
+            const response: IRGetFilterWithValue = await getFilterWithValueAPI({ parent: parent });
             console.log('Response', response);
             if (response.status == 1) {
-                setFilter([...response.payload.distribution, ...response.payload.filter]);
+                setFilter([...response.payload]);
 
                 setLoader(false);
             }
