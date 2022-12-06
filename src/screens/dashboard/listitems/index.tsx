@@ -74,13 +74,17 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
             setProduct([]);
         }
         try {
-            const response: IRGetProduct = await getProduct({ ...filter, status: productStatus.WAITINGFORAPPROVAL });
+            const response: IRGetProduct = await getProduct({
+                ...filter,
+                status: productStatus.WAITINGFORAPPROVAL,
+                parentId: route.params.parent._id,
+            });
 
             if (response.status == 1) {
                 if (filter.shop) {
-                    setShops(response.payload);
+                    setShops([...response.payload]);
                 } else {
-                    setProduct(response.payload);
+                    setProduct([...response.payload]);
                 }
                 setLoader(false);
             }
