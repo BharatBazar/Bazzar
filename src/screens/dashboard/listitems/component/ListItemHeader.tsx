@@ -12,7 +12,7 @@ interface HeaderLIProps {
 const HeaderLI: React.FunctionComponent<HeaderLIProps> = ({ item }) => {
     return (
         <BasicHeader
-            title={item.type.split('-').join(' ')}
+            title={item.type.split('_').join(' ')}
             rightComponent={
                 <View style={[FDR(), AIC()]}>
                     <ButtonMaterialIcons iconName={'search'} iconSize={25} onPress={() => {}} />

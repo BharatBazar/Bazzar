@@ -169,7 +169,7 @@ export interface FilterAndValues {
     customerDescription: string;
     customerImage: string;
     type: string;
-
+    key: string;
     _id: string;
     values: FilterValueData[];
 }

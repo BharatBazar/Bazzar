@@ -1,3 +1,4 @@
+import { catalogueData } from '@app/api/catalogue/catalogue.interface';
 import { FilterAndValues, IClassifier, IRFilter } from '@app/api/product/product.interface';
 import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
 import ButtonRippleLeftMaterialIconMiddleTextRightChild from '@app/screens/components/button/ButtonRippleLeftMaterialIconMiddleTextRightChild';
@@ -33,10 +34,10 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
 }) => {
     const [modalVisible, setModalVisible] = React.useState(false);
 
-    const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: IClassifier[] }>({});
+    const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: catalogueData[] }>({});
 
-    const selectFilter = (type: string, value: IClassifier) => {
-        let filterss: { [key: string]: IClassifier[] } = { ...selectedFilter };
+    const selectFilter = (type: string, value: catalogueData) => {
+        let filterss: { [key: string]: catalogueData[] } = { ...selectedFilter };
         if (filterss[type]) {
             filterss[type].push(value);
         } else {
@@ -46,8 +47,8 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
         setSelectedFilter(filterss);
     };
 
-    const deselectFilter = (type: string, value: IClassifier) => {
-        let filterss: { [key: string]: IClassifier[] } = { ...selectedFilter };
+    const deselectFilter = (type: string, value: catalogueData) => {
+        let filterss: { [key: string]: catalogueData[] } = { ...selectedFilter };
         if (filterss[type]) {
             filterss[type] = filterss[type].filter((item) => item._id != value._id);
             if (filterss[type].length == 0) {

@@ -1,15 +1,9 @@
-import {
-    classifierTypes,
-    FilterAndValues,
-    FilterValueData,
-    IClassifier,
-    IRFilter,
-} from '@app/api/product/product.interface';
+import { FilterAndValues, FilterValueData } from '@app/api/product/product.interface';
 import TextBasic from '@app/screens/components/text/TextBasic';
-import Colors, { colorCode } from '@app/utilities/Colors';
+import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { capitalizeFirstLetter } from '@app/utilities/Functions';
-import { AIC, BGCOLOR, FDR, ML, MR, MT, provideShadow } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, MR } from '@app/utilities/Styles';
 import React from 'react';
 import { View } from 'react-native';
 import Ripple from 'react-native-material-ripple';
@@ -43,7 +37,7 @@ const FilterValue: React.FunctionComponent<FilterValueProps> = ({ value, item, s
                 onPress();
             }}
         >
-            {item.type == classifierTypes.COLOR && (
+            {item.key?.includes('color') && (
                 <View
                     style={[
                         {
@@ -57,7 +51,7 @@ const FilterValue: React.FunctionComponent<FilterValueProps> = ({ value, item, s
             )}
             <TextBasic
                 text={capitalizeFirstLetter(
-                    value.customerName + (item.type == classifierTypes.SIZE ? ' ' + value.customerDescription : ''),
+                    value.customerName + (item.key?.includes('size') ? ' ' + value.customerDescription : ''),
                 )}
                 fontFamily={FontFamily.SemiBold}
                 textStyle={{ marginLeft: 5, marginTop: 0, padding: 0 }}
