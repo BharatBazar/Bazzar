@@ -2,10 +2,12 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { AIC, FDR, FLEX, ML, PH } from '@app/utilities/Styles';
 import Ripple from 'react-native-material-ripple';
-import IconIcons from 'react-native-vector-icons/Ionicons';
 
 import { getHP, getWP } from '@app/utilities/Dimensions';
 import TextBasic from '@app/screens/components/text/TextBasic';
+import ButtonFeatherIcon from '@app/screens/components/button/ButtonFeatherIcon';
+import { FontFamily } from '@app/utilities/FontFamily';
+import Colors from '@app/utilities/Colors';
 
 export interface SearchProps {
     onPressSearchBar: Function;
@@ -21,13 +23,14 @@ const Search: React.FC<SearchProps> = ({ onPressSearchBar }) => {
                     onPressSearchBar();
                 }}
             >
-                <IconIcons name={'search'} {...buttonProps} color={'#000000' + '66'} />
+                <ButtonFeatherIcon iconName={'search'} {...buttonProps} iconColor={'#000000' + '66'} />
                 <View style={[FLEX(1)]}>
                     <TextBasic
                         text={'koisi bhi dukan ko dhundhe'}
-                        textColor={'#000000' + '66'}
+                        textColor={Colors.subHeading}
                         textStyle={[ML(0.2)]}
-                        fontSize={16}
+                        fontFamily={FontFamily.Medium}
+                        fontSize={12}
                     />
                 </View>
             </Ripple>

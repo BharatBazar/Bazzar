@@ -6,7 +6,8 @@ import { BGCOLOR, FDR, HP, JCC, PH } from '@app/utilities/Styles';
 import SearchBar from './SearchBar';
 import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
 import { mainColor } from '@app/utilities/Colors';
-import { getHP, getWP } from '@app/utilities/Dimensions';
+import { getHP, getWP, STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
+import { PTA } from '@app/utilities/StyleWrapper';
 
 export interface HeaderProps {
     onPressSearchBar: Function;
@@ -16,15 +17,15 @@ const buttonProps = { size: 22, style: { height: 22, width: 22 }, color: '#FFFFF
 
 const Header: React.FC<HeaderProps> = ({ onPressSearchBar }) => {
     return (
-        <View style={[BGCOLOR(mainColor)]}>
-            <View style={[FDR(), JCC('space-between'), HP(0.6), PH(0.1)]}>
+        <View style={[BGCOLOR(mainColor), PTA(STATUS_BAR_HEIGHT)]}>
+            <View style={[FDR(), JCC('space-between'), PH(0.1)]}>
                 <View style={[]}>
-                    <ButtonMaterialIcons iconName="menu" iconSize={30} onPress={() => {}} />
+                    <ButtonMaterialIcons iconName="menu" iconSize={25} onPress={() => {}} />
                 </View>
 
                 <View style={[FDR()]}>
-                    <ButtonMaterialIcons iconName="notifications" iconSize={30} onPress={() => {}} />
-                    <ButtonMaterialIcons iconName="shopping-cart" iconSize={30} onPress={() => {}} />
+                    <ButtonMaterialIcons iconName="notifications" iconSize={25} onPress={() => {}} />
+                    <ButtonMaterialIcons iconName="shopping-cart" iconSize={25} onPress={() => {}} />
                 </View>
             </View>
 

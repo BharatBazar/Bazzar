@@ -17,7 +17,7 @@ export default function Navigator() {
                 RnBootSplash.hide();
             }}
         >
-            <Stack.Navigator initialRouteName={NavigationKey.ListItems} screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName={NavigationKey.Home} screenOptions={{ headerShown: false }}>
                 <Stack.Screen name={NavigationKey.Home} component={Dashboard} />
                 <Stack.Screen name={NavigationKey.ListItems} component={Products} />
                 <Stack.Screen name={NavigationKey.ShowProduct} component={ProductDetails} />
