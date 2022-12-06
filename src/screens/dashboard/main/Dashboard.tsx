@@ -6,9 +6,8 @@ import { NavigationContainerProps } from '@react-navigation/native';
 import Category from './category/Category';
 import Carousel from './component/Carousel';
 import Header from './component/Header';
-import { PTA } from '@app/utilities/StyleWrapper';
-import { STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
-import { colorCode, mainColor } from '@app/utilities/Colors';
+
+import { colorCode } from '@app/utilities/Colors';
 
 export interface DashboardProps extends NavigationContainerProps {}
 

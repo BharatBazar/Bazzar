@@ -52,7 +52,7 @@ const Category: React.FC<CategoryProps> = () => {
                             item={item}
                             key={index}
                             onPress={() => {
-                                navigation.navigate(NavigationKey.ListItems, { parent: item._id });
+                                navigation.navigate(NavigationKey.ListItems, { parent: item });
                             }}
                         />
                     );

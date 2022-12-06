@@ -3,13 +3,16 @@ import * as React from 'react';
 import { View, Animated } from 'react-native';
 import { AIC, FDR } from '@app/utilities/Styles';
 import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
+import { catalogueData } from '@app/api/catalogue/catalogue.interface';
 
-interface HeaderLIProps {}
+interface HeaderLIProps {
+    item: catalogueData;
+}
 
-const HeaderLI: React.FunctionComponent<HeaderLIProps> = ({}) => {
+const HeaderLI: React.FunctionComponent<HeaderLIProps> = ({ item }) => {
     return (
         <BasicHeader
-            title="Mens Jeans"
+            title={item.type.split('-').join(' ')}
             rightComponent={
                 <View style={[FDR(), AIC()]}>
                     <ButtonMaterialIcons iconName={'search'} iconSize={25} onPress={() => {}} />

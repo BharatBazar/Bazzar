@@ -26,19 +26,22 @@ import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
 import { PA } from '@app/utilities/StyleWrapper';
 import { NavigationKey } from '@app/navigation/navigation-data';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, TabRouter } from '@react-navigation/native';
+import { catalogueData } from '@app/api/catalogue/catalogue.interface';
 
 interface ProductsProps {
     navigation: NavigationProp;
-    route: { params: { parent: string } };
+    route: { params: { parent: catalogueData } };
 }
 
-const Products: React.FunctionComponent<ProductsProps> = ({
-    navigation,
-    route: {
-        params: { parent },
-    },
-}) => {
+const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route }) => {
+    if (!route.params) {
+        throw new Error('Parameter not found');
+    }
+
+    if (!route.params.parent) {
+        throw new Error('parent parameter not found');
+    }
     const [loader, setLoader] = React.useState(false);
     const [filter, setFilter] = React.useState<FilterAndValues[]>([]);
     const [product, setProduct] = React.useState<IProduct[]>([]);
@@ -49,7 +52,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({
     const loadFilter = async () => {
         setLoader(true);
         try {
-            const response: IRGetFilterWithValue = await getFilterWithValueAPI({ parent: parent });
+            const response: IRGetFilterWithValue = await getFilterWithValueAPI({ parent: route.params.parent._id });
             console.log('Response', response);
             if (response.status == 1) {
                 setFilter([...response.payload]);
@@ -102,7 +105,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({
 
     return (
         <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
-            <HeaderLI />
+            <HeaderLI item={route.params.parent} />
 
             <FilterUi
                 shopSwitch
