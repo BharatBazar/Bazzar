@@ -4,14 +4,17 @@ import {
     IRGetProduct,
     IRGetProductDetails,
     IRGetShopDetail,
-    GetProductDetailsResponse,
+    GetProductListResponse,
+    productStatus,
 } from './product.interface';
 import axios from 'axios';
 
-export function getProduct(data: {
+export function getProductAfterFilterAPI(data: {
     listToShow: 'shop' | 'product';
-    query: { parentId: string; lastTime: undefined | string };
-}): Promise<GetProductDetailsResponse> {
+    lastTime: undefined | number;
+
+    query: { parentId: string; status: productStatus } & { [key: string]: string };
+}): Promise<GetProductListResponse> {
     return axios.post('/customer/filter/items', data);
 }
 

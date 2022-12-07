@@ -1,4 +1,4 @@
-import { IProduct } from '@app/api/product/product.interface';
+import { IProduct, ProductData } from '@app/api/product/product.interface';
 import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import { HEADER_HEIGHT } from '@app/screens/components/header/HeaderBasic';
 import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
@@ -14,7 +14,7 @@ import Ripple from 'react-native-material-ripple';
 import { FILTER_HEIGHT } from '../filter/FilterUi';
 
 interface ProductCardProps {
-    item: IProduct;
+    item: ProductData;
     onPress: Function;
     showShopDetails: boolean;
 }

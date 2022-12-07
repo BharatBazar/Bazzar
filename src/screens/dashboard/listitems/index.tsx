@@ -1,22 +1,33 @@
 import { setBaseUrl } from '@app/api/apiLayer';
-import { getProduct } from '@app/api/product/product.api';
+import { getProductAfterFilterAPI } from '@app/api/product/product.api';
 import { getFilterWithValueAPI } from '@app/api/product/product.filter.api';
 import {
     FilterAndValues,
+    GetProductListResponse,
     IProduct,
     IRGetFilterWithValue,
     IRGetProduct,
     IShop,
+    ProductData,
     productStatus,
 } from '@app/api/product/product.interface';
 
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { BGCOLOR, FDR, FLEX, FW, JCC } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, FLEX, FW, JCC, MT, provideShadow } from '@app/utilities/Styles';
 
 import * as React from 'react';
-import { StatusBar, View, SafeAreaView, ScrollView, ToastAndroid, StyleSheet, FlatList } from 'react-native';
+import {
+    StatusBar,
+    View,
+    SafeAreaView,
+    ScrollView,
+    ToastAndroid,
+    StyleSheet,
+    FlatList,
+    ActivityIndicator,
+} from 'react-native';
 import FilterUi from './filter/FilterUi';
 import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
@@ -41,11 +52,17 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
         throw new Error('parent parameter not found');
     }
     const [loader, setLoader] = React.useState(false);
-    const [paginationConfig, setPaginationConfig] = React.useState({ reload: false, lastTime: undefined });
+    const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: catalogueData[] }>({});
+    const [paginationConfig, setPaginationConfig] = React.useState<{ lastTime: number | undefined }>({
+        lastTime: undefined,
+    });
+
+    const [refill, setRefill] = React.useState(false);
 
     const [filter, setFilter] = React.useState<FilterAndValues[]>([]);
-    const [product, setProduct] = React.useState<IProduct[]>([]);
+    const [product, setProduct] = React.useState<ProductData[]>([]);
     const [showShops, setShowShops] = React.useState(false);
+    const [allLoaded, setAllLoaded] = React.useState(false);
 
     const [shops, setShops] = React.useState([]);
 
@@ -66,32 +83,86 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
         }
     };
 
-    const loadProduct = async (filter: { [key: string]: string }) => {
-        setLoader(true);
-        if (shops.length > 0) {
-            setShops([]);
-        } else {
-            setProduct([]);
-        }
+    const loadProduct = async (filter: { [key: string]: { $in: string[] } }) => {
         try {
-            const response: IRGetProduct = await getProduct({
-                ...filter,
-                status: productStatus.INVENTORY,
-                parentId: route.params.parent._id,
+            const response: GetProductListResponse = await getProductAfterFilterAPI({
+                listToShow: showShops ? 'shop' : 'product',
+                lastTime: paginationConfig.lastTime,
+                query: {
+                    status: productStatus.INVENTORY,
+                    parentId: route.params.parent._id,
+                    ...filter,
+                },
             });
 
-            if (response.status == 1) {
-                if (filter.shop) {
-                    setShops([...response.payload]);
-                } else {
-                    setProduct([...response.payload]);
-                }
-                setLoader(false);
-            }
+            console.log('res', response);
+            setPaginationConfig({ lastTime: response.payload.lastTime });
+            return response.payload.data;
         } catch (error) {
             console.log('error', error);
             ToastAndroid.show('Network error!! Could not connect server', 1000);
+            return undefined;
+        }
+    };
+
+    const onLoadFirstTime = async () => {
+        try {
+            setLoader(true);
+            const response = await loadProduct({});
+            if (response) {
+                setLoader(false);
+                setProduct([...response]);
+            } else {
+                setLoader(false);
+            }
+        } catch (error) {
             setLoader(false);
+        }
+    };
+
+    const getFilterConvertedToQuery = () => {
+        let filterToSend: { [key: string]: { $in: string[] } } = {};
+        Object.keys(selectedFilter).map((item) => {
+            filterToSend[item] = { $in: selectedFilter[item].map((a) => a._id) };
+        });
+        return filterToSend;
+    };
+    const onLoadAfterApplyingFilter = async () => {
+        try {
+            setLoader(true);
+            setAllLoaded(false);
+            setProduct(() => []);
+            setPaginationConfig({ lastTime: undefined });
+
+            const response = await loadProduct(getFilterConvertedToQuery());
+            if (response) {
+                setLoader(false);
+                setProduct([...response]);
+            } else {
+                setLoader(false);
+            }
+        } catch (error) {
+            setLoader(false);
+        }
+    };
+
+    const onLoadEndReached = async () => {
+        try {
+            setRefill(true);
+
+            const response = await loadProduct(getFilterConvertedToQuery());
+            if (response) {
+                if (response.length == 0) {
+                    setAllLoaded(true);
+                } else {
+                    setRefill(false);
+                    setProduct([...product, ...response]);
+                }
+            } else {
+                setRefill(false);
+            }
+        } catch (error) {
+            setRefill(false);
         }
     };
 
@@ -99,73 +170,100 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
         setTimeout(() => {
             //axios.defaults.baseURL = Envar.APIENDPOINT + '/catalogue/jeans/';
             loadFilter();
-            loadProduct({ shop: showShops });
+            onLoadFirstTime();
         }, 100);
         StatusBar.setBarStyle('light-content');
         return () => {
             setBaseUrl();
         };
     }, []);
-
+    console.log('product', product.length);
     return (
         <SafeAreaView style={[FLEX(1), BGCOLOR(Colors.white)]}>
             <HeaderLI item={route.params.parent} />
 
             <FilterUi
+                selectedFilter={selectedFilter}
+                setSelectedFilter={setSelectedFilter}
                 shopSwitch
                 setShowShops={setShowShops}
                 showShops={showShops}
                 filters={filter}
                 loadProduct={loadProduct}
+                onApplyFilter={onLoadAfterApplyingFilter}
             />
 
-            <ScrollView style={[FLEX(1)]}>
-                <View style={[PA()]}>
-                    <HeaderWithTitleAndSubHeading
-                        heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
-                        subHeading="Price and other details may vary based on product size and color."
-                        headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
-                        subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
-                    />
-                </View>
-                {product.length > 0 && (
-                    <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
-                        <FlatList
-                            keyExtractor={(item) => item._id}
-                            data={product}
-                            renderItem={({ item, index }) => (
-                                <ProductCard
-                                    showShopDetails={false}
-                                    key={index}
-                                    item={item}
-                                    onPress={() => {
-                                        navigation.navigate(NavigationKey.ShowProduct, {
-                                            _id: item._id,
-                                            item: route.params.parent,
-                                        });
-                                    }}
-                                />
-                            )}
-                            numColumns={2}
+            {/* <ScrollView style={[FLEX(1)]}> */}
+            <View style={[PA()]}>
+                <HeaderWithTitleAndSubHeading
+                    heading={showShops ? 'SHOPS NEAR YOU' : 'PRODUCTS NEAR YOU'}
+                    subHeading="Price and other details may vary based on product size and color."
+                    headerStyle={{ fontSize: 12, fontFamily: FontFamily.SemiBold }}
+                    subHeaderStyle={{ color: '#7d7d7d', fontSize: 10 }}
+                />
+            </View>
+            {product.length > 0 && (
+                // <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
+                <FlatList
+                    keyExtractor={(item) => item._id}
+                    data={product}
+                    renderItem={({ item, index }) => (
+                        <ProductCard
+                            showShopDetails={false}
+                            key={index}
+                            item={item}
+                            onPress={() => {
+                                navigation.navigate(NavigationKey.ShowProduct, {
+                                    _id: item._id,
+                                    item: route.params.parent,
+                                });
+                            }}
                         />
-                    </View>
-                )}
-                {shops.length > 0 && (
-                    <View style={[]}>
-                        {shops.map((item: IShop) => (
-                            <ShopCard
-                                item={item}
-                                onPress={() => {
-                                    navigation.navigate(NavigationKey.ListItemsInShop, {
-                                        _id: item._id,
-                                        item: route.params.parent,
-                                    });
-                                }}
-                            />
-                        ))}
-                    </View>
-                )}
-            </ScrollView>
+                    )}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={() => {
+                        if (!refill && !loader && !allLoaded) {
+                            onLoadEndReached();
+                        }
+                    }}
+                    ListFooterComponent={
+                        (!allLoaded && refill) || loader ? (
+                            <View
+                                style={[
+                                    { height: 30, width: 30, borderRadius: 300 },
+                                    BGCOLOR(Colors.white),
+                                    provideShadow(3),
+                                    AIC(),
+                                    JCC(),
+                                    { alignSelf: 'center' },
+                                ]}
+                            >
+                                <ActivityIndicator size={'small'} color={'#000000'} />
+                            </View>
+                        ) : (
+                            <View />
+                        )
+                    }
+                    numColumns={2}
+                />
+                // </View>
+            )}
+            {shops.length > 0 && (
+                <View style={[]}>
+                    {shops.map((item: IShop) => (
+                        <ShopCard
+                            item={item}
+                            onPress={() => {
+                                navigation.navigate(NavigationKey.ListItemsInShop, {
+                                    _id: item._id,
+                                    item: route.params.parent,
+                                });
+                            }}
+                        />
+                    ))}
+                </View>
+            )}
+            {/* </ScrollView> */}
             {loader && <Loader />}
         </SafeAreaView>
     );

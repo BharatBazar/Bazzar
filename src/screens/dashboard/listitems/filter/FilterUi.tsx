@@ -21,6 +21,9 @@ interface FilterUiProps {
     showShops: boolean;
     setShowShops: (a: boolean) => void;
     shopSwitch: boolean;
+    selectedFilter: { [key: string]: catalogueData[] };
+    setSelectedFilter: Function;
+    onApplyFilter: Function;
 }
 
 export const FILTER_HEIGHT = 45;
@@ -31,10 +34,11 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
     showShops,
     setShowShops,
     shopSwitch,
+    selectedFilter,
+    setSelectedFilter,
+    onApplyFilter,
 }) => {
     const [modalVisible, setModalVisible] = React.useState(false);
-
-    const [selectedFilter, setSelectedFilter] = React.useState<{ [key: string]: catalogueData[] }>({});
 
     const selectFilter = (type: string, value: catalogueData) => {
         let filterss: { [key: string]: catalogueData[] } = { ...selectedFilter };
@@ -60,14 +64,9 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
         setSelectedFilter(filterss);
     };
 
-    const onApplyFilters = () => {
-        let filterToSend = {};
-        Object.keys(selectedFilter).map((item) => {
-            filterToSend[item] = { $in: selectedFilter[item].map((a) => a._id) };
-        });
-        console.log('filter', filterToSend);
-        loadProduct(filterToSend);
+    const onPressApplyFilters = () => {
         setModalVisible(false);
+        onApplyFilter();
     };
 
     const clearAllFilters = () => {
@@ -144,7 +143,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
                 selectFilter={selectFilter}
                 deselectFilter={deselectFilter}
                 clearAllFilter={clearAllFilters}
-                applyFilter={onApplyFilters}
+                applyFilter={onPressApplyFilters}
             />
         </View>
     );

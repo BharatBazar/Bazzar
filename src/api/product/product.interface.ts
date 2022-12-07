@@ -48,11 +48,11 @@ export interface IRFilter {
 }
 
 export enum productStatus {
-    INVENTORY = 1,
-    REJECTED = 2,
-    OUTOFSTOCK = 3,
-    WAITINGFORAPPROVAL = 4,
-    LIVE = 5,
+    INVENTORY = '1',
+    REJECTED = '2',
+    OUTOFSTOCK = '3',
+    WAITINGFORAPPROVAL = '4',
+    LIVE = '5',
 }
 
 export interface IProductSize {
@@ -185,20 +185,19 @@ export interface IRGetProduct extends CommonApiResponse {
 }
 
 export interface ProductData {
+    _id: string;
     updatedAt: string;
     colors: {
         photos: string[];
+        _id: string;
         color: {
             name: string;
             description: string;
         };
     };
 }
-export interface GetProductDetailsResponse extends CommonApiResponse {
-    payload: ProductData[];
-    lastTime: string;
-    searchCount: number;
-    maxCount: number;
+export interface GetProductListResponse extends CommonApiResponse {
+    payload: { data: ProductData[]; lastTime: number; searchCount: number; maxCount: number };
 }
 
 export interface IRGetShopDetail extends CommonApiResponse {
