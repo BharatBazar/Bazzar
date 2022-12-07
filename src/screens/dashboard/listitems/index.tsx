@@ -4,9 +4,7 @@ import { getFilterWithValueAPI } from '@app/api/product/product.filter.api';
 import {
     FilterAndValues,
     GetProductListResponse,
-    IProduct,
     IRGetFilterWithValue,
-    IRGetProduct,
     IShop,
     ProductData,
     productStatus,
@@ -18,22 +16,13 @@ import { FontFamily } from '@app/utilities/FontFamily';
 import { AIC, BGCOLOR, FDR, FLEX, FW, JCC, MT, provideShadow } from '@app/utilities/Styles';
 
 import * as React from 'react';
-import {
-    StatusBar,
-    View,
-    SafeAreaView,
-    ScrollView,
-    ToastAndroid,
-    StyleSheet,
-    FlatList,
-    ActivityIndicator,
-} from 'react-native';
+import { StatusBar, View, SafeAreaView, ToastAndroid, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import FilterUi from './filter/FilterUi';
 import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
-import { MVA, PA, PVA } from '@app/utilities/StyleWrapper';
+import { MVA, PA } from '@app/utilities/StyleWrapper';
 import { NavigationKey } from '@app/navigation/navigation-data';
 import { NavigationProp } from '@react-navigation/native';
 import { catalogueData } from '@app/api/catalogue/catalogue.interface';
@@ -227,6 +216,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
                             onLoadEndReached();
                         }
                     }}
+                    fadingEdgeLength={10}
                     ListFooterComponent={
                         !allLoaded ? (
                             <View

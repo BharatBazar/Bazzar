@@ -1,14 +1,11 @@
 import { catalogueData } from '@app/api/catalogue/catalogue.interface';
-import { FilterAndValues, IClassifier, IRFilter } from '@app/api/product/product.interface';
-import ButtonMaterialIcons from '@app/screens/components/button/ButtonMaterialIcons';
+import { FilterAndValues } from '@app/api/product/product.interface';
 import ButtonRippleLeftMaterialIconMiddleTextRightChild from '@app/screens/components/button/ButtonRippleLeftMaterialIconMiddleTextRightChild';
-import ButtonRippleText from '@app/screens/components/button/ButtonRippleText';
 import MaterialIconWrapper from '@app/screens/components/icon/MaterialIconWrapper';
-import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { GENERAL_BOUNDARY_SPACE } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, JCC, PL, PR, provideShadow } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FDR, FLEX, JCC, provideShadow } from '@app/utilities/Styles';
 import { PLA, PRA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
 import { View, StyleSheet, ScrollView, Switch } from 'react-native';
@@ -113,7 +110,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
                     <ShowAppliedFilterValues selectedFilter={selectedFilter} />
                 </View>
             </ScrollView>
-            <UtilityButton
+            {/* <UtilityButton
                 onPress={() => {
                     setModalVisible(true);
                 }}
@@ -122,7 +119,7 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
                 buttonText={
                     'Sort' + (Object.keys(selectedFilter).length > 0 ? ` (${Object.keys(selectedFilter).length})` : '')
                 }
-            />
+            /> */}
             <UtilityButton
                 onPress={() => {
                     setModalVisible(true);
