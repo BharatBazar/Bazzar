@@ -12,7 +12,7 @@ interface BasicHeaderProps {
     rightComponent?: React.ReactChild;
 }
 
-export const HEADER_HEIGHT = 60;
+export const HEADER_HEIGHT = 50;
 
 const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title, rightComponent }) => {
     const navigation = useNavigation();
@@ -39,7 +39,7 @@ const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title, rightCo
                     {goBack && (
                         <ButtonMaterialIcons
                             iconName={'arrow-back'}
-                            iconSize={25}
+                            iconSize={20}
                             onPress={() => {
                                 navigation.goBack();
                             }}
@@ -48,7 +48,7 @@ const BasicHeader: React.FunctionComponent<BasicHeaderProps> = ({ title, rightCo
                     <TextBasic
                         text={title}
                         textColor={Colors.white}
-                        fontSize={18}
+                        fontSize={16}
                         textStyle={{ marginLeft: goBack ? 5 : GENERAL_BOUNDARY_SPACE }}
                     />
                 </View>

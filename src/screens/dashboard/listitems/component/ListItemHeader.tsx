@@ -15,9 +15,9 @@ const HeaderLI: React.FunctionComponent<HeaderLIProps> = ({ item }) => {
             title={item.type.split('_').join(' ')}
             rightComponent={
                 <View style={[FDR(), AIC()]}>
-                    <ButtonMaterialIcons iconName={'search'} iconSize={25} onPress={() => {}} />
-                    <ButtonMaterialIcons iconName={'favorite'} iconSize={22} onPress={() => {}} />
-                    <ButtonMaterialIcons iconName={'chat'} iconSize={22} onPress={() => {}} />
+                    <ButtonMaterialIcons iconName={'search'} iconSize={20} onPress={() => {}} />
+                    <ButtonMaterialIcons iconName={'favorite'} iconSize={20} onPress={() => {}} />
+                    <ButtonMaterialIcons iconName={'chat'} iconSize={20} onPress={() => {}} />
                 </View>
             }
         />

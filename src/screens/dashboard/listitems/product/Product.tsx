@@ -8,7 +8,7 @@ import Loader from '@app/screens/components/loader/Loader';
 import Colors from '@app/utilities/Colors';
 import { getHP, getWP } from '@app/utilities/Dimensions';
 import { BGCOLOR, FLEX } from '@app/utilities/Styles';
-import { PBA } from '@app/utilities/StyleWrapper';
+import { PBA, PTA } from '@app/utilities/StyleWrapper';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import HeaderLI from '../component/ListItemHeader';
@@ -32,6 +32,7 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
     const [loader, setLoader] = React.useState(false);
     const [productDetails, setProductDetails] = React.useState<IProduct>({} as IProduct);
     const [selectedColorIndex, setSelectedColorIndex] = React.useState<number>(0);
+    const [selectedSizeIndex, setSelectedSizeIndex] = React.useState<number>(0);
 
     const loadProductDetails = async () => {
         setLoader(true);
@@ -73,10 +74,12 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
                         colors={productDetails.colors}
                         selectedColorIndex={selectedColorIndex}
                         setSelectedColorIndex={setSelectedColorIndex}
+                        selectedSizeIndex={selectedSizeIndex}
+                        setSelectedSizeIndex={setSelectedSizeIndex}
                     />
-                    {productDetails.shopId && <ShopDetails shop={productDetails.shopId} />}
+                    {/* {productDetails.shopId && <ShopDetails shop={productDetails.shopId} />} */}
                     <ItemDetails />
-                    <Testionial />
+                    {/* <Testionial /> */}
                 </ScrollView>
             )}
             <BottomBar />

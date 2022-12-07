@@ -1,4 +1,6 @@
-import { AIC, JCC } from '@app/utilities/Styles';
+import Colors from '@app/utilities/Colors';
+import { AIC, BGCOLOR, JCC, provideShadow } from '@app/utilities/Styles';
+import { BRA, PA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 
@@ -7,7 +9,9 @@ interface LoaderProps {}
 const Loader: React.FunctionComponent<LoaderProps> = () => {
     return (
         <View style={[AIC(), JCC(), styles.loaderContainer]}>
-            <ActivityIndicator color={'#000000'} size={'large'} />
+            <View style={[provideShadow(3), BGCOLOR(Colors.white), PA(), BRA()]}>
+                <ActivityIndicator color={Colors.primary} size={'small'} />
+            </View>
         </View>
     );
 };

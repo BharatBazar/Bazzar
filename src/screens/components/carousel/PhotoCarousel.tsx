@@ -1,3 +1,4 @@
+import Colors from '@app/utilities/Colors';
 import { getHP, getWP } from '@app/utilities/Dimensions';
 import { HP } from '@app/utilities/Styles';
 import React, { useState, useEffect } from 'react';
@@ -60,7 +61,7 @@ const Carousel: React.FunctionComponent<CarouselProps> = ({ data, renderItem, he
 
     if (data && data.length) {
         return (
-            <View style={{ height: height, width: width }}>
+            <View style={{ height: height, width: width, backgroundColor: Colors.white, paddingTop: 10 }}>
                 <FlatList
                     data={data}
                     ref={flatListRef}
@@ -95,7 +96,7 @@ const Carousel: React.FunctionComponent<CarouselProps> = ({ data, renderItem, he
                     {data.map((_, i) => {
                         let backgroundColor = position.interpolate({
                             inputRange: [i - 1, i, i + 1],
-                            outputRange: ['#00000000', '#FFFFFF', '#00000000'],
+                            outputRange: [Colors.primaryLight, Colors.primary, Colors.primaryLight],
                             extrapolate: 'clamp',
                         });
                         return (
@@ -120,23 +121,24 @@ const Carousel: React.FunctionComponent<CarouselProps> = ({ data, renderItem, he
 
 const styles = StyleSheet.create({
     dotView: {
-        position: 'absolute',
-        backgroundColor: '#00000066',
+        // position: 'absolute',
+        // backgroundColor: '#00000066',
         borderRadius: getWP(2),
         paddingHorizontal: getWP(0.1),
         flexDirection: 'row',
         justifyContent: 'center',
-        bottom: getHP(0.1),
+        //bottom: getHP(0.1),
         alignSelf: 'center',
+        marginVertical: 5,
     },
     dotStyle: {
         //opacity,
-        height: 10,
-        width: 10,
+        height: 9,
+        width: 9,
         borderColor: '#FFFFFF',
         borderWidth: 1,
 
-        margin: 3,
+        margin: 1,
         borderRadius: 5,
     },
 });
