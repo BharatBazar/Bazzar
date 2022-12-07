@@ -33,7 +33,7 @@ import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
 import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
-import { PA } from '@app/utilities/StyleWrapper';
+import { MVA, PA, PVA } from '@app/utilities/StyleWrapper';
 import { NavigationKey } from '@app/navigation/navigation-data';
 import { NavigationProp } from '@react-navigation/native';
 import { catalogueData } from '@app/api/catalogue/catalogue.interface';
@@ -67,27 +67,23 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
     const [shops, setShops] = React.useState([]);
 
     const loadFilter = async () => {
-        setLoader(true);
         try {
             const response: IRGetFilterWithValue = await getFilterWithValueAPI({ parent: route.params.parent._id });
             console.log('Response', response);
             if (response.status == 1) {
                 setFilter([...response.payload]);
-
-                setLoader(false);
             }
         } catch (error) {
             console.log('error', error);
             ToastAndroid.show('Network error!! Could not connect server', 1000);
-            setLoader(false);
         }
     };
 
-    const loadProduct = async (filter: { [key: string]: { $in: string[] } }) => {
+    const loadProduct = async (filter: { [key: string]: { $in: string[] } }, lastTime: number | undefined) => {
         try {
             const response: GetProductListResponse = await getProductAfterFilterAPI({
                 listToShow: showShops ? 'shop' : 'product',
-                lastTime: paginationConfig.lastTime,
+                lastTime: lastTime,
                 query: {
                     status: productStatus.INVENTORY,
                     parentId: route.params.parent._id,
@@ -96,7 +92,11 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
             });
 
             console.log('res', response);
-            setPaginationConfig({ lastTime: response.payload.lastTime });
+            if (response.payload.lastTime) {
+                setPaginationConfig({ lastTime: response.payload.lastTime });
+            } else {
+                setAllLoaded(true);
+            }
             return response.payload.data;
         } catch (error) {
             console.log('error', error);
@@ -108,7 +108,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
     const onLoadFirstTime = async () => {
         try {
             setLoader(true);
-            const response = await loadProduct({});
+            const response = await loadProduct({}, undefined);
             if (response) {
                 setLoader(false);
                 setProduct([...response]);
@@ -134,7 +134,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
             setProduct(() => []);
             setPaginationConfig({ lastTime: undefined });
 
-            const response = await loadProduct(getFilterConvertedToQuery());
+            const response = await loadProduct(getFilterConvertedToQuery(), undefined);
             if (response) {
                 setLoader(false);
                 setProduct([...response]);
@@ -150,10 +150,11 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
         try {
             setRefill(true);
 
-            const response = await loadProduct(getFilterConvertedToQuery());
+            const response = await loadProduct(getFilterConvertedToQuery(), paginationConfig.lastTime);
             if (response) {
                 if (response.length == 0) {
                     setAllLoaded(true);
+                    setRefill(false);
                 } else {
                     setRefill(false);
                     setProduct([...product, ...response]);
@@ -227,21 +228,23 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
                         }
                     }}
                     ListFooterComponent={
-                        (!allLoaded && refill) || loader ? (
+                        !allLoaded ? (
                             <View
                                 style={[
                                     { height: 30, width: 30, borderRadius: 300 },
                                     BGCOLOR(Colors.white),
                                     provideShadow(3),
+
                                     AIC(),
                                     JCC(),
+                                    MVA(),
                                     { alignSelf: 'center' },
                                 ]}
                             >
-                                <ActivityIndicator size={'small'} color={'#000000'} />
+                                <ActivityIndicator size={'small'} color={Colors.primary} />
                             </View>
                         ) : (
-                            <View />
+                            <View style={{ height: 50 }} />
                         )
                     }
                     numColumns={2}
