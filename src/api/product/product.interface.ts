@@ -184,8 +184,21 @@ export interface IRGetProduct extends CommonApiResponse {
     };
 }
 
-export interface IRGetProductDetails extends CommonApiResponse {
-    payload: IProduct;
+export interface ProductData {
+    updatedAt: string;
+    colors: {
+        photos: string[];
+        color: {
+            name: string;
+            description: string;
+        };
+    };
+}
+export interface GetProductDetailsResponse extends CommonApiResponse {
+    payload: ProductData[];
+    lastTime: string;
+    searchCount: number;
+    maxCount: number;
 }
 
 export interface IRGetShopDetail extends CommonApiResponse {

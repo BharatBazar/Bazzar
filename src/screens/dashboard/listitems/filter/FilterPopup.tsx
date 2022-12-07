@@ -115,7 +115,7 @@ const FilterPopup = ({
 
                                     <View style={[FDR(), { flexWrap: 'wrap' }, MT(0.1)]}>
                                         {item.values.map((value, index) => {
-                                            let selectedValues = selectedFilter[item.type];
+                                            let selectedValues = selectedFilter[item.key];
                                             let selected =
                                                 selectedValues &&
                                                 selectedValues.findIndex((item) => item._id == value._id) > -1;
@@ -128,9 +128,9 @@ const FilterPopup = ({
                                                     selected={selected}
                                                     onPress={() => {
                                                         if (!selected) {
-                                                            selectFilter(item.type, value);
+                                                            selectFilter(item.key, value);
                                                         } else {
-                                                            deselectFilter(item.type, value);
+                                                            deselectFilter(item.key, value);
                                                         }
                                                     }}
                                                 />

@@ -4,7 +4,6 @@ import { getFilterWithValueAPI } from '@app/api/product/product.filter.api';
 import {
     FilterAndValues,
     IProduct,
-    IRFilter,
     IRGetFilterWithValue,
     IRGetProduct,
     IShop,
@@ -15,10 +14,9 @@ import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderW
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
 import { BGCOLOR, FDR, FLEX, FW, JCC } from '@app/utilities/Styles';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import * as React from 'react';
-import { StatusBar, View, SafeAreaView, ScrollView, ToastAndroid, StyleSheet } from 'react-native';
+import { StatusBar, View, SafeAreaView, ScrollView, ToastAndroid, StyleSheet, FlatList } from 'react-native';
 import FilterUi from './filter/FilterUi';
 import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
@@ -26,7 +24,7 @@ import HeaderLI from './component/ListItemHeader';
 import Loader from '@app/screens/components/loader/Loader';
 import { PA } from '@app/utilities/StyleWrapper';
 import { NavigationKey } from '@app/navigation/navigation-data';
-import { NavigationProp, TabRouter } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 import { catalogueData } from '@app/api/catalogue/catalogue.interface';
 
 interface ProductsProps {
@@ -43,6 +41,8 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
         throw new Error('parent parameter not found');
     }
     const [loader, setLoader] = React.useState(false);
+    const [paginationConfig, setPaginationConfig] = React.useState({ reload: false, lastTime: undefined });
+
     const [filter, setFilter] = React.useState<FilterAndValues[]>([]);
     const [product, setProduct] = React.useState<IProduct[]>([]);
     const [showShops, setShowShops] = React.useState(false);
@@ -76,7 +76,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
         try {
             const response: IRGetProduct = await getProduct({
                 ...filter,
-                status: productStatus.WAITINGFORAPPROVAL,
+                status: productStatus.INVENTORY,
                 parentId: route.params.parent._id,
             });
 
@@ -130,18 +130,24 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
                 </View>
                 {product.length > 0 && (
                     <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
-                        {product.map((item, index) => (
-                            <ProductCard
-                                showShopDetails={false}
-                                key={index}
-                                item={item}
-                                onPress={() => {
-                                    navigation.navigate(NavigationKey.ShowProduct, {
-                                        _id: item._id,
-                                    });
-                                }}
-                            />
-                        ))}
+                        <FlatList
+                            keyExtractor={(item) => item._id}
+                            data={product}
+                            renderItem={({ item, index }) => (
+                                <ProductCard
+                                    showShopDetails={false}
+                                    key={index}
+                                    item={item}
+                                    onPress={() => {
+                                        navigation.navigate(NavigationKey.ShowProduct, {
+                                            _id: item._id,
+                                            item: route.params.parent,
+                                        });
+                                    }}
+                                />
+                            )}
+                            numColumns={2}
+                        />
                     </View>
                 )}
                 {shops.length > 0 && (
@@ -152,6 +158,7 @@ const Products: React.FunctionComponent<ProductsProps> = ({ navigation, route })
                                 onPress={() => {
                                     navigation.navigate(NavigationKey.ListItemsInShop, {
                                         _id: item._id,
+                                        item: route.params.parent,
                                     });
                                 }}
                             />

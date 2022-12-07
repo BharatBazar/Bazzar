@@ -1,7 +1,17 @@
-import { IFilter, IRGetFilterWithValue, IRGetProduct, IRGetProductDetails, IRGetShopDetail } from './product.interface';
+import {
+    IFilter,
+    IRGetFilterWithValue,
+    IRGetProduct,
+    IRGetProductDetails,
+    IRGetShopDetail,
+    GetProductDetailsResponse,
+} from './product.interface';
 import axios from 'axios';
 
-export function getProduct(data: { [key: string]: [string] }): Promise<IRGetFilterWithValue> {
+export function getProduct(data: {
+    listToShow: 'shop' | 'product';
+    query: { parentId: string; lastTime: undefined | string };
+}): Promise<GetProductDetailsResponse> {
     return axios.post('/customer/filter/items', data);
 }
 

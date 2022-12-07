@@ -63,8 +63,9 @@ const FilterUi: React.FunctionComponent<FilterUiProps> = ({
     const onApplyFilters = () => {
         let filterToSend = {};
         Object.keys(selectedFilter).map((item) => {
-            filterToSend[item] = selectedFilter[item].map((a) => a._id);
+            filterToSend[item] = { $in: selectedFilter[item].map((a) => a._id) };
         });
+        console.log('filter', filterToSend);
         loadProduct(filterToSend);
         setModalVisible(false);
     };

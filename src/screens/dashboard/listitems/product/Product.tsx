@@ -1,3 +1,4 @@
+import { catalogueData } from '@app/api/catalogue/catalogue.interface';
 import { getProductDetails } from '@app/api/product/product.api';
 import { IProduct, IRGetProductDetails } from '@app/api/product/product.interface';
 import Carousel from '@app/screens/components/carousel/PhotoCarousel';
@@ -19,13 +20,13 @@ import Testionial from './component/Testimonial';
 
 interface ProductDetailsProps {
     route: {
-        params: { _id: string };
+        params: { _id: string; item: catalogueData };
     };
 }
 
 const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
     route: {
-        params: { _id },
+        params: { _id, item },
     },
 }) => {
     const [loader, setLoader] = React.useState(false);
@@ -52,7 +53,7 @@ const ProductDetails: React.FunctionComponent<ProductDetailsProps> = ({
     return (
         <View style={[FLEX(1), BGCOLOR(Colors.lighter)]}>
             {/* <BasicHeader title="Product details" /> */}
-            <HeaderLI />
+            <HeaderLI item={item} />
             {Object.keys(productDetails).length > 0 && (
                 <ScrollView contentContainerStyle={[PBA(getHP(1))]}>
                     <Carousel
