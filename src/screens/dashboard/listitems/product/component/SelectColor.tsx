@@ -123,10 +123,7 @@ const SelectColor: React.FunctionComponent<SelectColorProps> = ({
                                 textColor={Colors.heading}
                                 fontFamily={FontFamily.Bold}
                                 fontSize={12}
-                                textStyle={[
-                                    MLA(2),
-                                    { textDecorationLine: item.quantity == 0 ? 'line-through' : 'none' },
-                                ]}
+                                textStyle={[MLA(2)]}
                             />
                             <TextBasic
                                 text={item.quantity + ' piece' + ' left'}
@@ -135,6 +132,22 @@ const SelectColor: React.FunctionComponent<SelectColorProps> = ({
                                 fontSize={10}
                                 textStyle={[MLA(2)]}
                             />
+                            {item.quantity == 0 && (
+                                <>
+                                    <View
+                                        style={{
+                                            position: 'absolute',
+                                            transform: [{ rotate: '35deg' }],
+
+                                            width: 75,
+                                            height: 4,
+
+                                            borderBottomColor: Colors.lighter,
+                                            borderBottomWidth: 1.5,
+                                        }}
+                                    />
+                                </>
+                            )}
                         </Ripple>
                     ))}
                 </View>
