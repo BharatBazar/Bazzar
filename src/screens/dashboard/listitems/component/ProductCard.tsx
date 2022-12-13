@@ -6,8 +6,8 @@ import TextBasic from '@app/screens/components/text/TextBasic';
 import Colors from '@app/utilities/Colors';
 import { GENERAL_BORDER_RADIUS, getHP, getWP, STATUS_BAR_HEIGHT } from '@app/utilities/Dimensions';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { FDR } from '@app/utilities/Styles';
-import { PA } from '@app/utilities/StyleWrapper';
+import { AIC, FDR, JCC } from '@app/utilities/Styles';
+import { PA, PHA, PVA } from '@app/utilities/StyleWrapper';
 import * as React from 'react';
 import { View } from 'react-native';
 import Ripple from 'react-native-material-ripple';
@@ -55,7 +55,48 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress,
                     source={{ uri: item.colors[0].photos[0] }}
                 />
             </View>
-            <View style={PA()}>
+            <View style={(PHA(), PVA(4))}>
+                {/* <TextBasic
+                    text={item.shopId.}
+                    fontSize={10}
+                    numberOfLines={1}
+                    textStyle={{ alignSelf: 'center', marginTop: 5 }}
+                    fontFamily={FontFamily.Light}
+                    textColor={Colors.subHeading}
+                /> */}
+                <View style={[AIC(), JCC()]}>
+                    <View style={[FDR()]}>
+                        <TextBasic
+                            text={'Rs 1000'}
+                            fontSize={10}
+                            numberOfLines={1}
+                            textStyle={{
+                                alignSelf: 'center',
+                                marginTop: 3,
+
+                                textDecorationLine: 'line-through',
+                            }}
+                            fontFamily={FontFamily.Medium}
+                            textColor={Colors.dark}
+                        />
+                        <TextBasic
+                            text={'Rs 500-700 '}
+                            fontSize={10}
+                            numberOfLines={1}
+                            textStyle={{ alignSelf: 'center', marginTop: 3, marginLeft: 5 }}
+                            fontFamily={FontFamily.Bold}
+                            textColor={Colors.darker}
+                        />
+                    </View>
+                    <TextBasic
+                        text={'(50-60% OFF)'}
+                        fontSize={10}
+                        numberOfLines={1}
+                        textStyle={{ alignSelf: 'center', marginTop: 3 }}
+                        fontFamily={FontFamily.ExtraBold}
+                        textColor={Colors.primary}
+                    />
+                </View>
                 <TextBasic
                     text={'Available in ' + item.colors.length + ' color' + (item.colors.length > 1 ? 's' : '')}
                     fontSize={10}
@@ -64,6 +105,7 @@ const ProductCard: React.FunctionComponent<ProductCardProps> = ({ item, onPress,
                     fontFamily={FontFamily.Light}
                     textColor={Colors.subHeading}
                 />
+
                 <View
                     style={[
                         FDR(),

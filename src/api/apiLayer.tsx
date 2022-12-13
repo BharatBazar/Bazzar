@@ -40,7 +40,7 @@ function isNetworkError(err: { isAxiosError: any; response: { data: any } }) {
 }
 
 export const setBaseUrl = () => {
-    axios.defaults.baseURL = Envar.APIENDPOINT;
+    // axios.defaults.baseURL = Envar.APIENDPOINT;
 };
 export const initializeAxios = () => {
     console.log('Axios initialization', Envar.APIENDPOINT, axios.defaults.baseURL);

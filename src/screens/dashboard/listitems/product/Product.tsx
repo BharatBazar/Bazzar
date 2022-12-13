@@ -1,23 +1,22 @@
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+
 import { catalogueData } from '@app/api/catalogue/catalogue.interface';
 import { getProductDetails } from '@app/api/product/product.api';
 import { IProduct, IRGetProductDetails } from '@app/api/product/product.interface';
-import Carousel from '@app/screens/components/carousel/PhotoCarousel';
 
 import { FastImageLoaderWithBg } from '@app/screens/components/image/FastImageLoaderWithBg';
-import Loader from '@app/screens/components/loader/Loader';
-import Colors from '@app/utilities/Colors';
+
 import { getHP, getWP } from '@app/utilities/Dimensions';
 import { BGCOLOR, FLEX } from '@app/utilities/Styles';
-import { PBA, PTA } from '@app/utilities/StyleWrapper';
-import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { PBA } from '@app/utilities/StyleWrapper';
 import HeaderLI from '../component/ListItemHeader';
 import BottomBar from './component/BottomButton';
 import ItemDetails from './component/ItemDetails';
 import SelectColor from './component/SelectColor';
-import ShopDetails from './component/ShopDetails';
-import Testionial from './component/Testimonial';
-
+import Loader from '@app/screens/components/loader/Loader';
+import Colors from '@app/utilities/Colors';
+import Carousel from '@app/screens/components/carousel/PhotoCarousel';
 interface ProductDetailsProps {
     route: {
         params: { _id: string; item: catalogueData };

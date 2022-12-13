@@ -8,6 +8,7 @@ import {
     productStatus,
 } from './product.interface';
 import axios from 'axios';
+import { Envar } from '@app/core/EnvWrapper';
 
 export function getProductAfterFilterAPI(data: {
     listToShow: 'shop' | 'product';
@@ -15,13 +16,13 @@ export function getProductAfterFilterAPI(data: {
 
     query: { parentId: string; status: productStatus } & { [key: string]: string };
 }): Promise<GetProductListResponse> {
-    return axios.post('/customer/filter/items', data);
+    return axios.post(Envar.APIENDPOINT + '/customer/filter/items', data);
 }
 
 export function getProductDetails(data: { _id: string }): Promise<IRGetProductDetails> {
-    return axios.post('/customer/get/product', data);
+    return axios.post(Envar.APIENDPOINT + '/customer/get/product', data);
 }
 
 export function getShopDetails(data: { _id: string }): Promise<IRGetShopDetail> {
-    return axios.post('/customer/shop/get', data);
+    return axios.post(Envar.APIENDPOINT + '/customer/shop/get', data);
 }

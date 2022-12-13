@@ -1,3 +1,5 @@
+import * as React from 'react';
+import { StatusBar, View, SafeAreaView, ToastAndroid, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { setBaseUrl } from '@app/api/apiLayer';
 import { getProductAfterFilterAPI } from '@app/api/product/product.api';
 import { getFilterWithValueAPI } from '@app/api/product/product.filter.api';
@@ -13,10 +15,8 @@ import {
 import HeaderWithTitleAndSubHeading from '@app/screens/components/header/HeaderWithTitleAndSubHeading';
 import Colors from '@app/utilities/Colors';
 import { FontFamily } from '@app/utilities/FontFamily';
-import { AIC, BGCOLOR, FDR, FLEX, FW, JCC, MT, provideShadow } from '@app/utilities/Styles';
+import { AIC, BGCOLOR, FLEX, JCC, provideShadow } from '@app/utilities/Styles';
 
-import * as React from 'react';
-import { StatusBar, View, SafeAreaView, ToastAndroid, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import FilterUi from './filter/FilterUi';
 import ProductCard from './component/ProductCard';
 import ShopCard from './component/ShopCard';
