@@ -122,8 +122,9 @@ const ShopItem: React.FunctionComponent<ShopItemProps> = ({
                     </View>
                     {product.length > 0 && (
                         <View style={[FDR(), FW(), JCC('space-between'), FLEX(1)]}>
-                            {product.map((item) => (
+                            {product.map((item, index) => (
                                 <ProductCard
+                                    key={index}
                                     item={item}
                                     onPress={() => {
                                         navigation.navigate(NavigationKey.ShowProduct, {
